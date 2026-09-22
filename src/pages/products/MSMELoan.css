@@ -1,0 +1,853 @@
+/* =====================================================
+   MSME PAGE
+===================================================== */
+
+.msme-page {
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  padding: 130px 0 0;
+  overflow-x: hidden;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+  color: #103770;
+}
+
+.msme-page *,
+.msme-page *::before,
+.msme-page *::after {
+  box-sizing: border-box;
+}
+
+
+/* =====================================================
+   HERO
+===================================================== */
+
+.msme-hero {
+  width: calc(100% - 80px);
+  max-width: 1400px;
+  height: 480px;
+  margin: 0 auto;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr 390px 550px;
+  align-items: start;
+  position: relative;
+}
+
+.msme-hero-content {
+  padding-top: 5px;
+  z-index: 2;
+}
+
+.msme-hero-content h1 {
+  margin: 0 0 25px;
+  font-family: "Poppins", sans-serif;
+  font-size: clamp(32px, 3vw, 40px);
+  font-weight: 700;
+  line-height: 1;
+  white-space: nowrap;
+  color: #103770;
+}
+
+.msme-hero-content h1 span {
+  color: #249bc6;
+}
+
+.msme-hero-content p {
+  max-width: 620px;
+  margin: 0;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.55;
+  color: #656060;
+}
+
+
+/* =====================================================
+   HERO IMAGE
+===================================================== */
+
+.msme-hero-image {
+  width: 100%;
+  height: 405px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.msme-hero-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 99% center;
+  display: block;
+}
+
+
+/* =====================================================
+   ELIGIBILITY CARD
+===================================================== */
+
+.msme-eligibility-card {
+  width: 100%;
+  max-width: 550px;
+  min-height: 405px;
+  padding: 38px 38px 32px;
+  border-radius: 0 0 20px 20px;
+  border: 1px solid rgba(36, 155, 198, 0.12);
+  background: linear-gradient(
+    180deg,
+    #feffff 0%,
+    #dff8f6 45%,
+    #b6e7e2 100%
+  );
+  box-shadow: 0 5px 6px rgba(0, 0, 0, 0.16);
+  overflow: hidden;
+}
+
+.msme-eligibility-card h2 {
+  margin: 0 0 35px;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1.2;
+  color: #103770;
+}
+
+.msme-eligibility-card h2 span {
+  color: #249bc6;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.msme-eligibility-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.msme-eligibility-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  color: #000000;
+}
+
+.msme-eligibility-item img {
+  width: 34px;
+  height: 34px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.msme-eligibility-item strong {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.msme-eligibility-button {
+  width: 100%;
+  height: 60px;
+  margin-top: 45px;
+  border: none;
+  border-radius: 30px;
+  background: #249bc6;
+  color: #ffffff;
+  font-family: "Poppins", sans-serif;
+  font-size: 24px;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    background 0.25s ease,
+    transform 0.25s ease;
+}
+
+.msme-eligibility-button:hover {
+  background: #103770;
+  transform: translateY(-2px);
+}
+
+
+/* =====================================================
+   APPLICATION SECTION
+===================================================== */
+
+.msme-application {
+  width: calc(100% - 80px);
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 34px 32px 45px;
+  border-radius: 30px;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 1) 0%,
+    rgba(230, 248, 236, 0.96) 42%,
+    rgba(204, 239, 219, 0.92) 100%
+  );
+}
+
+.msme-section-heading {
+  margin-bottom: 35px;
+}
+
+.msme-section-heading h2 {
+  display: inline-block;
+  margin: 0;
+  padding-bottom: 7px;
+  border-bottom: 4px solid #249bc6;
+  font-size: 32px;
+  font-weight: 600;
+  line-height: 1.2;
+  color: #249bc6;
+}
+
+.msme-info-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 55px;
+}
+
+.msme-info-card {
+  min-height: 370px;
+  padding: 28px 28px 30px;
+  background: #ffffff;
+  border: 1px solid #eeeeee;
+  border-radius: 40px;
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.14);
+}
+
+.msme-info-card h3 {
+  margin: 0 0 28px;
+  text-align: center;
+  font-size: 18px;
+  font-weight: 600;
+  color: #000000;
+}
+
+.msme-info-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.msme-info-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.msme-info-arrow {
+  flex: 0 0 auto;
+  margin-top: 4px;
+  font-size: 10px;
+  color: #249bc6;
+}
+
+.msme-info-label {
+  display: block;
+  margin-bottom: 3px;
+  font-family: "Poppins", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  color: #777777;
+}
+
+.msme-info-item p {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.35;
+  color: #111111;
+}
+
+
+/* =====================================================
+   MSME BENEFITS
+===================================================== */
+
+.msme-benefits {
+  width: calc(100% - 80px);
+  max-width: 1400px;
+  margin: 18px auto 0;
+  padding: 28px 40px 40px;
+  background: transparent;
+  box-sizing: border-box;
+  overflow: hidden;
+  border-radius: 0;
+}
+
+.msme-benefits-inner {
+  width: 100%;
+  max-width: none;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+.msme-benefits h2 {
+  margin: 0 0 25px;
+  font-size: 32px;
+  font-weight: 600;
+  color: #103770;
+}
+
+.msme-benefits-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 55px;
+}
+
+.msme-benefit-card {
+  min-height: 135px;
+  padding: 42px 28px 20px;
+  position: relative;
+  background: #ffffff;
+  border: 1px solid #eeeeee;
+  border-radius: 40px;
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.18);
+  text-align: center;
+}
+
+.msme-benefit-icon {
+  position: absolute;
+  top: -17px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 48px;
+  height: 48px;
+  border: 2px solid #63d2ed;
+  border-radius: 50%;
+  background: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.msme-benefit-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+.msme-benefit-card h3 {
+  margin: 0 0 8px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #111111;
+}
+
+.msme-benefit-card p {
+  margin: 0;
+  font-family: "Poppins", sans-serif;
+  font-size: 15px;
+  line-height: 1.35;
+  color: #777777;
+}
+
+
+/* =====================================================
+   WHY VALLABHI
+===================================================== */
+
+.msme-why {
+  width: calc(100% - 80px);
+  max-width: 1400px;
+  margin: 45px auto 0;
+  padding: 55px 6.4% 68px;
+  box-sizing: border-box;
+  overflow: hidden;
+  border-radius: 18px;
+  background: linear-gradient(
+    105deg,
+    #19ad76 0%,
+    #16a98a 28%,
+    #249bc6 100%
+  );
+}
+
+.msme-why-heading {
+  width: 100%;
+  max-width: none;
+  margin: 0 0 18px;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.msme-why-heading h2 {
+  margin: 0;
+  font-family: "Poppins", sans-serif;
+  font-size: 32px;
+  line-height: 1.15;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: 0.8px;
+  white-space: nowrap;
+  display: inline-block;
+}
+
+.msme-why-box {
+  width: 100%;
+  padding: 0;
+  box-sizing: border-box;
+  background: transparent;
+}
+
+.msme-why-grid {
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 20px 30px;
+}
+
+.msme-why-item {
+  width: max-content;
+  max-width: 100%;
+  min-height: auto;
+  min-width: 0;
+  padding: 15px 20px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 12px;
+  border-radius: 9px;
+  background: #ffffff;
+  color: #050505;
+  font-family: "Poppins", sans-serif;
+  font-size: clamp(17px, 1.4vw, 27px);
+  line-height: 1.25;
+  font-weight: 500;
+  text-align: left;
+  white-space: nowrap;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+}
+
+.msme-why-item-icon {
+  flex-shrink: 0;
+  width: 34px;
+  height: 34px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: rgba(36, 155, 198, 0.12);
+  color: #249bc6;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.msme-why-item-text {
+  display: inline-block;
+  flex: 1;
+  white-space: nowrap;
+}
+
+
+/* =====================================================
+   FAQ
+===================================================== */
+
+.msme-faq {
+  width: calc(100% - 80px);
+  max-width: 1400px;
+  margin: 45px auto 0;
+  padding: 18px 5.3% 30px;
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.msme-faq-inner {
+  width: 100%;
+  max-width: 1320px;
+  margin: 0 auto;
+  padding-top: 10px;
+}
+
+.msme-faq h2 {
+  margin: 0 0 12px;
+  color: #103770;
+  font-size: 40px;
+  line-height: 1.15;
+  font-weight: 600;
+}
+
+.msme-faq-list {
+  display: block;
+}
+
+.msme-faq-item {
+  width: 100%;
+  min-height: 0;
+  margin: 0 0 8px;
+  border: 0;
+  border-top: 1px solid rgba(16, 55, 112, 0.18);
+  border-radius: 0;
+  background: transparent;
+  overflow: visible;
+}
+
+.msme-faq-item:last-child {
+  border-bottom: 1px solid rgba(16, 55, 112, 0.18);
+}
+
+.msme-faq-question {
+  position: relative;
+  display: block;
+  width: 100%;
+  min-height: 70px;
+  padding: 15px 65px 15px 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: #103770;
+  font: 600 18px/1.35 Poppins, sans-serif;
+  text-align: left;
+  cursor: pointer;
+}
+
+.msme-faq-question:hover {
+  color: #249bc6;
+}
+
+.msme-faq-dropdown {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  width: 54px;
+  height: 54px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: #f1f4f6;
+  transform: translateY(-50%);
+}
+
+.msme-faq-chevron {
+  width: 11px;
+  height: 11px;
+  border-right: 2px solid #111111;
+  border-bottom: 2px solid #111111;
+  transform: rotate(45deg);
+  margin-top: -5px;
+  transition:
+    transform 0.25s ease,
+    margin-top 0.25s ease;
+}
+
+.msme-faq-chevron.open {
+  transform: rotate(225deg);
+  margin-top: 5px;
+}
+
+.msme-faq-question:hover .msme-faq-dropdown {
+  background: #e2f3f9;
+}
+
+.msme-faq-answer {
+  margin: 0;
+  padding: 0 0 22px;
+  border-bottom: 1px solid rgba(16, 55, 112, 0.18);
+  color: #656060;
+  font: 400 18px/1.5 Poppins, sans-serif;
+}
+
+
+/* =====================================================
+   FAQ BOTTOM BUTTON
+===================================================== */
+
+.msme-faq-bottom-button {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 62px;
+  height: 62px;
+  margin: 35px auto 0;
+  border: 0;
+  border-radius: 50%;
+  background: #249bc6;
+  cursor: pointer;
+  transition: background 0.25s ease;
+}
+
+.msme-faq-bottom-button:hover {
+  background: #103770;
+}
+
+.msme-faq-bottom-chevron {
+  width: 9px;
+  height: 9px;
+  border-right: 2px solid #ffffff;
+  border-bottom: 2px solid #ffffff;
+  transform: rotate(45deg);
+  margin-top: -4px;
+  transition:
+    transform 0.25s ease,
+    margin-top 0.25s ease;
+}
+
+.msme-faq-bottom-chevron.open {
+  transform: rotate(225deg);
+  margin-top: 4px;
+}
+
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+
+@media (max-width: 1200px) {
+  .msme-hero {
+    grid-template-columns: 1fr 320px 430px;
+    gap: 15px;
+  }
+
+  .msme-info-grid,
+  .msme-benefits-grid {
+    gap: 25px;
+  }
+
+  .msme-hero-content p {
+    font-size: 16px;
+  }
+}
+
+
+/* =====================================================
+   TABLET
+===================================================== */
+
+@media (max-width: 900px) {
+  .msme-hero {
+    grid-template-columns: 1fr;
+    gap: 25px;
+  }
+
+  .msme-hero-image {
+    max-width: 500px;
+  }
+
+  .msme-eligibility-card {
+    max-width: 100%;
+  }
+
+  .msme-info-grid,
+  .msme-benefits-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .msme-why-grid {
+    width: calc(100% - 80px);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (max-width: 600px) {
+  .msme-hero,
+  .msme-application {
+    width: calc(100% - 30px);
+  }
+
+  .msme-benefits {
+    width: calc(100% - 30px);
+    padding: 28px 20px 35px;
+  }
+
+  .msme-benefits-inner {
+    width: 100%;
+  }
+
+  .msme-why {
+    width: calc(100% - 30px);
+  }
+
+  .msme-why-heading {
+    width: 100%;
+    padding: 25px 20px 18px;
+  }
+
+  .msme-why-box {
+    padding: 25px 15px;
+  }
+
+  .msme-faq {
+    width: calc(100% - 30px);
+  }
+
+  .msme-faq-inner {
+    width: calc(100% - 30px);
+  }
+
+  .msme-hero {
+    padding-top: 25px;
+  }
+
+  .msme-hero-content h1 {
+    font-size: 34px;
+    white-space: normal;
+  }
+
+  .msme-eligibility-card {
+    padding: 28px 22px;
+  }
+
+  .msme-why-grid {
+    width: 100%;
+    grid-template-columns: 1fr;
+  }
+
+  .msme-faq-question {
+    min-height: 70px;
+    font-size: 15px;
+  }
+}
+
+/* Green Finance-style hero composition */
+.msme-hero {
+  height: 480px;
+  padding: 0;
+  overflow: hidden;
+}
+
+.msme-hero-visual {
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 550px;
+  height: 405px;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.msme-hero-visual img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+  z-index: 1;
+}
+
+.msme-hero-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.98) 0%,
+    rgba(255, 255, 255, 0.92) 25%,
+    rgba(255, 255, 255, 0.55) 48%,
+    rgba(255, 255, 255, 0.08) 75%,
+    rgba(255, 255, 255, 0) 100%
+  );
+}
+
+.msme-hero-text {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 620px;
+  height: 100%;
+  padding: 10px 35px 0 12px;
+  z-index: 3;
+}
+
+.msme-hero-text h1 {
+  margin: 0 0 25px;
+  font-family: "Poppins", sans-serif;
+  font-size: clamp(32px, 3vw, 40px);
+  font-weight: 700;
+  line-height: 1;
+  white-space: nowrap;
+  color: #103770;
+}
+
+.msme-hero-text h1 span {
+  font-size: 24px;
+  color: #249bc6;
+}
+
+.msme-hero-text p {
+  max-width: 620px;
+  margin: 0;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.55;
+  color: #656060;
+}
+
+@media (max-width: 1200px) {
+  .msme-hero-visual { right: 430px; }
+  .msme-hero-text { width: 570px; padding-left: 20px; }
+  .msme-hero-text p { font-size: 16px; max-width: 500px; }
+}
+
+@media (max-width: 900px) {
+  .msme-hero {
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    overflow: visible;
+  }
+
+  .msme-hero-visual {
+    position: relative;
+    inset: auto;
+    width: 100%;
+    height: 405px;
+  }
+
+  .msme-hero-text {
+    width: 65%;
+    height: 100%;
+    padding: 40px 20px 20px 25px;
+  }
+}
+
+@media (max-width: 600px) {
+  .msme-hero-visual { height: 405px; }
+  .msme-hero-text { width: 100%; height: auto; padding: 25px 20px; }
+  .msme-hero-text h1 { font-size: 34px; white-space: normal; }
+  .msme-hero-text p { font-size: 16px; max-width: 100%; }
+}
+
+.msme-eligibility-card {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 550px;
+  height: 405px;
+}
+
+@media (max-width: 1200px) {
+  .msme-eligibility-card { width: 430px; }
+}
+
+@media (max-width: 900px) {
+  .msme-eligibility-card {
+    position: relative;
+    top: auto;
+    right: auto;
+    width: 100%;
+  }
+}

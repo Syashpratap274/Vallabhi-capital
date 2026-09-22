@@ -1,0 +1,1568 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Roboto+Serif:wght@500;600;700&display=swap");
+
+/* =====================================================
+   GLOBAL RESET
+===================================================== */
+
+html,
+body,
+#root {
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  overflow-x: hidden;
+}
+
+body {
+  overflow-x: hidden;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+
+/* =====================================================
+   MAIN PRODUCT PAGE
+===================================================== */
+
+.products-page {
+  width: 100%;
+  max-width: 100%;
+  min-height: 100vh;
+
+  margin: 0;
+  padding: 78px 0 0;
+  overflow-x: hidden;
+  box-sizing: border-box;
+
+
+  background: linear-gradient(
+    180deg,
+    rgba(120, 206, 236, 0.24) 0%,
+    rgba(255, 255, 255, 0.96) 26%,
+    #ffffff 100%
+  );
+  color: #103770;
+
+  font-family: "Poppins", sans-serif;
+
+  overflow-x: hidden;
+}
+
+
+/* =====================================================
+   COMMON CONTAINER
+===================================================== */
+
+.products-hero,
+.loan-section,
+.supply-section {
+  width: calc(100% - 80px);
+  max-width: 1440px;
+
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
+/* =====================================================
+   HERO
+===================================================== */
+
+.products-hero {
+  min-height: 350px;
+
+  padding-top: 45px;
+  padding-bottom: 30px;
+
+  display: grid;
+
+  grid-template-columns:
+    minmax(0, 1.7fr)
+    minmax(320px, 1fr);
+
+  gap: 40px;
+
+  align-items: center;
+}
+
+
+/* =====================================================
+   HERO TEXT
+===================================================== */
+
+.hero-text {
+  width: 100%;
+  max-width: 760px;
+  min-width: 0;
+}
+
+.hero-text h1 {
+  width: 100%;
+  max-width: 760px;
+
+  margin: 0;
+
+  font-family: "Poppins", sans-serif;
+
+  font-size: 48px;
+
+  font-weight: 600;
+  line-height: 1.45;
+
+  color: #103770;
+
+  overflow-wrap: break-word;
+}
+
+.hero-text h1 span {
+  color: #249bc6;
+  white-space: nowrap;
+}
+
+.hero-text p {
+  width: 100%;
+  max-width: 700px;
+
+  margin: 27px 0 0;
+
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 1.3;
+
+  color: #656060;
+}
+
+
+/* =====================================================
+   ELIGIBILITY CARD
+===================================================== */
+
+.eligibility-card {
+  width: 100%;
+  max-width: 550px;
+  min-width: 0;
+  min-height: 405px;
+  margin-left: auto;
+  padding: 38px 38px 32px;
+  border-radius: 20px;
+  border: 1px solid rgba(36, 155, 198, 0.12);
+
+  background: linear-gradient(
+    360deg,
+    #b2e6e1 0%,
+    #FEFFFF 100%
+  );
+
+  box-shadow: 0 5px 6px rgba(0, 0, 0, 0.16);
+  overflow: hidden;
+}
+
+.eligibility-card h2 {
+  margin: 0 0 25px;
+
+  font-family: "Poppins", sans-serif;
+
+  font-size: clamp(24px, 1.6vw, 30px);
+
+  font-weight: 600;
+  line-height: 1.25;
+
+  color: #103770;
+}
+
+.eligibility-card h2 span {
+  color: #103770;
+}
+
+.eligibility-item {
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+
+  gap: 15px;
+
+  margin-bottom: 14px;
+}
+
+.eligibility-item img {
+  width: 38px;
+  height: 38px;
+
+  flex: 0 0 38px;
+
+  object-fit: contain;
+}
+
+.eligibility-item span {
+  min-width: 0;
+
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1.35;
+
+  color: #000000;
+}
+
+.eligibility-button {
+  width: 100%;
+
+  margin-top: 22px;
+
+  padding: 14px 18px;
+
+  border: none;
+  border-radius: 9px;
+
+  background: #249bc6;
+  color: #ffffff;
+
+  font-family: "Poppins", sans-serif;
+
+  font-size: 17px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease;
+}
+
+.eligibility-button:hover {
+  background: #1c8caf;
+  transform: translateY(-1px);
+}
+
+
+/* =====================================================
+   GENERAL SECTION
+===================================================== */
+
+.loan-section,
+.supply-section {
+  position: relative;
+}
+
+.loan-section h2,
+.supply-section h2,
+.why-section h2,
+.faq-heading h2 {
+  margin: 0;
+
+  font-family: "Poppins", sans-serif;
+
+  font-size: clamp(28px, 2vw, 40px) !important;
+  font-weight: 600 !important;
+  line-height: 1.15 !important;
+
+  background: linear-gradient(90deg, #249bc6 0%, #05ad6f 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent !important;
+}
+
+.section-description {
+  width: 100%;
+  max-width: 850px;
+
+  margin: 9px 0 25px;
+
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 1.5;
+
+  color: #656060;
+}
+
+
+/* =====================================================
+   LOAN SECTION
+===================================================== */
+
+.loan-section {
+  padding-top: 0;
+}
+
+
+/* =====================================================
+   PRODUCT GRIDS
+===================================================== */
+
+.loan-grid,
+.supply-grid {
+  width: 100%;
+  min-width: 0;
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(4, minmax(0, 1fr));
+
+  gap: 24px;
+}
+
+
+/* =====================================================
+   PRODUCT CARD
+===================================================== */
+/*
+.product-card {
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+
+  height: 390px;
+
+  border: 1px solid #249bc6;
+  border-radius: 9px;
+
+  background: #f5f7f8;
+
+  overflow: hidden;
+
+  display: flex;
+  flex-direction: column;
+}
+*/
+.product-card {
+  position: relative;
+  z-index: 0;
+
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+  height: 390px;
+
+  border: 1px solid #249bc6;
+  border-radius: 9px;
+  background: #f5f7f8;
+
+  overflow: visible;
+
+  display: flex;
+  flex-direction: column;
+
+  transition: transform 0.3s ease;
+  isolation: isolate;
+}
+
+/* Gradient highlight behind the card */
+.product-card::before {
+  content: "";
+  position: absolute;
+  inset: -4px;
+
+  border-radius: 13px;
+
+  background: linear-gradient(
+    135deg,
+    #579A93 0%,
+    #FEFFFF 100%
+  );
+
+  z-index: -1;
+  opacity: 0;
+
+  transition: opacity 0.3s ease;
+}
+
+/* Show highlight on hover */
+.product-card:hover::before {
+  opacity: 1;
+}
+
+.product-card:hover {
+  transform: translateY(-4px);
+}
+
+.product-card-image {
+  width: 100%;
+
+  height: 220px;
+  flex: 0 0 220px;
+
+  overflow: hidden;
+}
+
+.product-card-image img {
+  display: block;
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+}
+
+.product-card-content {
+  width: 100%;
+  min-width: 0;
+
+  flex: 1;
+
+  padding: 17px 20px 14px;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.product-card-content h3 {
+  margin: 0;
+
+  font-size: 18px;
+
+  font-weight: 600;
+
+  line-height: 1.25;
+
+  color: #103770;
+
+  overflow-wrap: break-word;
+}
+
+.product-card-content p {
+  margin: 8px 0 0;
+
+  font-size: 13px;
+
+  font-weight: 400;
+
+  line-height: 1.4;
+
+  color: #656060;
+
+  overflow-wrap: break-word;
+}
+
+.product-view-more {
+  align-self: flex-start;
+
+  margin-top: auto;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 6px;
+
+  padding: 5px 11px;
+
+  border: 1px solid #249bc6;
+  border-radius: 20px;
+
+  background: transparent;
+
+  color: #249bc6;
+
+  font-family: "Poppins", sans-serif;
+
+  font-size: 12px;
+  font-weight: 500;
+
+  cursor: pointer;
+
+  white-space: nowrap;
+
+  transition:
+    background 0.2s ease,
+    color 0.2s ease;
+}
+
+.product-view-more:hover {
+  background: #249bc6;
+  color: #ffffff;
+}
+
+.view-more-arrow {
+  font-size: 17px;
+
+  line-height: 10px;
+
+  color: #103770;
+}
+
+
+/* =====================================================
+   SUPPLY CHAIN
+===================================================== */
+
+.supply-section {
+  padding-top: 42px;
+}
+
+/* =========================================================
+   WHY VALLABHI CAPITAL
+========================================================= */
+
+.why-section {
+  width: 100%;
+  margin-top: 65px;
+  padding: 0;
+
+  overflow: hidden;
+}
+
+
+/* =========================================================
+   MAIN GRADIENT CONTAINER
+========================================================= */
+
+.why-container {
+  width: calc(100% - 0px);
+  max-width: 100%;
+
+  margin: 0 auto;
+
+  padding: 55px 6.4% 68px;
+
+  box-sizing: border-box;
+
+  border-radius: 18px;
+
+  background:
+    linear-gradient(
+      105deg,
+      #19ad76 0%,
+      #16a98a 28%,
+      #249bc6 100%
+    );
+
+  overflow: hidden;
+}
+
+
+/* =========================================================
+   HEADING
+========================================================= */
+
+.why-container h2,
+.why-container h2 span {
+  margin: 0;
+
+  font-family: "Poppins", sans-serif;
+
+  font-size: 32px;
+
+  line-height: 1.15;
+
+  font-weight: 700;
+
+  background: transparent !important;
+  background-clip: initial !important;
+  -webkit-background-clip: initial !important;
+  -webkit-text-fill-color: #ffffff !important;
+  color: #ffffff !important;
+  letter-spacing: 0.8px;
+  word-spacing: normal;
+  white-space: nowrap;
+  display: inline-block;
+}
+
+
+/* =========================================================
+   SUBTITLE
+========================================================= */
+
+.why-subtitle {
+  margin: 18px 0 38px;
+
+  font-family: "Poppins", sans-serif;
+
+  font-size: 18px;
+
+  line-height: 1.35;
+
+  font-weight: 400;
+
+  color: #ffffff;
+}
+
+
+/* =========================================================
+   BENEFITS GRID
+========================================================= */
+
+.why-grid {
+  width: 100%;
+
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 20px 30px;
+}
+
+
+/* =========================================================
+   BENEFIT BOX
+========================================================= */
+
+.why-item {
+  width: max-content;
+  max-width: 100%;
+
+  height: auto;
+  min-height: auto;
+
+  padding: 15px 20px;
+
+  box-sizing: border-box;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 12px;
+
+  text-align: left;
+  white-space: nowrap;
+
+  background: #ffffff;
+
+  border-radius: 9px;
+
+  color: #050505;
+
+  font-family: "Poppins", sans-serif;
+
+  font-size: clamp(17px, 1.4vw, 27px);
+
+  line-height: 1.25;
+
+  font-weight: 500;
+
+  justify-self: start;
+
+  box-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.03);
+}
+
+.why-item-icon {
+  flex-shrink: 0;
+
+  width: 34px;
+  height: 34px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background: rgba(36, 155, 198, 0.12);
+
+  color: #249bc6;
+
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.why-item-text {
+  display: inline-block;
+  flex: 1;
+  white-space: nowrap;
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 1000px) {
+
+  .why-container {
+    padding:
+      50px
+      5%
+      55px;
+  }
+
+  .why-container h2 {
+    font-size: clamp(36px, 5vw, 50px);
+  }
+
+  .why-subtitle {
+    font-size: clamp(19px, 2.5vw, 27px);
+    margin-bottom: 32px;
+  }
+
+  .why-grid {
+    column-gap: 20px;
+    row-gap: 25px;
+  }
+
+  .why-item {
+    min-height: 80px;
+
+    padding: 14px 18px;
+
+    font-size: clamp(15px, 1.7vw, 21px);
+  }
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 700px) {
+
+  .why-section {
+    margin-top: 45px;
+  }
+
+  .why-container {
+    width: 100%;
+
+    padding:
+      42px
+      24px
+      45px;
+
+    border-radius: 14px;
+  }
+
+  .why-container h2 {
+    font-size: 38px;
+
+    line-height: 1.1;
+
+    letter-spacing: -1px;
+  }
+
+  .why-subtitle {
+    margin-top: 15px;
+    margin-bottom: 30px;
+
+    font-size: 19px;
+
+    line-height: 1.4;
+  }
+
+  .why-grid {
+    grid-template-columns: 1fr;
+
+    gap: 15px;
+  }
+
+  .why-item {
+    min-height: 70px;
+
+    padding: 15px 20px;
+
+    font-size: 17px;
+  }
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 450px) {
+
+  .why-container {
+    padding:
+      35px
+      18px
+      38px;
+
+    border-radius: 12px;
+  }
+
+  .why-container h2 {
+    font-size: 32px;
+  }
+
+  .why-subtitle {
+    font-size: 17px;
+  }
+
+  .why-item {
+    min-height: 65px;
+
+    font-size: 15px;
+
+    border-radius: 8px;
+  }
+}
+
+/* =====================================================
+   FAQ
+===================================================== */
+
+.faq-section {
+  position: relative;
+  width: calc(100% - 80px);
+  max-width: 1400px;
+  margin: 50px auto 0;
+  padding: 40px 0 80px;
+  background: transparent;
+  border-radius: 18px 18px 0 0;
+  overflow: visible;
+}
+
+.faq-inner {
+  width: 100%;
+  margin: 0 auto;
+}
+
+.faq-heading {
+  width: 100%;
+}
+
+.faq-heading span {
+  display: block;
+  margin-bottom: 5px;
+  text-align: center;
+  font-family: "Poppins", sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  color: #249bc6;
+}
+
+.faq-section h2 {
+  margin: 0 0 12px;
+  text-align: center;
+  font-family: "Poppins", sans-serif;
+  font-size: 40px;
+  font-weight: 600;
+  line-height: 1.15;
+  background: linear-gradient(90deg, #249bc6 0%, #05ad6f 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+.faq-list {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.faq-item {
+  width: 100%;
+  border: 0;
+  border-top: 1px solid rgba(16, 55, 112, 0.18);
+  border-radius: 0;
+  background: transparent;
+  overflow: visible;
+}
+
+/* FAQ question button */
+.faq-question {
+  width: 100%;
+  min-width: 0;
+  min-height: 46px;
+  padding: 10px 52px 10px 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+
+  border: none;
+  background: transparent;
+
+  text-align: left;
+  cursor: pointer;
+
+  font-family: "Poppins", sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1.35;
+  color: #103770;
+}
+
+.faq-question strong {
+  font-weight: 700;
+}
+
+/* =====================================================
+   INDIVIDUAL FAQ DROPDOWN BUTTON
+===================================================== */
+
+.faq-dropdown {
+  width: 42px;
+  height: 42px;
+  min-width: 42px;
+  flex: 0 0 42px;
+
+  border-radius: 50%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: #f1f4f6;
+
+  transition:
+    background 0.25s ease,
+    transform 0.25s ease;
+}
+
+/* Chevron inside FAQ dropdown */
+.faq-chevron {
+  width: 9px;
+  height: 9px;
+
+  border-right: 2px solid #103770;
+  border-bottom: 2px solid #103770;
+
+  transform: rotate(45deg);
+  margin-top: -4px;
+
+  transition:
+    transform 0.25s ease,
+    margin-top 0.25s ease;
+}
+
+/* When FAQ is open */
+.faq-dropdown.open .faq-chevron {
+  transform: rotate(225deg);
+  margin-top: 4px;
+}
+
+/* Hover effect */
+.faq-question:hover .faq-dropdown {
+  background: #e2f3f9;
+}
+
+/* =====================================================
+   FAQ ANSWER
+===================================================== */
+
+.faq-answer {
+  padding: 0 0 10px;
+
+  font-family: "Poppins", sans-serif;
+  font-size: 18px;
+  line-height: 1.5;
+  color: #656060;
+}
+
+/* =====================================================
+   SHOW MORE / SHOW LESS BUTTON
+===================================================== */
+
+.faq-more-button {
+  width: 62px;
+  height: 62px;
+
+  margin: 35px auto 0;
+  padding: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: none;
+  border-radius: 50%;
+
+  background: #249bc6;
+  color: #ffffff;
+
+  cursor: pointer;
+
+  transition:
+    transform 0.3s ease,
+    background 0.3s ease;
+}
+
+/* Hover */
+.faq-more-button:hover {
+  transform: translateY(4px);
+  background: #103770;
+}
+
+/* When FAQs are expanded */
+.faq-more-button.open:hover {
+  transform: translateY(-4px);
+}
+
+/* =====================================================
+   CHEVRON INSIDE SHOW MORE BUTTON
+===================================================== */
+
+.faq-more-chevron {
+  width: 12px;
+  height: 12px;
+
+  border-right: 3px solid #ffffff;
+  border-bottom: 3px solid #ffffff;
+
+  transform: rotate(45deg);
+  margin-top: -6px;
+
+  transition:
+    transform 0.3s ease,
+    margin-top 0.3s ease;
+}
+
+/* Point upward when all FAQs are visible */
+.faq-more-button.open .faq-more-chevron {
+  transform: rotate(225deg);
+  margin-top: 6px;
+}
+
+/* =====================================================
+   FOOTER
+===================================================== */
+
+/* Page-specific footer styles are disabled; the shared site footer is used instead.
+.products-footer {
+  width: 100%;
+  max-width: 100%;
+
+  margin: 0;
+
+  padding: 75px 40px 60px;
+
+  background:
+    linear-gradient(
+      90deg,
+      #e2f6ff 0%,
+      #effff1 100%
+    );
+
+  overflow: hidden;
+}
+
+.products-footer {
+  width: 100%;
+  margin: 0;
+  padding: 60px 0 20px;
+  box-sizing: border-box;
+
+  background: linear-gradient(
+    135deg,
+    #e8f9ff 0%,
+    #effff2 100%
+  );
+}
+*/
+
+.footer-inner {
+  width: calc(100% - 80px);
+  max-width: 1400px;
+  margin-left: auto;
+  margin-right: auto;
+
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr 1fr;
+  gap: 50px;
+}
+
+.footer-logo {
+  display: block;
+
+  width: 320px;
+  max-width: 100%;
+
+  height: auto;
+
+  object-fit: contain;
+
+  margin-bottom: 35px;
+}
+
+.follow-us {
+  display: flex;
+  align-items: center;
+
+  gap: 18px;
+
+  margin-bottom: 14px;
+
+  font-size: 14px;
+
+  font-weight: 400;
+
+  color: #000000;
+}
+
+.social-icons {
+  display: flex;
+  align-items: center;
+
+  gap: 9px;
+}
+
+.social-icons img {
+  width: 23px;
+  height: 23px;
+
+  object-fit: contain;
+}
+
+.office-block {
+  margin-bottom: 25px;
+}
+
+.office-block h4,
+.footer-contact h4 {
+  margin: 0 0 3px;
+
+  font-size: 16px;
+
+  font-weight: 700;
+
+  color: #000000;
+}
+
+.office-block p {
+  width: 100%;
+  max-width: 400px;
+
+  margin: 0;
+
+  font-size: 16px;
+
+  line-height: 1.4;
+
+  color: #000000;
+}
+
+.footer-column {
+  min-width: 0;
+}
+
+.footer-column h3 {
+  margin: 0 0 20px;
+
+  font-size: 16px;
+
+  font-weight: 700;
+
+  color: #000000;
+}
+
+.footer-column > p {
+  margin: 0 0 14px;
+
+  font-size: 16px;
+
+  line-height: 1.35;
+
+  color: #000000;
+}
+
+.footer-contact {
+  margin-top: 55px;
+}
+
+.footer-contact p {
+  margin: 2px 0;
+
+  font-size: 16px;
+
+  color: #000000;
+}
+
+.footer-contact strong {
+  font-weight: 700;
+}
+
+.grievances {
+  margin-top: 60px;
+   transform: translateX(-60px);
+}
+
+.company-policy {
+  margin-top: 60px;
+}
+
+
+/* =====================================================
+   COPYRIGHT
+===================================================== */
+
+.copyright {
+  width: 100%;
+
+  margin: 65px 0 0;
+
+  text-align: center;
+
+  font-size: 10px;
+
+  font-weight: 400;
+
+  color: #656060;
+}
+
+.products-page h2,
+.products-page h2 span,
+.products-page .eligibility-card h2,
+.products-page .eligibility-card h2 span {
+  background: linear-gradient(90deg, #249bc6 0%, #05ad6f 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent !important;
+  font-size: clamp(28px, 2vw, 40px) !important;
+  font-weight: 600 !important;
+  line-height: 1.15 !important;
+  font-family: "Poppins", sans-serif;
+}
+
+.products-page .why-container h2,
+.products-page .why-container h2 span {
+  background: transparent !important;
+  background-clip: initial !important;
+  -webkit-background-clip: initial !important;
+  -webkit-text-fill-color: #ffffff !important;
+  color: #ffffff !important;
+  font-size: 32px !important;
+  font-weight: 700 !important;
+  line-height: 1.15 !important;
+  letter-spacing: -1.5px;
+}
+
+
+/* =====================================================
+   LARGE DESKTOP
+===================================================== */
+
+@media (max-width: 1450px) {
+  .products-hero,
+  .loan-section,
+  .supply-section {
+    width: calc(100% - 60px);
+  }
+
+  .products-hero {
+    grid-template-columns:
+      minmax(0, 1fr)
+      minmax(380px, 0.85fr);
+
+    gap: 38px;
+  }
+
+  .hero-text h1 {
+    font-size: 48px;
+  }
+
+  .eligibility-card {
+    max-width: 530px;
+  }
+
+  .loan-grid,
+  .supply-grid {
+    gap: 20px;
+  }
+
+  .product-card {
+    height: 380px;
+  }
+
+  .product-card-image {
+    height: 210px;
+    flex-basis: 210px;
+  }
+
+  .product-card-content {
+    padding: 16px 18px 13px;
+  }
+
+  .product-card-content h3 {
+    font-size: 17px;
+  }
+
+  .product-card-content p {
+    font-size: 12px;
+  }
+
+  .why-section h2,
+  .why-grid,
+  .faq-section {
+    width: calc(100% - 60px);
+  }
+
+  .why-grid {
+    padding: 40px;
+  }
+
+  .footer-inner {
+    max-width: 1400px;
+  }
+}
+
+
+/* =====================================================
+   TABLET / SMALL DESKTOP
+===================================================== */
+
+@media (max-width: 1100px) {
+  .products-hero {
+    grid-template-columns: 1fr;
+
+    min-height: auto;
+
+    padding-top: 50px;
+    padding-bottom: 50px;
+  }
+
+  .hero-text {
+    max-width: 800px;
+  }
+
+  .hero-text h1 {
+    font-size: 48px;
+  }
+
+  .eligibility-card {
+    width: 100%;
+    max-width: 650px;
+
+    margin-left: 0;
+  }
+
+  .loan-grid,
+  .supply-grid {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+  }
+
+  .why-grid {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+
+    gap: 22px;
+  }
+
+  .footer-inner {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+
+    gap: 40px;
+  }
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (max-width: 700px) {
+  .products-hero,
+  .loan-section,
+  .supply-section {
+    width: calc(100% - 32px);
+  }
+
+  .products-hero {
+    padding-top: 40px;
+    padding-bottom: 40px;
+
+    gap: 35px;
+  }
+
+  .hero-text h1 {
+    font-size: clamp(34px, 9vw, 45px);
+
+    line-height: 1.12;
+  }
+
+  .hero-text p {
+    margin-top: 22px;
+
+    font-size: 14px;
+  }
+
+  .eligibility-card {
+    min-height: auto;
+
+    padding: 30px 22px;
+  }
+
+  .eligibility-card h2 {
+    font-size: 25px;
+  }
+
+  .eligibility-item {
+    gap: 11px;
+  }
+
+  .eligibility-item img {
+    width: 36px;
+    height: 36px;
+
+    flex-basis: 36px;
+  }
+
+  .eligibility-item span {
+    font-size: 16px;
+  }
+
+  .eligibility-button {
+    font-size: 16px;
+  }
+
+  .loan-grid,
+  .supply-grid {
+    grid-template-columns: 1fr;
+
+    gap: 18px;
+  }
+
+  .product-card {
+    height: auto;
+
+    min-height: 390px;
+  }
+
+  .product-card-image {
+    height: 220px;
+
+    flex-basis: 220px;
+  }
+
+  .supply-section {
+    padding-top: 35px;
+  }
+
+  .why-section {
+    margin-top: 50px;
+  }
+
+  .why-section h2 {
+    width: calc(100% - 32px);
+
+    margin-bottom: 20px;
+  }
+
+  .why-grid {
+    width: calc(100% - 32px);
+
+    padding: 25px 16px;
+
+    grid-template-columns: 1fr;
+
+    gap: 16px;
+
+    border-radius: 16px;
+  }
+
+  .why-item {
+    min-height: 85px;
+
+    font-size: 17px;
+  }
+
+  .faq-section {
+    width: calc(100% - 32px);
+
+    margin-top: 35px;
+
+    padding: 30px 0 70px;
+
+    border-radius: 16px 16px 0 0;
+  }
+
+  .faq-section h2 {
+    font-size: 26px;
+
+    margin-bottom: 25px;
+  }
+
+  .faq-list {
+    gap: 16px;
+  }
+
+  .faq-question {
+    min-height: 80px;
+
+    padding: 16px;
+
+    font-size: 14px;
+  }
+
+  .faq-arrow {
+    width: 43px;
+    height: 43px;
+
+    flex-basis: 43px;
+
+    font-size: 21px;
+  }
+
+  .faq-answer {
+    padding: 0 16px 18px;
+
+    font-size: 13px;
+  }
+
+  .products-footer {
+    padding: 60px 20px 45px;
+  }
+
+  .footer-inner {
+    grid-template-columns: 1fr;
+
+    gap: 35px;
+  }
+
+  .footer-logo {
+    width: 280px;
+
+    margin-bottom: 25px;
+  }
+
+  .footer-contact,
+  .grievances,
+  .company-policy {
+    margin-top: 35px;
+  }
+
+  .copyright {
+    margin-top: 45px;
+  }
+}
+
+
+/* =====================================================
+   VERY SMALL MOBILE
+===================================================== */
+
+@media (max-width: 420px) {
+  .products-hero,
+  .loan-section,
+  .supply-section {
+    width: calc(100% - 24px);
+  }
+
+  .hero-text h1 {
+    font-size: 34px;
+  }
+
+  .eligibility-card {
+    padding: 25px 18px;
+  }
+
+  .eligibility-card h2 {
+    font-size: 23px;
+  }
+
+  .eligibility-item span {
+    font-size: 15px;
+  }
+
+  .product-card-image {
+    height: 205px;
+
+    flex-basis: 205px;
+  }
+
+  .product-card-content {
+    padding: 17px;
+  }
+}

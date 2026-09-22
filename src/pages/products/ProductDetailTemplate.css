@@ -1,0 +1,1105 @@
+.product-detail-page {
+
+  width: 100%;
+
+  padding-top: 90px;
+
+  overflow-x: hidden;
+
+  font-family: "Poppins", sans-serif;
+
+  color: #103770;
+
+}
+
+
+
+.product-detail-hero {
+
+  position: relative;
+
+  width: 100%;
+
+  height: 400px;
+
+  min-height: 400px;
+
+  overflow: visible;
+
+}
+
+
+
+.product-detail-hero-bg {
+
+  position: absolute;
+
+  inset: 0;
+
+  width: 100%;
+
+  height: 100%;
+
+  object-fit: cover;
+
+  object-position: center;
+
+}
+
+
+
+.product-detail-hero-overlay {
+
+  position: absolute;
+
+  inset: 0;
+
+  background: linear-gradient(90deg, rgba(6, 30, 62, 0.9) 0%, rgba(16, 55, 112, 0.88) 40%, rgba(12, 91, 68, 0.82) 100%);
+
+}
+
+
+
+.product-detail-hero-copy {
+
+  position: relative;
+
+  z-index: 2;
+
+  width: min(90%, 1420px);
+
+  height: 100%;
+
+  margin: 0 auto;
+
+  display: flex;
+
+  align-items: flex-start;
+
+  justify-content: center;
+
+  flex-direction: column;
+
+  color: #fff;
+
+}
+
+
+
+.product-detail-hero-copy h1 {
+
+  margin: 0;
+
+  align-self: flex-start;
+
+  display: flex;
+
+  flex-direction: column;
+
+  justify-content: center;
+
+  min-height: 0;
+
+  color: #fff;
+
+  font-size: 64px;
+
+  line-height: 1.18;
+
+  font-weight: 700;
+
+  letter-spacing: -1.2px;
+
+  font-family: "Poppins", sans-serif;
+
+}
+
+
+
+.product-detail-hero-copy span {
+
+  display: block;
+
+  margin-top: 8px;
+
+  align-self: flex-start;
+
+  font-size: 40px;
+
+  line-height: 1.6;
+
+  color: #fff;
+
+  max-width: 700px;
+
+}
+
+.product-detail-hero-copy p {
+
+  margin: 10px 0 0;
+
+  max-width: 700px;
+
+  color: rgba(255, 255, 255, 0.88);
+
+  font-size: 20px;
+
+  line-height: 1.6;
+
+}
+
+
+
+.product-detail-hero-eligibility {
+
+  position: absolute;
+
+  z-index: 3;
+
+  right: calc((100% - min(90%, 1420px)) / 2 + 20px);
+
+  left: auto;
+
+  bottom: 18px;
+
+  transform: translateY(34%);
+
+  width: min(380px, 32vw);
+
+  padding: 28px 27px;
+
+  border-radius: 20px 20px 0 0;
+
+  background: linear-gradient(180deg, #fff 0%, #def7f5 55%, #b9e8e3 100%);
+
+  box-shadow: 0 8px 22px #0004;
+
+  color: #103770;
+
+}
+
+
+
+.product-detail-hero-eligibility h2 {
+
+  font-size: 21px;
+
+  line-height: 1.25;
+
+  margin: 0 0 22px;
+
+}
+
+
+
+.product-detail-hero-eligibility h2 span {
+
+  color: #249bc6;
+
+}
+
+
+
+.product-detail-hero-eligibility p {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 11px;
+
+  margin: 13px 0;
+
+  color: #111;
+
+  font-size: 15px;
+
+  font-weight: 600;
+
+}
+
+
+
+.product-detail-hero-eligibility img {
+
+  width: 30px;
+
+  height: 30px;
+
+  object-fit: contain;
+
+}
+
+
+
+.product-detail-hero-eligibility button {
+
+  width: 100%;
+
+  height: 50px;
+
+  border: 0;
+
+  border-radius: 26px;
+
+  background: #249bc6;
+
+  color: #fff;
+
+  font: 600 16px "Poppins";
+
+  cursor: pointer;
+
+  margin-top: 15px;
+
+}
+
+
+
+.product-detail-hero-eligibility button:hover {
+
+  background: #103770;
+
+}
+
+
+
+.product-detail-application {
+
+  width: calc(100% - 80px);
+
+  max-width: 1400px;
+
+  margin: 120px auto 0;
+
+  padding: 35px 32px 45px;
+
+  border-radius: 30px;
+
+  background: linear-gradient(180deg, #fff 0%, #e6f8ec 45%, #ccefdc 100%);
+
+}
+
+
+
+.product-detail-section-heading {
+
+  margin-bottom: 30px;
+
+}
+
+
+
+.product-detail-section-heading h2,
+
+.product-detail-benefits > h2,
+
+.product-detail-why > h2 {
+
+  display: inline-block;
+
+  margin: 0;
+
+  padding-bottom: 7px;
+
+  border-bottom: 4px solid #249bc6;
+
+  font-size: 32px;
+
+  font-weight: 600;
+
+  color: #249bc6;
+
+}
+
+
+
+.product-detail-info-grid {
+
+  display: grid;
+
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+
+  gap: 38px;
+
+}
+
+
+
+.product-detail-info-card {
+
+  min-height: 330px;
+
+  padding: 28px;
+
+  background: #fff;
+
+  border: 1px solid #eee;
+
+  border-radius: 30px;
+
+  box-shadow: 0 2px 5px #0002;
+
+}
+
+
+
+.product-detail-info-card > h2 {
+
+  text-align: center;
+
+  font-size: 18px;
+
+  margin: 0 0 25px;
+
+  color: #000;
+
+}
+
+
+
+.product-detail-info-list {
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 20px;
+
+}
+
+
+
+.product-detail-info-item {
+
+  display: flex;
+
+  align-items: flex-start;
+
+  gap: 10px;
+
+}
+
+
+
+.product-detail-info-arrow {
+
+  margin-top: 6px;
+
+  font-size: 10px;
+
+  color: #249bc6;
+
+}
+
+
+
+.product-detail-info-item h3 {
+
+  font-size: 15px;
+
+  margin: 0 0 3px;
+
+  color: #777;
+
+  font-weight: 500;
+
+}
+
+
+
+.product-detail-info-item p {
+
+  font-size: 15px;
+
+  line-height: 1.4;
+
+  margin: 0;
+
+  color: #111;
+
+  font-weight: 500;
+
+}
+
+
+
+.product-detail-benefits {
+
+  width: calc(100% - 80px);
+
+  max-width: 1400px;
+
+  margin: 22px auto 0;
+
+  padding: 25px 40px 45px;
+
+}
+
+
+
+.product-detail-benefits-grid {
+
+  display: grid;
+
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+
+  gap: 38px;
+
+  margin-top: 30px;
+
+}
+
+
+
+.product-detail-benefit-card {
+
+  min-height: 180px;
+
+  padding: 42px 25px 24px;
+
+  position: relative;
+
+  background: #fff;
+
+  border: 1px solid #eee;
+
+  border-radius: 30px;
+
+  box-shadow: 0 2px 5px #0002;
+
+  text-align: center;
+
+}
+
+
+
+.product-detail-benefit-icon {
+
+  position: absolute;
+
+  top: -18px;
+
+  left: 50%;
+
+  transform: translateX(-50%);
+
+  width: 48px;
+
+  height: 48px;
+
+  border: 2px solid #63d2ed;
+
+  border-radius: 50%;
+
+  background: #fff;
+
+  display: grid;
+
+  place-items: center;
+
+}
+
+
+
+.product-detail-benefit-icon img {
+
+  width: 28px;
+
+  height: 28px;
+
+  object-fit: contain;
+
+}
+
+
+
+.product-detail-benefit-card h3 {
+
+  font-size: 17px;
+
+  margin: 0 0 7px;
+
+  color: #103770;
+
+}
+
+
+
+.product-detail-benefit-card p {
+
+  font-size: 16px;
+
+  line-height: 1.55;
+
+  color: #444;
+
+  margin: 0;
+
+}
+
+
+
+/* =========================================================
+   WHY VALLABHI CAPITAL
+   ========================================================= */
+
+
+
+.product-detail-why {
+
+  width: calc(100% - 80px);
+
+  max-width: 1400px;
+
+  margin: 5px auto 0;
+
+  padding: 22px 40px 45px;
+
+}
+
+
+
+.product-detail-why-box {
+
+  width: 100%;
+
+  margin-top: 28px;
+
+  padding: 34px;
+
+  border-radius: 30px;
+
+  box-sizing: border-box;
+
+  background: linear-gradient(
+
+    105deg,
+
+    #19ad76 0%,
+
+    #16a98a 28%,
+
+    #249bc6 100%
+
+  );
+
+  border: none;
+
+  overflow: visible;
+
+}
+
+
+
+.product-detail-why-grid {
+
+  display: flex;
+
+  flex-wrap: wrap;
+
+  gap: 18px;
+
+  justify-content: flex-start;
+
+  align-items: flex-start;
+
+}
+
+
+
+.product-detail-why-item {
+
+  width: fit-content;
+
+  max-width: 100%;
+
+  min-height: 64px;
+
+  background: #fff;
+
+  border-radius: 14px;
+
+  padding: 12px 16px;
+
+  display: inline-flex;
+
+  align-items: center;
+
+  gap: 10px;
+
+  box-shadow: 0 2px 5px #0000000d;
+
+  font-size: 18px;
+
+  font-weight: 600;
+
+  color: #173d5d;
+
+  white-space: nowrap;
+
+}
+
+
+
+.product-detail-why-item img {
+
+  width: 40px;
+
+  height: 40px;
+
+  object-fit: contain;
+
+  flex-shrink: 0;
+
+}
+
+
+
+.product-detail-why-fallback {
+
+  width: 40px;
+
+  height: 40px;
+
+  border-radius: 50%;
+
+  background: #249bc6;
+
+  color: #fff;
+
+  display: grid;
+
+  place-items: center;
+
+  flex-shrink: 0;
+
+}
+
+
+
+.product-detail-faq {
+
+  width: calc(100% - 80px);
+
+  max-width: 1400px;
+
+  margin: 0 auto;
+
+  padding: 25px 40px 70px;
+
+}
+
+
+
+.product-detail-faq-inner {
+
+  width: 100%;
+
+}
+
+
+
+.product-detail-faq-inner > h2 {
+
+  margin: 0 0 12px;
+
+  color: #103770;
+
+  font-size: 40px;
+
+  line-height: 1.15;
+
+  font-weight: 600;
+
+}
+
+
+
+.product-detail-faq-list {
+
+  display: block;
+
+  border-top: 1px solid rgba(16, 55, 112, 0.18);
+
+}
+
+
+
+.product-detail-faq-item {
+
+  margin: 0 0 8px;
+
+  border: 0;
+
+  border-top: 1px solid rgba(16, 55, 112, 0.18);
+
+  border-radius: 0;
+
+  background: transparent;
+
+  overflow: visible;
+
+}
+
+.product-detail-faq-item:last-child {
+
+  border-bottom: 1px solid rgba(16, 55, 112, 0.18);
+
+}
+
+
+
+.product-detail-faq-item button {
+
+  width: 100%;
+
+  min-height: 46px;
+
+  border: 0;
+
+  background: transparent;
+
+  padding: 10px 52px 10px 0;
+
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  text-align: left;
+
+  font: 600 18px/1.35 "Poppins", sans-serif;
+
+  color: #103770;
+
+  cursor: pointer;
+
+}
+
+.product-detail-faq-item button:hover {
+
+  color: #249bc6;
+
+}
+
+
+
+.product-detail-faq-chevron {
+
+  width: 11px;
+
+  height: 11px;
+
+  border-right: 2px solid #111;
+
+  border-bottom: 2px solid #111;
+
+  transform: rotate(45deg);
+
+  margin-right: 6px;
+
+  flex-shrink: 0;
+
+}
+
+
+
+.product-detail-faq-item.open .product-detail-faq-chevron {
+
+  transform: rotate(225deg);
+
+}
+
+
+
+.product-detail-faq-answer {
+
+  margin: 0 !important;
+
+  padding: 0 0 10px !important;
+
+  color: #656060;
+
+  font: 400 18px/1.5 "Poppins", sans-serif;
+
+  border-bottom: 1px solid rgba(16, 55, 112, 0.18);
+
+}
+
+
+
+.product-detail-faq-more {
+
+  position: relative;
+
+  z-index: 2;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  width: 62px;
+
+  height: 62px;
+
+  margin: 35px auto 0;
+
+  border: 0;
+
+  border-radius: 50%;
+
+  background: #249bc6;
+
+  cursor: pointer;
+
+  transition: background 0.25s ease;
+
+}
+
+.product-detail-faq-more:hover {
+
+  background: #103770;
+
+}
+
+.product-detail-faq-more::after {
+
+  content: "";
+
+  display: block;
+
+  width: 9px;
+
+  height: 9px;
+
+  border-right: 2px solid #fff;
+
+  border-bottom: 2px solid #fff;
+
+  transform: rotate(45deg);
+
+  margin-top: -4px;
+
+  transition: transform 0.25s ease, margin-top 0.25s ease;
+
+}
+
+.product-detail-faq-more.open::after {
+
+  transform: rotate(225deg);
+
+  margin-top: 4px;
+
+}
+
+
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+
+
+@media (max-width: 1050px) {
+
+  .product-detail-hero-copy {
+
+    margin-left: 370px;
+
+  }
+
+
+
+  .product-detail-hero-eligibility {
+
+    left: 25px;
+
+    width: 320px;
+
+  }
+
+
+
+  .product-detail-info-grid,
+
+  .product-detail-benefits-grid {
+
+    grid-template-columns: 1fr 1fr;
+
+  }
+
+
+
+  .product-detail-why-grid {
+
+    grid-template-columns: 1fr 1fr;
+
+  }
+
+}
+
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+
+
+@media (max-width: 760px) {
+
+  .product-detail-page {
+
+    padding-top: 90px;
+
+  }
+
+
+
+  .product-detail-hero {
+
+    height: auto;
+
+    min-height: 650px;
+
+    align-items: flex-end;
+
+    padding: 25px 18px;
+
+  }
+
+
+
+  .product-detail-hero-copy {
+
+    margin: 0;
+
+    padding: 0 0 15px;
+
+    max-width: none;
+
+  }
+
+
+
+  .product-detail-hero-copy h1 {
+
+    font-size: 36px;
+
+  }
+
+
+
+  .product-detail-hero-copy span {
+
+    font-size: 15px;
+
+  }
+
+
+
+  .product-detail-hero-eligibility {
+
+    top: 20px;
+
+    left: 18px;
+
+    right: 18px;
+
+    width: auto;
+
+    transform: none;
+
+    padding: 18px;
+
+  }
+
+
+
+  .product-detail-hero-eligibility h2 {
+
+    font-size: 17px;
+
+    margin-bottom: 12px;
+
+  }
+
+
+
+  .product-detail-hero-eligibility p {
+
+    margin: 8px 0;
+
+    font-size: 13px;
+
+  }
+
+
+
+  .product-detail-hero-eligibility button {
+
+    height: 44px;
+
+    font-size: 14px;
+
+    margin-top: 8px;
+
+  }
+
+
+
+  .product-detail-application,
+
+  .product-detail-benefits,
+
+  .product-detail-why,
+
+  .product-detail-faq {
+
+    width: calc(100% - 30px);
+
+    padding-left: 18px;
+
+    padding-right: 18px;
+
+  }
+
+
+
+  .product-detail-info-grid,
+
+  .product-detail-benefits-grid,
+
+  .product-detail-why-grid {
+
+    grid-template-columns: 1fr;
+
+  }
+
+
+
+  .product-detail-section-heading h2,
+
+  .product-detail-benefits > h2,
+
+  .product-detail-why > h2,
+
+  .product-detail-faq-inner > h2 {
+
+    font-size: 25px;
+
+  }
+
+
+
+  .product-detail-info-card {
+
+    min-height: 0;
+
+  }
+
+}

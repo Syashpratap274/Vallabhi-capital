@@ -1,0 +1,131 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap");
+@import "tailwindcss";
+
+html,
+body,
+#root {
+  margin: 0;
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: "Poppins", sans-serif;
+}
+
+* {
+  font-family: inherit;
+}
+
+/* Shared homepage-style accordion used by product FAQ sections. */
+.shared-faq {
+  min-height: 0;
+  padding: 18px 5.3% 30px;
+  background: transparent !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+
+.faq-section.shared-faq {
+  background: transparent !important;
+}
+
+.shared-faq h2 {
+  margin: 0 0 12px;
+  color: #103770;
+  font-size: 40px;
+  line-height: 1.15;
+  font-weight: 600;
+}
+
+.shared-faq-list {
+  display: block !important;
+}
+
+.shared-faq-item {
+  width: 100%;
+  min-height: 0;
+  margin: 0 0 8px;
+  border: 0 !important;
+  border-top: 1px solid rgba(16, 55, 112, 0.18) !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  overflow: visible !important;
+}
+
+.shared-faq-item:last-child {
+  border-bottom: 1px solid rgba(16, 55, 112, 0.18) !important;
+}
+
+.shared-faq-question {
+  width: 100%;
+  min-height: 46px;
+  padding: 10px 52px 10px 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  color: #103770 !important;
+  font: 600 18px/1.35 Poppins, sans-serif !important;
+  text-align: left;
+}
+
+.shared-faq-question:hover {
+  color: #249bc6 !important;
+}
+
+.shared-faq [class*="faq-dropdown"] {
+  width: 30px;
+  height: 30px;
+  min-width: 30px;
+  border-radius: 50%;
+  background: transparent;
+}
+
+.shared-faq [class*="faq-chevron"] {
+  width: 11px;
+  height: 11px;
+  border-right: 2px solid #111;
+  border-bottom: 2px solid #111;
+}
+
+.shared-faq-answer {
+  margin: 0 !important;
+  padding: 0 0 10px !important;
+  border-bottom: 1px solid rgba(16, 55, 112, 0.18);
+  color: #656060;
+  font: 400 18px/1.5 Poppins, sans-serif;
+}
+
+.shared-faq button[class*="bottom"] {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  margin: -10px auto 0;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: #249bc6;
+}
+
+@media (max-width: 900px) {
+  .shared-faq {
+    padding: 25px 20px 30px;
+  }
+
+  .shared-faq h2 {
+    font-size: 30px;
+  }
+
+  .shared-faq-question {
+    min-height: 46px;
+    padding: 10px 52px 10px 0 !important;
+    font-size: 18px !important;
+  }
+
+  .shared-faq-answer {
+    font-size: 18px;
+  }
+}

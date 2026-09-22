@@ -1,0 +1,497 @@
+/*
+=========================================================
+FOOTER
+=========================================================
+*/
+
+.products-footer {
+  width: 100%;
+  margin: 0;
+  padding: 60px 0 20px;
+  box-sizing: border-box;
+
+  background:
+    linear-gradient(
+      90deg,
+      #e2f6ff 0%,
+      #effff1 100%
+    );
+
+  overflow: hidden;
+}
+
+
+/* =====================================================
+   FOOTER INNER
+===================================================== */
+
+.footer-inner {
+  width: calc(100% - 80px);
+  max-width: 1400px;
+
+  margin-left: auto;
+  margin-right: auto;
+
+  display: grid;
+
+  grid-template-columns:
+    1.5fr
+    1fr
+    1fr
+    1fr;
+
+  gap: 50px;
+}
+
+
+/* =====================================================
+   COMPANY / LOGO
+===================================================== */
+
+.footer-company {
+  min-width: 0;
+}
+
+.footer-logo {
+  display: block;
+
+  width: 320px;
+  max-width: 100%;
+
+  height: auto;
+
+  object-fit: contain;
+
+  margin-bottom: 35px;
+
+  /* Logo is NOT clickable */
+  cursor: default;
+}
+
+
+/* =====================================================
+   FOLLOW US
+===================================================== */
+
+.follow-us {
+  display: flex;
+  align-items: center;
+
+  gap: 18px;
+
+  margin-bottom: 14px;
+
+  font-size: 14px;
+  font-weight: 400;
+
+  color: #000000;
+}
+
+.social-icons {
+  display: flex;
+  align-items: center;
+
+  gap: 9px;
+}
+
+.social-icons a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  text-decoration: none;
+}
+
+.social-icons img {
+  display: block;
+
+  width: 23px;
+  height: 23px;
+
+  object-fit: contain;
+}
+
+
+/* =====================================================
+   OFFICE DETAILS
+===================================================== */
+
+.office-block {
+  margin-bottom: 25px;
+}
+
+.office-block h4,
+.footer-contact h4 {
+  margin: 0 0 3px;
+
+  font-size: 16px;
+  font-weight: 700;
+
+  color: #000000;
+}
+
+.office-block p {
+  width: 100%;
+  max-width: 400px;
+
+  margin: 0;
+
+  font-size: 16px;
+  line-height: 1.4;
+
+  color: #000000;
+}
+
+
+/* =====================================================
+   FOOTER COLUMNS
+===================================================== */
+
+.footer-column {
+  min-width: 0;
+}
+
+.footer-column h3 {
+  margin: 0 0 20px;
+
+  font-size: 16px;
+  font-weight: 700;
+
+  color: #000000;
+}
+
+
+/* =====================================================
+   FOOTER LINKS
+===================================================== */
+
+/* Product, Industry and Quick Link items */
+
+.footer-column > a {
+  display: block;
+
+  margin: 0 0 14px;
+
+  font-size: 16px;
+  line-height: 1.35;
+
+  color: #000000;
+
+  text-decoration: none;
+
+  transition:
+    color 0.3s ease,
+    transform 0.2s ease;
+}
+
+.footer-column > a:hover {
+  color: #103770;
+}
+
+
+/* =====================================================
+   COMPANY POLICY
+===================================================== */
+
+.company-policy {
+  margin-top: 60px;
+}
+
+.company-policy h3 {
+  margin: 0 0 20px;
+
+  font-size: 16px;
+  font-weight: 700;
+
+  color: #000000;
+}
+
+
+/* IMPORTANT:
+   Policy links are inside .company-policy,
+   so they need their own display:block rule.
+*/
+
+.company-policy > a {
+  display: block;
+
+  width: fit-content;
+
+  margin: 0 0 14px;
+
+  font-size: 16px;
+  line-height: 1.35;
+
+  color: #000000;
+
+  text-decoration: none;
+
+  transition:
+    color 0.3s ease,
+    transform 0.2s ease;
+}
+
+.company-policy > a:hover {
+  color: #103770;
+}
+
+
+/* =====================================================
+   CONTACT
+===================================================== */
+
+.footer-contact {
+  margin-top: 55px;
+}
+
+.footer-contact p {
+  margin: 2px 0;
+
+  font-size: 16px;
+
+  color: #000000;
+}
+
+.footer-contact a {
+  color: #000000;
+
+  text-decoration: none;
+
+  transition: color 0.3s ease;
+}
+
+.footer-contact a:hover {
+  color: #103770;
+}
+
+.footer-contact strong {
+  font-weight: 700;
+}
+
+
+/* =====================================================
+   GRIEVANCES
+===================================================== */
+
+.grievances {
+  margin-top: 60px;
+
+  transform: translateX(-60px);
+}
+
+
+/* =====================================================
+   COPYRIGHT
+===================================================== */
+
+.copyright {
+  width: 100%;
+
+  margin: 65px 0 0;
+
+  text-align: center;
+
+  font-size: 10px;
+  font-weight: 400;
+
+  color: #656060;
+}
+
+
+/* =====================================================
+   LARGE TABLET
+===================================================== */
+
+@media (max-width: 1200px) {
+
+  .footer-inner {
+    width: calc(100% - 60px);
+
+    grid-template-columns:
+      1.4fr
+      1fr
+      1fr
+      1fr;
+
+    gap: 35px;
+  }
+
+  .footer-logo {
+    width: 280px;
+  }
+
+  .office-block p,
+  .footer-column > a,
+  .company-policy > a,
+  .footer-contact p {
+    font-size: 15px;
+  }
+
+  .grievances {
+    transform: none;
+  }
+}
+
+
+/* =====================================================
+   TABLET
+===================================================== */
+
+@media (max-width: 900px) {
+
+  .products-footer {
+    padding: 50px 0 20px;
+  }
+
+  .footer-inner {
+    width: calc(100% - 50px);
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 45px 35px;
+  }
+
+  .footer-company {
+    grid-column: span 2;
+  }
+
+  .footer-logo {
+    width: 300px;
+  }
+
+  .grievances {
+    transform: none;
+  }
+
+  .footer-contact {
+    margin-top: 40px;
+  }
+
+  .company-policy {
+    margin-top: 45px;
+  }
+
+  .copyright {
+    margin-top: 50px;
+  }
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (max-width: 600px) {
+
+  .products-footer {
+    padding: 45px 0 18px;
+  }
+
+  .footer-inner {
+    width: calc(100% - 30px);
+
+    grid-template-columns: 1fr;
+
+    gap: 35px;
+  }
+
+  .footer-company {
+    grid-column: auto;
+  }
+
+  .footer-logo {
+    width: 250px;
+
+    margin-bottom: 25px;
+  }
+
+  .follow-us {
+    gap: 14px;
+
+    flex-wrap: wrap;
+  }
+
+  .office-block {
+    margin-bottom: 22px;
+  }
+
+  .office-block p {
+    max-width: 100%;
+
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  .office-block h4,
+  .footer-contact h4 {
+    font-size: 15px;
+  }
+
+  .footer-column h3,
+  .company-policy h3 {
+    margin-bottom: 16px;
+
+    font-size: 15px;
+  }
+
+  .footer-column > a,
+  .company-policy > a {
+    margin-bottom: 11px;
+
+    font-size: 14px;
+    line-height: 1.4;
+  }
+
+  .footer-contact {
+    margin-top: 35px;
+  }
+
+  .footer-contact p {
+    font-size: 14px;
+  }
+
+  .grievances {
+    margin-top: 40px;
+
+    transform: none;
+  }
+
+  .company-policy {
+    margin-top: 40px;
+  }
+
+  .copyright {
+    width: calc(100% - 30px);
+
+    margin: 45px auto 0;
+
+    font-size: 9px;
+
+    line-height: 1.5;
+  }
+}
+
+
+/* =====================================================
+   SMALL MOBILE
+===================================================== */
+
+@media (max-width: 400px) {
+
+  .footer-inner {
+    width: calc(100% - 24px);
+  }
+
+  .footer-logo {
+    width: 220px;
+  }
+
+  .social-icons img {
+    width: 21px;
+    height: 21px;
+  }
+
+  .copyright {
+    width: calc(100% - 24px);
+  }
+}

@@ -1,0 +1,525 @@
+/* =========================================================
+   GALLERY PAGE
+========================================================= */
+
+.gallery-page {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  background: #ffffff;
+  font-family: "Poppins", sans-serif;
+  overflow-x: hidden;
+}
+
+/* =========================================================
+   HERO BANNER
+========================================================= */
+
+.gallery-hero {
+  position: relative;
+
+  background: #249bc6;
+
+  width: calc(100% - 80px);
+  max-width: 1400px;
+
+  height: 300px;
+
+  margin: 0 auto;
+
+  overflow: hidden;
+
+  border-radius: 16px;
+}
+
+.gallery-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    radial-gradient(circle at 86% 12%, rgba(255, 255, 255, 0.22), transparent 30%),
+    radial-gradient(circle at 12% 100%, rgba(16, 55, 112, 0.18), transparent 36%),
+    repeating-linear-gradient(135deg, transparent 0 22px, rgba(255, 255, 255, 0.08) 23px, transparent 24px);
+}
+
+.gallery-hero-image {
+  width: 100%;
+  height: 100%;
+
+  display: block;
+
+  object-fit: cover;
+  object-position: center;
+}
+
+.gallery-hero-overlay {
+  position: absolute;
+  inset: 0;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  text-align: center;
+
+  background: transparent;
+}
+
+.gallery-hero-overlay h1 {
+  margin: 0;
+  color: #ffffff;
+  font-size: 64px;
+  font-weight: 600;
+  letter-spacing: -2px;
+  line-height: 1.1;
+  transform: translateY(24px);
+}
+
+
+/* =========================================================
+   MAIN GALLERY SECTION
+========================================================= */
+
+.gallery-section {
+  width: calc(100% - 80px);
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 80px 0 100px;
+}
+
+.gallery-heading {
+  text-align: center;
+  margin-bottom: 48px;
+}
+
+.gallery-heading span {
+  display: block;
+  margin-bottom: 10px;
+
+  color: #777777;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.gallery-heading h2 {
+  margin: 0;
+  color: #103770;
+  font-size: 38px;
+  line-height: 1.2;
+  font-weight: 700;
+}
+
+.gallery-heading p {
+  max-width: 650px;
+  margin: 15px auto 0;
+
+  color: #666666;
+  font-size: 16px;
+  line-height: 1.7;
+}
+
+
+/* =========================================================
+   FOLDER GRID
+========================================================= */
+
+.gallery-folder-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 34px;
+}
+
+
+/* =========================================================
+   FOLDER CARD
+========================================================= */
+
+.gallery-folder-card {
+  overflow: hidden;
+
+  background: #ffffff;
+  border-radius: 22px;
+
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.08);
+
+  cursor: pointer;
+
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.gallery-folder-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.12);
+}
+
+
+/* =========================================================
+   FOLDER IMAGE PLACEHOLDER
+========================================================= */
+
+.gallery-folder-image {
+  position: relative;
+  width: 100%;
+  height: 250px;
+  overflow: hidden;
+  background: #eef3f8;
+}
+
+.gallery-folder-cover-image {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  object-position: center;
+}
+
+.gallery-folder-placeholder {
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: #f1f5f9;
+  color: #8a8f98;
+  font-size: 14px;
+}
+
+.gallery-photo-count {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+
+  padding: 8px 15px;
+
+  border-radius: 20px;
+  background: #ffffff;
+
+  color: #174a82;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+
+/* =========================================================
+   FOLDER CONTENT
+========================================================= */
+
+.gallery-folder-content {
+  min-height: 125px;
+  padding: 24px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.gallery-folder-content h3 {
+  margin: 0 0 8px;
+
+  color: #123f70;
+  font-size: 20px;
+  line-height: 1.35;
+  font-weight: 700;
+}
+
+.gallery-folder-content p {
+  margin: 0;
+  color: #3779dc;
+  font-size: 15px;
+}
+
+
+/* =========================================================
+   FOLDER ARROW
+========================================================= */
+
+.gallery-folder-arrow {
+  flex-shrink: 0;
+
+  width: 56px;
+  height: 56px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 1px solid #d8e8f2;
+  border-radius: 50%;
+
+  background: #f4fbfe;
+  color: #168fca;
+
+  font-family: inherit;
+  font-size: 0;
+
+  cursor: pointer;
+
+  transition:
+    background 0.25s ease,
+    border-color 0.25s ease,
+    color 0.25s ease,
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.gallery-folder-arrow::before {
+  width: 11px;
+  height: 11px;
+
+  content: "";
+  border-top: 2px solid currentColor;
+  border-right: 2px solid currentColor;
+  transform: rotate(45deg) translate(-2px, 2px);
+}
+
+.gallery-folder-card:hover .gallery-folder-arrow {
+  background: #168fca;
+  border-color: #168fca;
+  color: #ffffff;
+  transform: translateX(4px);
+  box-shadow: 0 8px 18px rgba(22, 143, 202, 0.25);
+}
+
+
+/* =========================================================
+   FOLDER DETAIL
+========================================================= */
+
+.gallery-folder-page {
+  width: calc(100% - 80px);
+  max-width: 1400px;
+
+  margin: 0 auto;
+  padding: 80px 0 100px;
+}
+
+.gallery-folder-header {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+
+  margin-bottom: 45px;
+}
+
+.gallery-back-button {
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  padding: 10px 18px 10px 10px;
+
+  border: 1px solid #d8e2ea;
+  border-radius: 12px;
+
+  background: #ffffff;
+  color: #36506d;
+
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 500;
+
+  cursor: pointer;
+
+  box-shadow: 0 5px 16px rgba(27, 61, 92, 0.08);
+
+  transition:
+    background 0.25s ease,
+    border-color 0.25s ease,
+    color 0.25s ease,
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.gallery-back-button:hover {
+  background: #f4fbfe;
+  border-color: #168fca;
+  color: #168fca;
+  transform: translateX(-3px);
+  box-shadow: 0 8px 20px rgba(22, 143, 202, 0.14);
+}
+
+.gallery-back-button span {
+  width: 32px;
+  height: 32px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 8px;
+  background: #eaf6fb;
+  color: #168fca;
+  font-size: 0;
+}
+
+.gallery-back-button span::before {
+  width: 10px;
+  height: 10px;
+
+  content: "";
+  border-bottom: 2px solid currentColor;
+  border-left: 2px solid currentColor;
+  transform: rotate(45deg) translate(2px, -2px);
+}
+
+.gallery-folder-title h2 {
+  margin: 0;
+
+  color: #123f70;
+  font-size: 30px;
+  line-height: 1.25;
+}
+
+.gallery-folder-title p {
+  margin: 5px 0 0;
+
+  color: #4a6a8c;
+  font-size: 16px;
+}
+
+
+/* =========================================================
+   PHOTO GRID
+========================================================= */
+
+.gallery-photo-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 28px;
+}
+
+.gallery-photo-card {
+  height: 300px;
+  overflow: hidden;
+
+  border-radius: 18px;
+  background: #eeeeee;
+}
+
+.gallery-photo-card img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+
+  transition: transform 0.4s ease;
+}
+
+.gallery-photo-card:hover img {
+  transform: scale(1.05);
+}
+
+
+/* =========================================================
+   EMPTY FOLDER
+========================================================= */
+
+.gallery-empty {
+  min-height: 350px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  text-align: center;
+
+  border: 2px dashed #d8dee5;
+  border-radius: 18px;
+
+  background: #fafbfc;
+}
+
+.gallery-empty-icon {
+  width: 60px;
+  height: 60px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  margin-bottom: 18px;
+
+  border-radius: 50%;
+  background: #edf1f5;
+
+  color: #687888;
+  font-size: 30px;
+}
+
+.gallery-empty h3 {
+  margin: 0 0 8px;
+  color: #34495e;
+  font-size: 20px;
+}
+
+.gallery-empty p {
+  max-width: 450px;
+  margin: 0;
+
+  color: #7a8794;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 1000px) {
+
+  .gallery-hero {
+    width: calc(100% - 50px);
+    height: 360px;
+  }
+
+  .gallery-hero-overlay h1 {
+    font-size: 52px;
+  }
+
+  .gallery-section,
+  .gallery-folder-page {
+    width: calc(100% - 50px);
+  }
+
+  .gallery-folder-grid,
+  .gallery-photo-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+
+@media (max-width: 600px) {
+
+  .gallery-hero {
+    width: calc(100% - 30px);
+    height: 280px;
+  }
+
+  .gallery-hero-overlay h1 {
+    font-size: 42px;
+  }
+
+  .gallery-hero-overlay p {
+    font-size: 15px;
+  }
+
+  .gallery-section,
+  .gallery-folder-page {
+    width: calc(100% - 30px);
+    padding-top: 50px;
+    padding-bottom: 60px;
+  }
+}
