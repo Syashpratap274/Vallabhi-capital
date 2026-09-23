@@ -163,17 +163,18 @@ export default function ProductDetailTemplate({
   };
 
   const title = normalizedProduct.name || titleProp || "Product";
-  const subtitle =
-    normalizedProduct.heroSubtitle ||
-    normalizedProduct.shortDescription ||
-    normalizedProduct.description ||
-    "Flexible financing designed around your business needs.";
+  const isCmsProduct = Boolean(product);
+  const subtitle = isCmsProduct
+    ? normalizedProduct.heroSubtitle || ""
+    : normalizedProduct.heroSubtitle ||
+      normalizedProduct.shortDescription ||
+      normalizedProduct.description ||
+      "Flexible financing designed around your business needs.";
   const heroParagraph = normalizedProduct.heroParagraph || "";
   const hero =
     normalizedProduct.heroImage ||
     normalizedProduct.cardImage ||
     "/images/products/MSME-LOAN.webp";
-  const isCmsProduct = Boolean(product);
   const eligibility = isCmsProduct
     ? normalizedProduct.eligibility || []
     : normalizedProduct.eligibility?.length
