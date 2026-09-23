@@ -21,6 +21,7 @@ import HomePage from "./HomePage";
 import Industries from "./pages/Industries/Industries";
 import IndustryDetail from "./pages/Industries/IndustryDetail";
 import Career from "./pages/AboutUs/Career";
+import ESG from "./pages/AboutUs/ESG";
 import Admin from "./Admin";
 import Blogs from "./pages/Blogs";
 import BlogDetail from "./pages/BlogDetail";
@@ -48,6 +49,7 @@ function AppShell() {
         <Route path="/gallery" element={<Gallery />} />
         <Route path="/contact-us" element={<ContactUs />} />
         <Route path="/partners" element={<Partners />} />
+        <Route path="/esg" element={<ESG />} />
         <Route path="/investors/lending-partners" element={<Partners />} />
         <Route path="/investors/technology-partners" element={<Partners />} />
         <Route path="/industries" element={<Industries />} />

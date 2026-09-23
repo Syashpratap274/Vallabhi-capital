@@ -130,6 +130,15 @@ const seed = {
   },
   partners: { banner: "", lendingPartners: [], technologyPartners: [] },
   career: { banner: "/images/aboutus/Career-banner.jpg", employeeTestimonials: [], jobs: [] },
+  esg: {
+    banner: { image: "", title: "Building a Sustainable Future", subtitle: "Through Responsible Finance" },
+    principles: [
+      { id: "environment", icon: "🌱", title: "Environment", description: "Supporting sustainable practices and a greener future." },
+      { id: "social", icon: "👥", title: "Social", description: "Creating opportunities that support communities and inclusion." },
+      { id: "governance", icon: "🏛️", title: "Governance", description: "Building trust through transparency, ethics and responsible practices." }
+    ],
+    initiatives: []
+  },
   gallery: { folders: [{id:"events",title:"Events",photos:[]},{id:"people-and-culture",title:"People and Culture",photos:[]},{id:"csr",title:"CSR",photos:[]},{id:"media",title:"Media",photos:[]}] },
   contact: { banner: "", address: "Add your corporate office address here.", phone: "Add your phone number here.", email: "Add your email address here.", openingTime: "Mon - Fri: 9:00 AM - 6:00 PM", formImage: "" },
   leads: []
@@ -216,6 +225,13 @@ export function mergeCmsData(base, override) {
       ...(current.career || {}),
       employeeTestimonials: mergeList(current.career?.employeeTestimonials, fallback.career?.employeeTestimonials),
       jobs: mergeList(current.career?.jobs, fallback.career?.jobs),
+    },
+    esg: {
+      ...(fallback.esg || {}),
+      ...(current.esg || {}),
+      banner: { ...(fallback.esg?.banner || {}), ...(current.esg?.banner || {}) },
+      principles: mergeRecords(current.esg?.principles, fallback.esg?.principles),
+      initiatives: mergeRecords(current.esg?.initiatives, fallback.esg?.initiatives),
     },
     gallery: {
       ...(fallback.gallery || {}),
@@ -333,6 +349,22 @@ export function normalizeCms(data) {
   out.homepage.blogs = out.blogs;
   out.gallery = out.gallery || {folders:[]};
   out.gallery.folders = Array.isArray(out.gallery.folders) ? out.gallery.folders.map(f=>({...f,photos:Array.isArray(f.photos)?f.photos:[]})) : [];
+  out.esg = out.esg || {};
+  out.esg.banner = { ...(seed.esg.banner || {}), ...(out.esg.banner || {}) };
+  out.esg.principles = Array.isArray(out.esg.principles) ? out.esg.principles.map((x, i) => ({
+    ...x,
+    id: x.id || `principle-${i}`,
+    icon: x.icon || "",
+    title: x.title || "",
+    description: x.description || "",
+  })) : structuredClone(seed.esg.principles);
+  out.esg.initiatives = Array.isArray(out.esg.initiatives) ? out.esg.initiatives.map((x, i) => ({
+    ...x,
+    id: x.id || createId(`esg-${i}`),
+    title: x.title || "",
+    description: x.description || "",
+    photos: Array.isArray(x.photos) ? x.photos : (x.image ? [x.image] : []),
+  })) : [];
   out.company = out.company || {};
   out.company.aboutIntro = out.company.aboutIntro || {};
   out.company.aboutIntro.paragraphs = Array.isArray(out.company.aboutIntro.paragraphs) ? out.company.aboutIntro.paragraphs.map((x, i) => typeof x === "string" ? ({ id: createId("intro"), text: x }) : ({ ...x, id: x.id || createId(`intro-${i}`), text: x.text || "" })) : [];
@@ -355,6 +387,12 @@ let cmsCache = normalizeCms(seed);
 let cmsInitialized = false;
 let cmsInitPromise = null;
 let cmsWritePromise = Promise.resolve();
+let pendingCmsWrite = null;
+let cmsWriteTimer = null;
+
+const cmsChannel = typeof window !== "undefined" && typeof BroadcastChannel !== "undefined"
+  ? new BroadcastChannel("vallabhi-cms-updated")
+  : null;
 
 async function apiRequest(url, options = {}) {
   const controller = new AbortController();
@@ -362,6 +400,7 @@ async function apiRequest(url, options = {}) {
   try {
     const response = await fetch(`${CMS_API_BASE}${url}`, {
       ...options,
+      cache: options.method === "GET" ? "no-store" : options.cache,
       signal: options.signal || controller.signal,
       headers: {
         "Content-Type": "application/json",
@@ -462,34 +501,47 @@ export function saveCms(data) {
     window.dispatchEvent(new CustomEvent("vc-cms-updated", { detail: normalized }));
   }
 
-  cmsWritePromise = cmsWritePromise
-    .catch(() => {})
-    .then(async () => {
-      const response = await apiRequest("/api/cms", {
-        method: "PUT",
-        body: JSON.stringify(normalized),
+  if (!pendingCmsWrite) {
+    pendingCmsWrite = { data: normalized, waiters: [] };
+  } else {
+    pendingCmsWrite.data = normalized;
+  }
+
+  const result = new Promise((resolve, reject) => pendingCmsWrite.waiters.push({ resolve, reject }));
+  clearTimeout(cmsWriteTimer);
+  cmsWriteTimer = setTimeout(() => {
+    const write = pendingCmsWrite;
+    pendingCmsWrite = null;
+    cmsWritePromise = cmsWritePromise
+      .catch(() => {})
+      .then(async () => {
+        const response = await apiRequest("/api/cms", {
+          method: "PUT",
+          body: JSON.stringify(write.data),
+        });
+
+        if (!response?.ok) {
+          throw new Error("CMS API did not confirm the database save.");
+        }
+
+        cmsCache = normalizeCms(response.data || write.data);
+        if (typeof window !== "undefined") {
+          window.dispatchEvent(new CustomEvent("vc-cms-updated", { detail: cmsCache }));
+        }
+        cmsChannel?.postMessage({ type: "cms-updated" });
+        return cmsCache;
+      })
+      .then((saved) => write.waiters.forEach(({ resolve }) => resolve(saved)))
+      .catch((error) => {
+        console.error("CMS save failed:", error);
+        if (typeof window !== "undefined") {
+          window.dispatchEvent(new CustomEvent("vc-cms-error", { detail: error }));
+        }
+        write.waiters.forEach(({ reject }) => reject(error));
       });
+  }, 250);
 
-      if (!response?.ok) {
-        throw new Error("CMS API did not confirm the database save.");
-      }
-
-      // Keep the cache aligned with exactly what the API confirmed.
-      cmsCache = normalizeCms(response.data || normalized);
-      if (typeof window !== "undefined") {
-        window.dispatchEvent(new CustomEvent("vc-cms-updated", { detail: cmsCache }));
-      }
-      return cmsCache;
-    })
-    .catch((error) => {
-      console.error("CMS save failed:", error);
-      if (typeof window !== "undefined") {
-        window.dispatchEvent(new CustomEvent("vc-cms-error", { detail: error }));
-      }
-      throw error;
-    });
-
-  return cmsWritePromise;
+  return result;
 }
 
 export async function refreshCms() {
@@ -544,12 +596,22 @@ export function useCms() {
         .catch(() => {});
     };
 
+    const refreshFromOtherTab = () => {
+      refreshCms()
+        .then((value) => {
+          if (mounted) setData(normalizeCms(value));
+        })
+        .catch(() => {});
+    };
+
     window.addEventListener("vc-cms-updated", refresh);
     window.addEventListener("focus", refreshOnFocus);
+    cmsChannel?.addEventListener("message", refreshFromOtherTab);
     return () => {
       mounted = false;
       window.removeEventListener("vc-cms-updated", refresh);
       window.removeEventListener("focus", refreshOnFocus);
+      cmsChannel?.removeEventListener("message", refreshFromOtherTab);
     };
   }, []);
 

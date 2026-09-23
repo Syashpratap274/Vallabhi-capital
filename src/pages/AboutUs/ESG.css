@@ -1,0 +1,482 @@
+/* =========================================================
+   ESG PAGE
+========================================================= */
+
+.esg-page {
+  width: 100%;
+  background: #ffffff;
+  color: #111111;
+  font-family: "Poppins", sans-serif;
+}
+
+.section-container {
+  width: min(90%, 1050px);
+  margin: 0 auto;
+}
+
+
+/* =========================================================
+   BANNER
+========================================================= */
+
+.esg-banner {
+  position: relative;
+  width: 100%;
+  height: 280px;
+  overflow: hidden;
+}
+
+.esg-banner-image {
+  position: absolute;
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+}
+
+.esg-banner-overlay {
+  position: absolute;
+  inset: 0;
+
+  background: linear-gradient(
+    90deg,
+    rgba(7, 45, 92, 0.72),
+    rgba(0, 126, 116, 0.62)
+  );
+}
+
+
+/* =========================================================
+   H1
+========================================================= */
+
+.esg-intro {
+  padding-top: 34px;
+  padding-bottom: 20px;
+
+  text-align: center;
+}
+
+.esg-main-heading {
+  margin: 0;
+
+  color: #123f7a;
+
+  font-size: 27px;
+  line-height: 1.4;
+  font-weight: 700;
+}
+
+.esg-main-heading span {
+  color: #1d9dcc;
+}
+
+
+/* =========================================================
+   THREE COLUMN ESG BLOCK
+========================================================= */
+
+.esg-principles {
+  padding-top: 0;
+  padding-bottom: 35px;
+}
+
+.esg-principles-box {
+  width: 100%;
+
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+
+  border: 1px solid #e1e1e1;
+  border-radius: 15px;
+
+  overflow: hidden;
+
+  background: #ffffff;
+
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+}
+
+.esg-principle {
+  min-height: 125px;
+
+  padding: 18px 25px;
+
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
+  justify-content: center;
+
+  text-align: center;
+}
+
+.esg-principle + .esg-principle {
+  border-left: 1px solid #eeeeee;
+}
+
+.esg-principle-icon {
+  height: 27px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  margin-bottom: 4px;
+
+  font-size: 20px;
+}
+
+.esg-principle h3 {
+  margin: 0 0 3px;
+
+  font-size: 15px;
+  line-height: 1.4;
+
+  color: #222222;
+
+  font-weight: 600;
+}
+
+.esg-principle p {
+  max-width: 230px;
+
+  margin: 0;
+
+  color: #707070;
+
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+
+/* =========================================================
+   H2
+========================================================= */
+
+.esg-initiatives {
+  padding-top: 0;
+  padding-bottom: 75px;
+}
+
+.esg-section-heading {
+  margin: 0 0 38px;
+
+  text-align: center;
+
+  color: #123f7a;
+
+  font-size: 27px;
+  line-height: 1.35;
+
+  font-weight: 700;
+}
+
+.esg-section-heading span {
+  color: #1d9dcc;
+}
+
+
+/* =========================================================
+   EVENTS
+========================================================= */
+
+.esg-events {
+  display: flex;
+  flex-direction: column;
+
+  gap: 62px;
+}
+
+.esg-event {
+  width: 100%;
+
+  display: grid;
+
+  grid-template-columns:
+    minmax(0, 1fr)
+    minmax(0, 0.9fr);
+
+  gap: 32px;
+
+  align-items: center;
+}
+
+
+/*
+=========================================================
+REVERSED EVENT
+
+Event 1:
+IMAGE | CONTENT
+
+Event 2:
+CONTENT | IMAGE
+
+Event 3:
+IMAGE | CONTENT
+=========================================================
+*/
+
+.esg-event-reverse .esg-event-left {
+  order: 2;
+}
+
+.esg-event-reverse .esg-event-content {
+  order: 1;
+}
+
+
+/* =========================================================
+   EVENT IMAGE
+========================================================= */
+
+.esg-event-left {
+  width: 100%;
+}
+
+.esg-event-image {
+  position: relative;
+
+  width: 100%;
+  height: 310px;
+
+  overflow: hidden;
+
+  border-radius: 14px;
+
+  background: #eeeeee;
+}
+
+.esg-slide-image {
+  position: absolute;
+
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+
+  opacity: 0;
+
+  transform: scale(1.02);
+
+  transition:
+    opacity 0.7s ease,
+    transform 0.7s ease;
+}
+
+.esg-slide-image.active {
+  opacity: 1;
+
+  transform: scale(1);
+}
+
+
+/* =========================================================
+   SLIDER DOTS
+========================================================= */
+
+.esg-slider-dots {
+  position: absolute;
+
+  z-index: 5;
+
+  left: 50%;
+  bottom: 12px;
+
+  transform: translateX(-50%);
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 6px;
+}
+
+.esg-slider-dot {
+  width: 7px;
+  height: 7px;
+
+  border-radius: 50%;
+
+  background: rgba(255, 255, 255, 0.65);
+
+  transition: all 0.3s ease;
+}
+
+.esg-slider-dot.active {
+  width: 20px;
+
+  border-radius: 10px;
+
+  background: #ffffff;
+}
+
+
+/* =========================================================
+   EVENT CONTENT
+========================================================= */
+
+.esg-event-content {
+  padding: 10px 0;
+}
+
+.esg-event-content h3 {
+  margin: 0 0 20px;
+
+  color: #111111;
+
+  font-size: 22px;
+  line-height: 1.4;
+
+  font-weight: 700;
+}
+
+.esg-event-description {
+  color: #6a6a6a;
+
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.esg-event-description p {
+  margin: 0 0 10px;
+}
+
+.esg-event-description p:last-child {
+  margin-bottom: 0;
+}
+
+
+/* =========================================================
+   EMPTY STATE
+========================================================= */
+
+.esg-empty {
+  padding: 35px 20px;
+
+  text-align: center;
+
+  color: #777777;
+
+  border: 1px dashed #dddddd;
+
+  border-radius: 12px;
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 900px) {
+
+  .esg-banner {
+    height: 250px;
+  }
+
+  .esg-main-heading {
+    font-size: 25px;
+  }
+
+  .esg-event {
+    grid-template-columns: 1fr;
+    gap: 25px;
+  }
+
+  /*
+    On mobile/tablet, always show
+    image first and content below.
+  */
+
+  .esg-event-reverse .esg-event-left {
+    order: 1;
+  }
+
+  .esg-event-reverse .esg-event-content {
+    order: 2;
+  }
+
+  .esg-event-image {
+    height: 350px;
+  }
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 700px) {
+
+  .section-container {
+    width: 90%;
+  }
+
+  .esg-banner {
+    height: 220px;
+  }
+
+  .esg-main-heading {
+    font-size: 23px;
+  }
+
+  .esg-section-heading {
+    font-size: 23px;
+  }
+
+  .esg-principles-box {
+    grid-template-columns: 1fr;
+  }
+
+  .esg-principle {
+    min-height: auto;
+
+    padding: 20px;
+  }
+
+  .esg-principle + .esg-principle {
+    border-left: 0;
+
+    border-top: 1px solid #eeeeee;
+  }
+
+  .esg-event-image {
+    height: 260px;
+  }
+
+  .esg-event-content h3 {
+    font-size: 20px;
+  }
+
+  .esg-event-description {
+    font-size: 13px;
+  }
+
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 450px) {
+
+  .esg-banner {
+    height: 190px;
+  }
+
+  .esg-main-heading {
+    font-size: 21px;
+  }
+
+  .esg-event-image {
+    height: 230px;
+  }
+
+}

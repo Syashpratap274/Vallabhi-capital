@@ -4,6 +4,7 @@ import { loadProjectEnv } from "./env.mjs";
 loadProjectEnv();
 
 let sqlClient;
+let tablesPromise;
 
 export const CMS_PAGE_KEYS = [
   "homepage",
@@ -13,6 +14,7 @@ export const CMS_PAGE_KEYS = [
   "company",
   "partners",
   "career",
+  "esg",
   "gallery",
   "contact",
   "leads",
@@ -27,44 +29,53 @@ function getSql() {
 }
 
 export async function ensureTables() {
+  if (tablesPromise) return tablesPromise;
+
   const sql = getSql();
-  await sql`
-    CREATE TABLE IF NOT EXISTS cms_state (
-      id INTEGER PRIMARY KEY,
-      data JSONB NOT NULL,
-      updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
-    )
-  `;
-  await sql`
-    CREATE TABLE IF NOT EXISTS cms_pages (
-      page_key TEXT PRIMARY KEY,
-      data JSONB NOT NULL,
-      updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
-    )
-  `;
-  await sql`
-    CREATE TABLE IF NOT EXISTS cms_media (
-      id TEXT PRIMARY KEY,
-      name TEXT,
-      mime_type TEXT NOT NULL,
-      data BYTEA NOT NULL,
-      page_key TEXT,
-      field_path TEXT,
-      entity_id TEXT,
-      created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
-    )
-  `;
-  await sql`ALTER TABLE cms_media ADD COLUMN IF NOT EXISTS page_key TEXT`;
-  await sql`ALTER TABLE cms_media ADD COLUMN IF NOT EXISTS field_path TEXT`;
-  await sql`ALTER TABLE cms_media ADD COLUMN IF NOT EXISTS entity_id TEXT`;
-  await sql`CREATE INDEX IF NOT EXISTS cms_pages_updated_at_idx ON cms_pages (updated_at DESC)`;
-  await sql`CREATE INDEX IF NOT EXISTS cms_media_page_key_idx ON cms_media (page_key)`;
-  await sql`
-    CREATE OR REPLACE VIEW cms_storage_map AS
-    SELECT id, updated_at, jsonb_object_keys(data) AS section
-    FROM cms_state
-    WHERE id = 1
-  `;
+  tablesPromise = (async () => {
+    await sql`
+      CREATE TABLE IF NOT EXISTS cms_state (
+        id INTEGER PRIMARY KEY,
+        data JSONB NOT NULL,
+        updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+      )
+    `;
+    await sql`
+      CREATE TABLE IF NOT EXISTS cms_pages (
+        page_key TEXT PRIMARY KEY,
+        data JSONB NOT NULL,
+        updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+      )
+    `;
+    await sql`
+      CREATE TABLE IF NOT EXISTS cms_media (
+        id TEXT PRIMARY KEY,
+        name TEXT,
+        mime_type TEXT NOT NULL,
+        data BYTEA NOT NULL,
+        page_key TEXT,
+        field_path TEXT,
+        entity_id TEXT,
+        created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+      )
+    `;
+    await sql`ALTER TABLE cms_media ADD COLUMN IF NOT EXISTS page_key TEXT`;
+    await sql`ALTER TABLE cms_media ADD COLUMN IF NOT EXISTS field_path TEXT`;
+    await sql`ALTER TABLE cms_media ADD COLUMN IF NOT EXISTS entity_id TEXT`;
+    await sql`CREATE INDEX IF NOT EXISTS cms_pages_updated_at_idx ON cms_pages (updated_at DESC)`;
+    await sql`CREATE INDEX IF NOT EXISTS cms_media_page_key_idx ON cms_media (page_key)`;
+    await sql`
+      CREATE OR REPLACE VIEW cms_storage_map AS
+      SELECT id, updated_at, jsonb_object_keys(data) AS section
+      FROM cms_state
+      WHERE id = 1
+    `;
+  })().catch((error) => {
+    tablesPromise = null;
+    throw error;
+  });
+
+  await tablesPromise;
 }
 
 export async function getCmsState() {
@@ -123,23 +134,17 @@ export async function saveCmsState(data) {
       updated_at = NOW()
   `;
 
-  // Keep cms_pages synchronized for inspection/backward compatibility, but
-  // never make the save depend on these secondary rows.
-  try {
-    for (const pageKey of CMS_PAGE_KEYS) {
-      if (!(pageKey in data)) continue;
-      await sql`
-        INSERT INTO cms_pages (page_key, data, updated_at)
-        VALUES (${pageKey}, ${JSON.stringify(data[pageKey])}::jsonb, NOW())
-        ON CONFLICT (page_key)
-        DO UPDATE SET
-          data = EXCLUDED.data,
-          updated_at = NOW()
-      `;
-    }
-  } catch (error) {
+  // Keep compatibility rows synchronized without delaying the authoritative save.
+  Promise.all(CMS_PAGE_KEYS.filter((pageKey) => pageKey in data).map((pageKey) => sql`
+      INSERT INTO cms_pages (page_key, data, updated_at)
+      VALUES (${pageKey}, ${JSON.stringify(data[pageKey])}::jsonb, NOW())
+      ON CONFLICT (page_key)
+      DO UPDATE SET
+        data = EXCLUDED.data,
+        updated_at = NOW()
+      `)).catch((error) => {
     console.warn("cms_pages compatibility sync failed; cms_state save succeeded.", error);
-  }
+  });
 
   return data;
 }
