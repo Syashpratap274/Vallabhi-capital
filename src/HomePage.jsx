@@ -79,9 +79,91 @@ function Hero({ cms }) {
           <a href="/apply" onClick={openApplication} className="hp-blue-btn">Apply Now</a>
         </div>
       </div>
-      <div className="hp-hero-card">
-      </div>
+      <HeroCalculator />
     </section>
+  );
+}
+
+function HeroCalculator() {
+  const [amount, setAmount] = useState(500000);
+  const [rate, setRate] = useState(12.5);
+  const [tenure, setTenure] = useState(36);
+  const monthlyRate = rate / 12 / 100;
+  const emi = amount * monthlyRate * Math.pow(1 + monthlyRate, tenure) /
+    (Math.pow(1 + monthlyRate, tenure) - 1);
+  const total = emi * tenure;
+  const formatCurrency = (value) => new Intl.NumberFormat("en-IN", {
+    style: "currency",
+    currency: "INR",
+    maximumFractionDigits: 0,
+  }).format(value);
+
+  return (
+    <div className="hp-hero-card hp-calculator-card">
+      <div className="hp-calculator-top">
+        <h2>Estimate your EMI</h2>
+        <span>LIVE CALCULATION</span>
+      </div>
+      <div className="hp-calculator-label">
+        <span>Loan amount</span>
+        <span>₹50K - ₹25L</span>
+      </div>
+      <strong className="hp-calculator-amount">{formatCurrency(amount)}</strong>
+      <input
+        className="hp-calculator-range"
+        type="range"
+        min="50000"
+        max="2500000"
+        step="10000"
+        value={amount}
+        onChange={(event) => setAmount(Number(event.target.value))}
+        aria-label="Loan amount"
+      />
+      <div className="hp-calculator-range-values"><span>₹50K</span><span>₹25L</span></div>
+
+      <div className="hp-calculator-field">
+        <div className="hp-calculator-label"><span>Interest rate</span><span>{rate}% p.a.</span></div>
+        <strong className="hp-calculator-rate">{rate}%</strong>
+        <input
+          className="hp-calculator-range"
+          type="range"
+          min="8"
+          max="24"
+          step="0.1"
+          value={rate}
+          onChange={(event) => setRate(Number(event.target.value))}
+          aria-label="Interest rate"
+        />
+        <div className="hp-calculator-range-values"><span>8%</span><span>24%</span></div>
+      </div>
+
+      <div className="hp-calculator-field hp-calculator-tenure-field">
+        <div className="hp-calculator-label"><span>Tenure</span><span>{tenure} months</span></div>
+        <div className="hp-calculator-tenures">
+          {[12, 24, 36, 48].map((months) => (
+            <button
+              type="button"
+              className={months === tenure ? "active" : ""}
+              key={months}
+              onClick={() => setTenure(months)}
+            >
+              {months} mo
+            </button>
+          ))}
+        </div>
+      </div>
+
+      <div className="hp-calculator-result">
+        <small>Your estimated monthly EMI</small>
+        <strong>{formatCurrency(emi)}</strong>
+        <div className="hp-calculator-breakdown">
+          <div><span>Principal</span><b>{formatCurrency(amount)}</b></div>
+          <div><span>Total interest</span><b>{formatCurrency(total - amount)}</b></div>
+          <div><span>Total repayment</span><b>{formatCurrency(total)}</b></div>
+          <div><span>Rate</span><b>{rate}% p.a.</b></div>
+        </div>
+      </div>
+    </div>
   );
 }
 

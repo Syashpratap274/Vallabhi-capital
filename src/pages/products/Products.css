@@ -1214,6 +1214,14 @@ body {
   font-family: "Poppins", sans-serif;
 }
 
+.products-page .faq-heading h2 {
+  background: none !important;
+  background-clip: initial !important;
+  -webkit-background-clip: initial !important;
+  color: #249bc6 !important;
+  -webkit-text-fill-color: #249bc6;
+}
+
 .products-page .why-container h2,
 .products-page .why-container h2 span {
   background: transparent !important;

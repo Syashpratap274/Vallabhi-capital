@@ -42,23 +42,30 @@
   position: relative;
   width: 100%;
   height: 600px;
-  overflow: hidden;
+  overflow: visible;
   background: #05ad6f;
 }
 
 .hp-hero-bg {
-  opacity: 0.55;
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.6;
 }
 
 .hp-hero-overlay {
   position: absolute;
+  z-index: 1;
   inset: 0 auto 0 0;
   width: 74%;
   background: linear-gradient(
     90deg,
-    rgba(9, 24, 47, 0.58) 0%,
-    rgba(16, 55, 112, 0.48) 50%,
-    rgba(255, 255, 255, 0) 100%
+    rgb(16 55 112 / 60%) 0%,
+    rgb(16 55 112 / 60%) 50%,
+    rgb(5 173 111 / 60%) 100%
   );
 }
 
@@ -136,12 +143,171 @@
 .hp-hero-card {
   position: absolute;
   z-index: 2;
-  top: 20.4%;
+  top: 30%;
   right: 7.1%;
-  width: 22.25%;
-  height: 400px;
-  border: 1px solid #249bc6;
-  overflow: hidden;
+  width: min(31%, 430px);
+}
+
+.hp-calculator-card {
+  height: auto;
+  padding: 22px;
+  border: 1px solid #e5eaf1;
+  border-radius: 18px;
+  background: #fff;
+  color: #172033;
+  box-shadow: 0 14px 40px rgba(16, 42, 86, 0.18);
+  overflow: visible;
+}
+
+.hp-calculator-top,
+.hp-calculator-label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.hp-calculator-top {
+  margin-bottom: 17px;
+}
+
+.hp-calculator-top h2 {
+  margin: 0;
+  color: #102a56;
+  font-size: 19px;
+  line-height: 1.2;
+  font-weight: 700;
+}
+
+.hp-calculator-top span {
+  padding: 5px 7px;
+  border-radius: 20px;
+  background: #e9f9f0;
+  color: #138a42;
+  font-size: 9px;
+  line-height: 1;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.hp-calculator-label {
+  margin-bottom: 6px;
+  color: #5e687c;
+  font-size: 11px;
+  line-height: 1.2;
+  font-weight: 700;
+}
+
+.hp-calculator-amount,
+.hp-calculator-rate {
+  display: block;
+  color: #102a56;
+  font-weight: 800;
+}
+
+.hp-calculator-amount {
+  margin-bottom: 7px;
+  font-size: 24px;
+  line-height: 1.1;
+}
+
+.hp-calculator-range {
+  width: 100%;
+  accent-color: #1769e0;
+  cursor: pointer;
+}
+
+.hp-calculator-range-values {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 3px;
+  color: #9aa3b2;
+  font-size: 9px;
+}
+
+.hp-calculator-field {
+  margin-top: 15px;
+}
+
+.hp-calculator-rate {
+  margin-bottom: 4px;
+  font-size: 19px;
+  line-height: 1.1;
+}
+
+.hp-calculator-tenure-field {
+  margin-top: 14px;
+}
+
+.hp-calculator-tenures {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 6px;
+  margin-top: 7px;
+}
+
+.hp-calculator-tenures button {
+  padding: 7px 3px;
+  border: 1px solid #e2e7ef;
+  border-radius: 7px;
+  background: #fff;
+  color: #596478;
+  font-size: 10px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.hp-calculator-tenures button.active {
+  border-color: #bcd3fb;
+  background: #eaf2ff;
+  color: #1769e0;
+}
+
+.hp-calculator-result {
+  margin-top: 17px;
+  padding: 16px;
+  border-radius: 13px;
+  background: linear-gradient(135deg, #102a56, #164f9f);
+  color: #fff;
+}
+
+.hp-calculator-result small {
+  display: block;
+  opacity: 0.75;
+  font-size: 10px;
+}
+
+.hp-calculator-result > strong {
+  display: block;
+  margin: 2px 0 11px;
+  font-size: 28px;
+  line-height: 1.1;
+}
+
+.hp-calculator-breakdown {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+}
+
+.hp-calculator-breakdown div {
+  padding-top: 6px;
+  border-top: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.hp-calculator-breakdown span,
+.hp-calculator-breakdown b {
+  display: block;
+}
+
+.hp-calculator-breakdown span {
+  opacity: 0.7;
+  font-size: 9px;
+}
+
+.hp-calculator-breakdown b {
+  margin-top: 2px;
+  font-size: 10px;
 }
 
 /* =========================
@@ -1345,16 +1511,17 @@
 
 @media (max-width: 700px) {
   .hp-hero {
-    height: 700px;
-    min-height: 700px;
+    height: 1000px;
+    min-height: 1000px;
   }
 
   .hp-hero-overlay {
     width: 100%;
     background: linear-gradient(
       90deg,
-      rgba(9, 24, 47, 0.68),
-      rgba(16, 55, 112, 0.52)
+      rgb(16 55 112 / 60%) 0%,
+      rgb(16 55 112 / 60%) 50%,
+      rgb(5 173 111 / 60%) 100%
     );
   }
 
@@ -1375,7 +1542,11 @@
   }
 
   .hp-hero-card {
-    display: none;
+    display: block;
+    top: 430px;
+    left: 20px;
+    right: 20px;
+    width: auto;
   }
 
   .hp-section-head {
@@ -1559,9 +1730,6 @@
 
 .homepage h2,
 .homepage h2 span {
-  background: linear-gradient(90deg, #249bc6 0%, #05ad6f 100%);
-  background-clip: text;
-  -webkit-background-clip: text;
-  color: transparent !important;
+  color: #249bc6 !important;
 }
 

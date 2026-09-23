@@ -1,0 +1,5781 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+
+<title>VC360pro — Smart Loans, Made Simple</title>
+
+<style>
+
+/* =========================================================
+   RESET
+========================================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: Inter, ui-sans-serif, -apple-system,
+                 BlinkMacSystemFont, "Segoe UI",
+                 Roboto, Helvetica, Arial, sans-serif;
+
+    background: #f7f9fc;
+    color: #172033;
+    line-height: 1.5;
+}
+
+button,
+input,
+select {
+    font: inherit;
+}
+
+button {
+    cursor: pointer;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+
+/* =========================================================
+   VARIABLES
+========================================================= */
+
+:root {
+
+    --navy: #102a56;
+    --blue: #1769e0;
+    --blue-dark: #0d54bd;
+    --blue-light: #eaf2ff;
+    --teal: #12a594;
+
+    --text: #172033;
+    --muted: #697386;
+    --border: #e2e7ef;
+
+    --white: #ffffff;
+    --background: #f7f9fc;
+    --green: #149447;
+
+    --shadow-sm:
+        0 4px 18px rgba(16, 42, 86, 0.06);
+
+    --shadow-md:
+        0 14px 40px rgba(16, 42, 86, 0.10);
+
+    --radius: 18px;
+    --radius-sm: 12px;
+}
+
+
+/* =========================================================
+   GLOBAL
+========================================================= */
+
+.container {
+    width: min(1180px, calc(100% - 40px));
+    margin: auto;
+}
+
+.section {
+    padding: 90px 0;
+}
+
+.section-header {
+    max-width: 700px;
+    margin-bottom: 45px;
+}
+
+.eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+
+    background: var(--blue-light);
+    color: var(--blue);
+
+    padding: 7px 13px;
+
+    border-radius: 30px;
+
+    font-size: 13px;
+    font-weight: 700;
+
+    margin-bottom: 15px;
+}
+
+.eyebrow-dot {
+    width: 7px;
+    height: 7px;
+
+    background: var(--blue);
+
+    border-radius: 50%;
+}
+
+.section-title {
+    font-size: clamp(30px, 4vw, 44px);
+
+    line-height: 1.12;
+
+    color: var(--navy);
+
+    margin-bottom: 14px;
+
+    letter-spacing: -1.2px;
+}
+
+.section-subtitle {
+    color: var(--muted);
+    font-size: 17px;
+}
+
+.primary-btn {
+    border: 0;
+
+    background: var(--blue);
+    color: white;
+
+    padding: 13px 21px;
+
+    border-radius: 11px;
+
+    font-weight: 700;
+
+    transition: .2s ease;
+}
+
+.primary-btn:hover {
+    background: var(--blue-dark);
+    transform: translateY(-1px);
+}
+
+.secondary-btn {
+    border: 1px solid var(--border);
+
+    background: white;
+    color: var(--navy);
+
+    padding: 12px 20px;
+
+    border-radius: 11px;
+
+    font-weight: 700;
+
+    transition: .2s ease;
+}
+
+.secondary-btn:hover {
+    border-color: var(--blue);
+    color: var(--blue);
+}
+
+.text-btn {
+    border: 0;
+
+    background: transparent;
+    color: var(--blue);
+
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   NAVBAR
+========================================================= */
+
+.navbar {
+    position: sticky;
+
+    top: 0;
+
+    z-index: 1000;
+
+    background: rgba(255,255,255,.94);
+
+    backdrop-filter: blur(15px);
+
+    border-bottom:
+        1px solid rgba(226,231,239,.8);
+}
+
+.nav-inner {
+    height: 74px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logo {
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    font-weight: 900;
+
+    color: var(--navy);
+
+    font-size: 22px;
+
+    letter-spacing: -.6px;
+}
+
+.logo-mark {
+    width: 35px;
+    height: 35px;
+
+    border-radius: 10px;
+
+    background:
+        linear-gradient(135deg,
+        #1769e0,
+        #12a594);
+
+    display: grid;
+    place-items: center;
+
+    color: white;
+
+    font-weight: 900;
+}
+
+.nav-links {
+    display: flex;
+
+    align-items: center;
+
+    gap: 30px;
+
+    font-size: 14px;
+
+    color: #48536a;
+
+    font-weight: 600;
+}
+
+.nav-links a:hover {
+    color: var(--blue);
+}
+
+.nav-actions {
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+}
+
+.login-btn {
+    border: 0;
+
+    background: transparent;
+
+    color: var(--navy);
+
+    font-weight: 700;
+
+    padding: 10px;
+}
+
+.menu-btn {
+    display: none;
+
+    border: 0;
+
+    background: transparent;
+
+    font-size: 26px;
+}
+
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.hero {
+
+    background:
+        radial-gradient(
+            circle at 80% 20%,
+            rgba(23,105,224,.14),
+            transparent 30%
+        ),
+
+        radial-gradient(
+            circle at 20% 20%,
+            rgba(18,165,148,.08),
+            transparent 25%
+        ),
+
+        #fff;
+
+    padding: 70px 0 85px;
+}
+
+.hero-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        1.05fr .95fr;
+
+    gap: 65px;
+
+    align-items: center;
+}
+
+.hero h1 {
+
+    color: var(--navy);
+
+    font-size:
+        clamp(42px, 5.2vw, 67px);
+
+    line-height: 1.02;
+
+    letter-spacing: -2.5px;
+
+    margin-bottom: 22px;
+}
+
+.hero h1 span {
+    color: var(--blue);
+}
+
+.hero-description {
+
+    color: var(--muted);
+
+    font-size: 18px;
+
+    max-width: 580px;
+
+    margin-bottom: 28px;
+}
+
+.hero-actions {
+
+    display: flex;
+
+    gap: 12px;
+
+    margin-bottom: 30px;
+}
+
+.trust-line {
+
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 18px;
+
+    color: #667085;
+
+    font-size: 13px;
+}
+
+.trust-item {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 6px;
+}
+
+.check {
+    color: var(--green);
+    font-weight: 900;
+}
+
+
+/* =========================================================
+   QUICK CALCULATOR
+========================================================= */
+
+.calculator-card {
+
+    background: white;
+
+    border:
+        1px solid #e5eaf1;
+
+    border-radius: 24px;
+
+    padding: 28px;
+
+    box-shadow: var(--shadow-md);
+}
+
+.calculator-top {
+
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    margin-bottom: 24px;
+}
+
+.calculator-top h2 {
+
+    color: var(--navy);
+
+    font-size: 21px;
+}
+
+.live-pill {
+
+    background: #e9f9f0;
+
+    color: #138a42;
+
+    padding: 6px 9px;
+
+    border-radius: 20px;
+
+    font-size: 11px;
+
+    font-weight: 800;
+}
+
+.field-label {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    color: #5e687c;
+
+    font-size: 13px;
+
+    font-weight: 700;
+
+    margin-bottom: 8px;
+}
+
+.amount-display {
+
+    font-size: 28px;
+
+    font-weight: 850;
+
+    color: var(--navy);
+
+    margin-bottom: 10px;
+}
+
+.range {
+
+    width: 100%;
+
+    accent-color: var(--blue);
+
+    cursor: pointer;
+}
+
+.range-values {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    color: #9aa3b2;
+
+    font-size: 11px;
+
+    margin-top: 5px;
+}
+
+.tenure-options {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(4,1fr);
+
+    gap: 8px;
+
+    margin-top: 10px;
+
+    margin-bottom: 23px;
+}
+
+.tenure {
+
+    padding: 10px 5px;
+
+    border-radius: 9px;
+
+    border:
+        1px solid var(--border);
+
+    background: #fff;
+
+    color: #596478;
+
+    font-size: 12px;
+
+    font-weight: 700;
+}
+
+.tenure.active {
+
+    background: var(--blue-light);
+
+    color: var(--blue);
+
+    border-color: #bcd3fb;
+}
+
+.result-box {
+
+    background:
+        linear-gradient(
+            135deg,
+            #102a56,
+            #164f9f
+        );
+
+    color: white;
+
+    padding: 23px;
+
+    border-radius: 16px;
+}
+
+.result-small {
+
+    font-size: 12px;
+
+    opacity: .75;
+}
+
+.emi-value {
+
+    font-size: 37px;
+
+    font-weight: 900;
+
+    margin: 3px 0 15px;
+
+    letter-spacing: -1px;
+}
+
+.result-breakdown {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(2,1fr);
+
+    gap: 12px;
+}
+
+.result-breakdown div {
+
+    border-top:
+        1px solid rgba(255,255,255,.18);
+
+    padding-top: 9px;
+}
+
+.result-breakdown span {
+
+    display: block;
+
+    font-size: 11px;
+
+    opacity: .7;
+}
+
+.result-breakdown strong {
+
+    font-size: 14px;
+}
+
+.result-box .primary-btn {
+
+    background: white;
+
+    color: var(--navy);
+
+    width: 100%;
+
+    margin-top: 18px;
+}
+
+.result-box .primary-btn:hover {
+
+    background: #eef5ff;
+}
+
+
+/* =========================================================
+   INVESTORS / INSTITUTIONAL BACKING
+========================================================= */
+
+.investors {
+
+    background: #ffffff;
+
+    border-top:
+        1px solid #eef1f5;
+
+    border-bottom:
+        1px solid #eef1f5;
+}
+
+.investor-heading {
+
+    text-align: center;
+
+    max-width: 720px;
+
+    margin: 0 auto 45px;
+}
+
+.investor-heading .section-title {
+    margin-bottom: 12px;
+}
+
+.investor-logos {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(5, 1fr);
+
+    gap: 16px;
+}
+
+.investor-card {
+
+    min-height: 135px;
+
+    border:
+        1px solid var(--border);
+
+    border-radius: 16px;
+
+    background: #ffffff;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 12px;
+
+    transition: .25s ease;
+}
+
+.investor-card:hover {
+
+    transform: translateY(-4px);
+
+    border-color: #c7d9f5;
+
+    box-shadow: var(--shadow-sm);
+}
+
+.investor-logo {
+
+    width: 125px;
+    height: 55px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 9px;
+
+    font-size: 19px;
+
+    font-weight: 900;
+
+    letter-spacing: -0.5px;
+
+    background: #f7f9fc;
+
+    color: #18243a;
+}
+
+.investor-card span {
+
+    color: #697386;
+
+    font-size: 12px;
+
+    font-weight: 600;
+}
+
+.investor-logo.icici {
+
+    color: #b3262e;
+
+    background: #fff5f5;
+}
+
+.investor-logo.kotak {
+
+    color: #ed1c24;
+
+    background: #fff5f5;
+}
+
+.investor-logo.hdfc {
+
+    color: #004c97;
+
+    background: #f0f6ff;
+}
+
+.investor-logo.axis {
+
+    color: #97144d;
+
+    background: #fff1f7;
+}
+
+.investor-logo.tata {
+
+    color: #1672a4;
+
+    background: #f0f8fc;
+}
+
+.investor-note {
+
+    max-width: 620px;
+
+    margin: 28px auto 0;
+
+    padding: 17px 20px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 13px;
+
+    border-radius: 13px;
+
+    background: #f7f9fc;
+
+    border:
+        1px solid var(--border);
+}
+
+.investor-check {
+
+    width: 34px;
+    height: 34px;
+
+    flex: 0 0 34px;
+
+    display: grid;
+
+    place-items: center;
+
+    background: #eaf8f0;
+
+    color: var(--green);
+
+    border-radius: 9px;
+
+    font-weight: 900;
+}
+
+.investor-note strong {
+
+    display: block;
+
+    color: var(--navy);
+
+    font-size: 14px;
+}
+
+.investor-note p {
+
+    color: var(--muted);
+
+    font-size: 12px;
+
+    margin-top: 2px;
+}
+
+
+/* =========================================================
+   LOAN TYPES
+========================================================= */
+
+.loan-types {
+    background: #fff;
+}
+
+.loan-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(4,1fr);
+
+    gap: 16px;
+}
+
+.loan-card {
+
+    padding: 25px;
+
+    border:
+        1px solid var(--border);
+
+    border-radius: var(--radius);
+
+    background: white;
+
+    transition: .25s ease;
+
+    position: relative;
+}
+
+.loan-card:hover {
+
+    transform: translateY(-5px);
+
+    border-color: #bcd3fb;
+
+    box-shadow: var(--shadow-sm);
+}
+
+.loan-icon {
+
+    width: 48px;
+    height: 48px;
+
+    background: var(--blue-light);
+
+    color: var(--blue);
+
+    border-radius: 13px;
+
+    display: grid;
+
+    place-items: center;
+
+    font-size: 22px;
+
+    margin-bottom: 18px;
+}
+
+.loan-card h3 {
+
+    color: var(--navy);
+
+    margin-bottom: 7px;
+}
+
+.loan-card p {
+
+    color: var(--muted);
+
+    font-size: 13px;
+
+    margin-bottom: 16px;
+}
+
+.loan-card a {
+
+    color: var(--blue);
+
+    font-size: 13px;
+
+    font-weight: 800;
+}
+
+
+/* =========================================================
+   TOOLS
+========================================================= */
+
+.tools {
+    background: #f7f9fc;
+}
+
+.tools-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(3,1fr);
+
+    gap: 18px;
+}
+
+.tool-card {
+
+    background: white;
+
+    padding: 25px;
+
+    border-radius: var(--radius);
+
+    border:
+        1px solid var(--border);
+}
+
+.tool-icon {
+
+    font-size: 27px;
+
+    margin-bottom: 15px;
+}
+
+.tool-card h3 {
+
+    color: var(--navy);
+
+    margin-bottom: 7px;
+}
+
+.tool-card p {
+
+    color: var(--muted);
+
+    font-size: 14px;
+
+    margin-bottom: 18px;
+}
+
+
+/* =========================================================
+   ELIGIBILITY
+========================================================= */
+
+.eligibility-section {
+    background: white;
+}
+
+.eligibility-box {
+
+    background:
+        linear-gradient(
+            135deg,
+            #eff6ff,
+            #f4fbfa
+        );
+
+    border:
+        1px solid #dbe8f8;
+
+    border-radius: 25px;
+
+    padding: 40px;
+
+    display: grid;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    gap: 50px;
+
+    align-items: center;
+}
+
+.eligibility-box h2 {
+
+    font-size: 37px;
+
+    line-height: 1.1;
+
+    color: var(--navy);
+
+    margin-bottom: 13px;
+}
+
+.eligibility-box p {
+    color: var(--muted);
+}
+
+.form-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    gap: 15px;
+}
+
+.form-field label {
+
+    display: block;
+
+    color: #596478;
+
+    font-size: 12px;
+
+    font-weight: 700;
+
+    margin-bottom: 6px;
+}
+
+.form-field input,
+.form-field select {
+
+    width: 100%;
+
+    border:
+        1px solid #dce2ea;
+
+    background: white;
+
+    border-radius: 10px;
+
+    padding: 12px;
+
+    outline: none;
+}
+
+.form-field input:focus,
+.form-field select:focus {
+
+    border-color: var(--blue);
+
+    box-shadow:
+        0 0 0 3px rgba(23,105,224,.09);
+}
+
+.eligibility-result {
+
+    display: none;
+
+    background: white;
+
+    border:
+        1px solid #dfe7f1;
+
+    padding: 18px;
+
+    border-radius: 13px;
+
+    margin-top: 16px;
+}
+
+.eligibility-result.show {
+    display: block;
+}
+
+.eligibility-result strong {
+
+    display: block;
+
+    color: var(--green);
+
+    font-size: 22px;
+}
+
+
+/* =========================================================
+   HELP ME CHOOSE
+========================================================= */
+
+.choose {
+
+    background: #102a56;
+
+    color: white;
+}
+
+.choose-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        .9fr 1.1fr;
+
+    gap: 50px;
+
+    align-items: center;
+}
+
+.choose h2 {
+
+    font-size: 42px;
+
+    line-height: 1.1;
+
+    margin-bottom: 15px;
+}
+
+.choose p {
+    color: rgba(255,255,255,.7);
+}
+
+.choose-box {
+
+    background: white;
+
+    color: var(--text);
+
+    border-radius: 22px;
+
+    padding: 30px;
+}
+
+.question {
+    display: none;
+}
+
+.question.active {
+    display: block;
+}
+
+.question h3 {
+
+    color: var(--navy);
+
+    margin-bottom: 18px;
+}
+
+.choice-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    gap: 10px;
+}
+
+.choice {
+
+    border:
+        1px solid var(--border);
+
+    background: white;
+
+    padding: 14px;
+
+    border-radius: 11px;
+
+    text-align: left;
+
+    color: #475467;
+
+    font-weight: 700;
+}
+
+.choice:hover,
+.choice.selected {
+
+    border-color: var(--blue);
+
+    color: var(--blue);
+
+    background: var(--blue-light);
+}
+
+.choose-footer {
+
+    margin-top: 20px;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+}
+
+.step-count {
+
+    color: #8a94a5;
+
+    font-size: 12px;
+}
+
+
+/* =========================================================
+   HOW IT WORKS
+========================================================= */
+
+.how {
+    background: #f7f9fc;
+}
+
+.steps {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(4,1fr);
+
+    gap: 25px;
+
+    position: relative;
+}
+
+.step {
+
+    background: white;
+
+    border:
+        1px solid var(--border);
+
+    border-radius: 17px;
+
+    padding: 24px;
+
+    position: relative;
+}
+
+.step-number {
+
+    width: 38px;
+    height: 38px;
+
+    border-radius: 50%;
+
+    background: var(--blue-light);
+
+    color: var(--blue);
+
+    display: grid;
+
+    place-items: center;
+
+    font-weight: 900;
+
+    margin-bottom: 18px;
+}
+
+.step h3 {
+
+    color: var(--navy);
+
+    margin-bottom: 7px;
+}
+
+.step p {
+
+    color: var(--muted);
+
+    font-size: 13px;
+}
+
+
+/* =========================================================
+   TRANSPARENCY
+========================================================= */
+
+.transparency {
+    background: white;
+}
+
+.transparency-box {
+
+    display: grid;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    gap: 45px;
+
+    align-items: center;
+}
+
+.price-card {
+
+    background: #f8fafc;
+
+    border:
+        1px solid var(--border);
+
+    border-radius: 20px;
+
+    overflow: hidden;
+}
+
+.price-header {
+
+    background: var(--navy);
+
+    color: white;
+
+    padding: 24px;
+}
+
+.price-header h3 {
+    margin-bottom: 4px;
+}
+
+.price-row {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    padding: 15px 22px;
+
+    border-bottom:
+        1px solid var(--border);
+
+    font-size: 14px;
+}
+
+.price-row span {
+    color: var(--muted);
+}
+
+.transparency-list {
+
+    display: grid;
+
+    gap: 17px;
+}
+
+.transparency-item {
+
+    display: flex;
+
+    gap: 14px;
+}
+
+.big-check {
+
+    width: 35px;
+    height: 35px;
+
+    flex: 0 0 35px;
+
+    background: #eaf8f0;
+
+    color: var(--green);
+
+    border-radius: 10px;
+
+    display: grid;
+
+    place-items: center;
+
+    font-weight: 900;
+}
+
+.transparency-item h4 {
+
+    color: var(--navy);
+
+    margin-bottom: 3px;
+}
+
+.transparency-item p {
+
+    color: var(--muted);
+
+    font-size: 13px;
+}
+
+
+/* =========================================================
+   DOCUMENTS
+========================================================= */
+
+.documents {
+    background: #f7f9fc;
+}
+
+.document-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(3,1fr);
+
+    gap: 18px;
+}
+
+.document-card {
+
+    background: white;
+
+    border:
+        1px solid var(--border);
+
+    padding: 25px;
+
+    border-radius: 17px;
+}
+
+.document-card .doc-icon {
+
+    font-size: 27px;
+
+    margin-bottom: 13px;
+}
+
+.document-card h3 {
+
+    color: var(--navy);
+
+    margin-bottom: 7px;
+}
+
+.document-card p {
+
+    color: var(--muted);
+
+    font-size: 13px;
+}
+
+
+/* =========================================================
+   FAQ
+========================================================= */
+
+.faq {
+    background: white;
+}
+
+.faq-container {
+    max-width: 850px;
+}
+
+.faq-item {
+
+    border-bottom:
+        1px solid var(--border);
+}
+
+.faq-question {
+
+    width: 100%;
+
+    padding: 22px 5px;
+
+    background: transparent;
+
+    border: 0;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    color: var(--navy);
+
+    font-weight: 750;
+
+    text-align: left;
+}
+
+.faq-question span:last-child {
+
+    color: var(--blue);
+
+    font-size: 22px;
+}
+
+.faq-answer {
+
+    max-height: 0;
+
+    overflow: hidden;
+
+    transition: .3s ease;
+
+    color: var(--muted);
+
+    font-size: 14px;
+}
+
+.faq-answer-inner {
+
+    padding:
+        0 5px 20px;
+}
+
+.faq-item.open .faq-answer {
+    max-height: 150px;
+}
+
+
+/* =========================================================
+   TRUST
+========================================================= */
+
+.trust {
+    background: #f7f9fc;
+}
+
+.trust-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(4,1fr);
+
+    gap: 15px;
+}
+
+.trust-card {
+
+    background: white;
+
+    border:
+        1px solid var(--border);
+
+    border-radius: 16px;
+
+    padding: 22px;
+}
+
+.trust-card-icon {
+
+    font-size: 25px;
+
+    margin-bottom: 12px;
+}
+
+.trust-card h3 {
+
+    color: var(--navy);
+
+    font-size: 16px;
+
+    margin-bottom: 5px;
+}
+
+.trust-card p {
+
+    color: var(--muted);
+
+    font-size: 12px;
+}
+
+
+/* =========================================================
+   EMPLOYEE TESTIMONIALS
+========================================================= */
+
+.employee-testimonials {
+    background: #ffffff;
+}
+
+.employee-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 18px;
+}
+
+.employee-card {
+
+    background: white;
+
+    border:
+        1px solid var(--border);
+
+    border-radius: 20px;
+
+    padding: 28px;
+
+    min-height: 300px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    transition: .25s ease;
+}
+
+.employee-card:hover {
+
+    transform: translateY(-5px);
+
+    box-shadow: var(--shadow-sm);
+
+    border-color: #cbdcf5;
+}
+
+.employee-card.featured {
+
+    background: var(--navy);
+
+    border-color: var(--navy);
+
+    color: white;
+}
+
+.employee-card.featured .employee-quote {
+
+    color: rgba(255,255,255,.82);
+}
+
+.employee-card.featured .employee-profile span {
+
+    color: rgba(255,255,255,.55);
+}
+
+.quote-mark {
+
+    color: var(--blue);
+
+    font-size: 48px;
+
+    line-height: .8;
+
+    font-family: Georgia, serif;
+
+    margin-bottom: 18px;
+}
+
+.employee-quote {
+
+    color: #4f5b70;
+
+    font-size: 15px;
+
+    line-height: 1.7;
+
+    flex: 1;
+}
+
+.employee-profile {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    margin-top: 25px;
+}
+
+.employee-profile strong {
+
+    display: block;
+
+    color: var(--navy);
+
+    font-size: 14px;
+}
+
+.employee-card.featured .employee-profile strong {
+    color: white;
+}
+
+.employee-profile span {
+
+    display: block;
+
+    color: #8993a5;
+
+    font-size: 12px;
+
+    margin-top: 2px;
+}
+
+.employee-avatar {
+
+    width: 43px;
+    height: 43px;
+
+    border-radius: 50%;
+
+    display: grid;
+
+    place-items: center;
+
+    font-size: 12px;
+
+    font-weight: 900;
+}
+
+.avatar-blue {
+
+    background: #e8f1ff;
+
+    color: #1769e0;
+}
+
+.avatar-teal {
+
+    background: #e4f8f4;
+
+    color: #128a7a;
+}
+
+.avatar-purple {
+
+    background: #f0eaff;
+
+    color: #7653c9;
+}
+
+.employee-stats {
+
+    margin-top: 35px;
+
+    background: white;
+
+    border:
+        1px solid var(--border);
+
+    border-radius: 18px;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, 1fr);
+
+    overflow: hidden;
+}
+
+.employee-stats > div {
+
+    padding: 23px;
+
+    text-align: center;
+
+    border-right:
+        1px solid var(--border);
+}
+
+.employee-stats > div:last-child {
+    border-right: none;
+}
+
+.employee-stats strong {
+
+    display: block;
+
+    color: var(--navy);
+
+    font-size: 24px;
+
+    font-weight: 900;
+}
+
+.employee-stats span {
+
+    display: block;
+
+    color: var(--muted);
+
+    font-size: 12px;
+
+    margin-top: 3px;
+}
+
+
+/* =========================================================
+   FINAL CTA
+========================================================= */
+
+.final-cta {
+
+    padding: 70px 0;
+
+    background: white;
+}
+
+.cta-box {
+
+    background:
+        linear-gradient(
+            135deg,
+            #1769e0,
+            #102a56
+        );
+
+    border-radius: 25px;
+
+    color: white;
+
+    padding: 50px;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    gap: 30px;
+}
+
+.cta-box h2 {
+
+    font-size: 35px;
+
+    line-height: 1.1;
+
+    margin-bottom: 8px;
+}
+
+.cta-box p {
+
+    color: rgba(255,255,255,.72);
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+footer {
+
+    background: #0b1d39;
+
+    color: white;
+
+    padding: 60px 0 25px;
+}
+
+.footer-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        1.4fr repeat(3,1fr);
+
+    gap: 40px;
+
+    margin-bottom: 50px;
+}
+
+.footer-logo {
+
+    font-size: 21px;
+
+    font-weight: 900;
+
+    margin-bottom: 12px;
+}
+
+.footer-about {
+
+    color: rgba(255,255,255,.55);
+
+    font-size: 13px;
+
+    max-width: 300px;
+}
+
+footer h4 {
+    margin-bottom: 15px;
+}
+
+footer ul {
+
+    list-style: none;
+
+    display: grid;
+
+    gap: 10px;
+}
+
+footer li {
+
+    color: rgba(255,255,255,.55);
+
+    font-size: 13px;
+}
+
+footer li:hover {
+    color: white;
+}
+
+.footer-bottom {
+
+    padding-top: 22px;
+
+    border-top:
+        1px solid rgba(255,255,255,.1);
+
+    color: rgba(255,255,255,.4);
+
+    font-size: 11px;
+
+    display: flex;
+
+    justify-content: space-between;
+}
+
+
+/* =========================================================
+   MOBILE STICKY CTA
+========================================================= */
+
+.mobile-cta {
+    display: none;
+}
+
+
+/* =========================================================
+   WHATSAPP SUPPORT
+========================================================= */
+
+.whatsapp-widget {
+
+    position: fixed;
+
+    right: 24px;
+
+    bottom: 24px;
+
+    z-index: 2000;
+}
+
+
+/* Floating WhatsApp Button */
+
+.whatsapp-button {
+
+    width: 58px;
+    height: 58px;
+
+    border: 0;
+
+    border-radius: 50%;
+
+    background: #25D366;
+
+    color: white;
+
+    display: grid;
+
+    place-items: center;
+
+    position: relative;
+
+    box-shadow:
+        0 10px 30px
+        rgba(37, 211, 102, .35);
+
+    transition:
+        transform .2s ease,
+        box-shadow .2s ease;
+}
+
+.whatsapp-button:hover {
+
+    transform:
+        translateY(-3px)
+        scale(1.03);
+
+    box-shadow:
+        0 14px 35px
+        rgba(37, 211, 102, .42);
+}
+
+.whatsapp-button svg {
+
+    width: 31px;
+
+    height: 31px;
+}
+
+
+/* Notification */
+
+.whatsapp-notification {
+
+    position: absolute;
+
+    top: -3px;
+
+    right: -3px;
+
+    width: 20px;
+
+    height: 20px;
+
+    display: grid;
+
+    place-items: center;
+
+    background: #e53935;
+
+    color: white;
+
+    border: 2px solid white;
+
+    border-radius: 50%;
+
+    font-size: 10px;
+
+    font-weight: 900;
+}
+
+
+/* WhatsApp Chat Card */
+
+.whatsapp-chat {
+
+    position: absolute;
+
+    right: 0;
+
+    bottom: 72px;
+
+    width: 330px;
+
+    background: white;
+
+    border:
+        1px solid #e2e7ef;
+
+    border-radius: 18px;
+
+    box-shadow:
+        0 18px 55px
+        rgba(16, 42, 86, .18);
+
+    overflow: hidden;
+
+    opacity: 0;
+
+    visibility: hidden;
+
+    transform:
+        translateY(12px)
+        scale(.97);
+
+    transform-origin:
+        bottom right;
+
+    transition:
+        opacity .2s ease,
+        visibility .2s ease,
+        transform .2s ease;
+}
+
+.whatsapp-chat.open {
+
+    opacity: 1;
+
+    visibility: visible;
+
+    transform:
+        translateY(0)
+        scale(1);
+}
+
+
+/* WhatsApp Header */
+
+.whatsapp-chat-header {
+
+    background: #075E54;
+
+    color: white;
+
+    padding: 18px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+}
+
+.whatsapp-avatar {
+
+    width: 42px;
+    height: 42px;
+
+    border-radius: 50%;
+
+    background: white;
+
+    color: #075E54;
+
+    display: grid;
+
+    place-items: center;
+
+    font-weight: 900;
+}
+
+.whatsapp-chat-header strong {
+
+    display: block;
+
+    font-size: 14px;
+}
+
+.whatsapp-chat-header span {
+
+    display: block;
+
+    margin-top: 2px;
+
+    color:
+        rgba(255,255,255,.75);
+
+    font-size: 11px;
+}
+
+
+/* Close */
+
+.whatsapp-close {
+
+    position: absolute;
+
+    top: 9px;
+
+    right: 10px;
+
+    width: 27px;
+
+    height: 27px;
+
+    border: 0;
+
+    border-radius: 50%;
+
+    background:
+        rgba(255,255,255,.12);
+
+    color: white;
+
+    font-size: 20px;
+
+    line-height: 1;
+}
+
+
+/* Message */
+
+.whatsapp-message {
+
+    padding: 20px;
+
+    background: #f5f7f9;
+}
+
+.whatsapp-bubble {
+
+    display: inline-block;
+
+    max-width: 90%;
+
+    background: white;
+
+    border-radius:
+        4px 14px 14px 14px;
+
+    padding: 12px 14px;
+
+    color: #475467;
+
+    font-size: 13px;
+
+    box-shadow:
+        0 2px 8px
+        rgba(16,42,86,.05);
+}
+
+
+/* Start Chat */
+
+.whatsapp-start {
+
+    width:
+        calc(100% - 30px);
+
+    margin: 15px;
+
+    padding: 13px 15px;
+
+    border: 0;
+
+    border-radius: 10px;
+
+    background: #25D366;
+
+    color: white;
+
+    font-weight: 800;
+
+    font-size: 13px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    transition: .2s ease;
+}
+
+.whatsapp-start:hover {
+    background: #1ebe5d;
+}
+
+
+/* Disclaimer */
+
+.whatsapp-disclaimer {
+
+    padding:
+        0 15px 15px;
+
+    color: #98a2b3;
+
+    font-size: 10px;
+
+    line-height: 1.4;
+
+    text-align: center;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 950px) {
+
+    .nav-links {
+        display: none;
+    }
+
+    .menu-btn {
+        display: block;
+    }
+
+    .nav-links.mobile-open {
+
+        display: flex;
+
+        position: absolute;
+
+        top: 74px;
+
+        left: 0;
+
+        right: 0;
+
+        padding: 20px;
+
+        background: white;
+
+        flex-direction: column;
+
+        align-items: flex-start;
+
+        gap: 18px;
+
+        border-bottom:
+            1px solid var(--border);
+
+        box-shadow:
+            0 12px 25px
+            rgba(16,42,86,.08);
+    }
+
+    .hero-grid,
+    .choose-grid,
+    .transparency-box,
+    .eligibility-box {
+
+        grid-template-columns: 1fr;
+    }
+
+    .loan-grid {
+
+        grid-template-columns:
+            repeat(2,1fr);
+    }
+
+    .tools-grid {
+
+        grid-template-columns:
+            repeat(2,1fr);
+    }
+
+    .steps {
+
+        grid-template-columns:
+            repeat(2,1fr);
+    }
+
+    .trust-grid {
+
+        grid-template-columns:
+            repeat(2,1fr);
+    }
+
+    .document-grid {
+
+        grid-template-columns:
+            repeat(2,1fr);
+    }
+
+    .footer-grid {
+
+        grid-template-columns:
+            repeat(2,1fr);
+    }
+
+    .investor-logos {
+
+        grid-template-columns:
+            repeat(3, 1fr);
+    }
+
+    .employee-grid {
+
+        grid-template-columns: 1fr;
+    }
+
+    .employee-card {
+        min-height: auto;
+    }
+
+    .employee-stats {
+
+        grid-template-columns:
+            repeat(2, 1fr);
+    }
+
+    .employee-stats > div:nth-child(2) {
+        border-right: none;
+    }
+
+    .employee-stats > div:nth-child(1),
+    .employee-stats > div:nth-child(2) {
+
+        border-bottom:
+            1px solid var(--border);
+    }
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 650px) {
+
+    .container {
+
+        width:
+            min(100% - 26px, 1180px);
+    }
+
+    .section {
+        padding: 65px 0;
+    }
+
+    .nav-inner {
+        height: 64px;
+    }
+
+    .nav-links.mobile-open {
+        top: 64px;
+    }
+
+    .logo {
+        font-size: 19px;
+    }
+
+    .nav-actions .primary-btn,
+    .login-btn {
+        display: none;
+    }
+
+    .hero {
+
+        padding:
+            48px 0 60px;
+    }
+
+    .hero h1 {
+
+        font-size: 43px;
+
+        letter-spacing: -1.7px;
+    }
+
+    .hero-description {
+        font-size: 16px;
+    }
+
+    .hero-actions {
+        flex-direction: column;
+    }
+
+    .hero-actions button {
+        width: 100%;
+    }
+
+    .calculator-card {
+        padding: 20px;
+    }
+
+    .loan-grid,
+    .tools-grid,
+    .document-grid,
+    .trust-grid,
+    .steps {
+
+        grid-template-columns: 1fr;
+    }
+
+    .investor-logos {
+
+        grid-template-columns:
+            repeat(2, 1fr);
+    }
+
+    .investor-card {
+        min-height: 115px;
+    }
+
+    .eligibility-box {
+        padding: 25px;
+    }
+
+    .eligibility-box h2 {
+        font-size: 30px;
+    }
+
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .choose h2 {
+        font-size: 32px;
+    }
+
+    .choice-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .cta-box {
+
+        padding: 30px;
+
+        flex-direction: column;
+
+        align-items: flex-start;
+    }
+
+    .cta-box h2 {
+        font-size: 29px;
+    }
+
+    .footer-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .footer-bottom {
+
+        flex-direction: column;
+
+        gap: 8px;
+    }
+
+    body {
+        padding-bottom: 70px;
+    }
+
+
+    /* Mobile CTA */
+
+    .mobile-cta {
+
+        position: fixed;
+
+        display: grid;
+
+        grid-template-columns:
+            1fr 1fr;
+
+        gap: 8px;
+
+        bottom: 0;
+
+        left: 0;
+
+        right: 0;
+
+        padding: 10px;
+
+        background: white;
+
+        box-shadow:
+            0 -5px 20px
+            rgba(0,0,0,.12);
+
+        z-index: 999;
+    }
+
+    .mobile-cta button {
+
+        padding: 12px;
+
+        border-radius: 10px;
+
+        font-weight: 800;
+    }
+
+    .mobile-cta .calculate {
+
+        border:
+            1px solid var(--border);
+
+        background: white;
+
+        color: var(--navy);
+    }
+
+    .mobile-cta .apply {
+
+        border: 0;
+
+        background: var(--blue);
+
+        color: white;
+    }
+
+
+    /* WhatsApp mobile */
+
+    .whatsapp-widget {
+
+        right: 14px;
+
+        bottom: 82px;
+    }
+
+    .whatsapp-button {
+
+        width: 54px;
+
+        height: 54px;
+    }
+
+    .whatsapp-chat {
+
+        right: 0;
+
+        bottom: 65px;
+
+        width:
+            min(
+                330px,
+                calc(100vw - 28px)
+            );
+    }
+
+    .employee-card {
+        padding: 23px;
+    }
+
+    .employee-stats strong {
+        font-size: 21px;
+    }
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================================================
+     NAVIGATION
+========================================================= -->
+
+<nav class="navbar">
+
+    <div class="container nav-inner">
+
+        <a href="#" class="logo">
+
+            <span class="logo-mark">
+                vC
+            </span>
+
+            VC360pro
+
+        </a>
+
+
+        <div class="nav-links">
+
+            <a href="#loans">
+                Loans
+            </a>
+
+            <a href="#calculators">
+                Calculators
+            </a>
+
+            <a href="#choose">
+                Help Me Choose
+            </a>
+
+            <a href="#faq">
+                FAQs
+            </a>
+
+            <a href="#trust">
+                About
+            </a>
+
+        </div>
+
+
+        <div class="nav-actions">
+
+            <button class="login-btn">
+                Login
+            </button>
+
+            <button
+                class="primary-btn"
+                onclick="applyNow()"
+            >
+                Apply Now
+            </button>
+
+            <button
+                class="menu-btn"
+                aria-label="Open navigation menu"
+            >
+                ☰
+            </button>
+
+        </div>
+
+    </div>
+
+</nav>
+
+
+<!-- =========================================================
+     HERO
+========================================================= -->
+
+<section class="hero">
+
+    <div class="container hero-grid">
+
+        <div>
+
+            <div class="eyebrow">
+
+                <span class="eyebrow-dot"></span>
+
+                Simple, transparent lending
+
+            </div>
+
+
+            <h1>
+
+                Find a loan that
+                <span>fits your life.</span>
+
+            </h1>
+
+
+            <p class="hero-description">
+
+                Understand your EMI, explore your options,
+                check your eligibility and apply when you're
+                ready — without the financial jargon.
+
+            </p>
+
+
+            <div class="hero-actions">
+
+                <button
+                    class="primary-btn"
+                    onclick="document.getElementById('calculator').scrollIntoView()"
+                >
+                    Calculate My EMI →
+                </button>
+
+
+                <button
+                    class="secondary-btn"
+                    onclick="document.getElementById('choose').scrollIntoView()"
+                >
+                    Help Me Choose
+                </button>
+
+            </div>
+
+
+            <div class="trust-line">
+
+                <div class="trust-item">
+
+                    <span class="check">
+                        ✓
+                    </span>
+
+                    Transparent pricing
+
+                </div>
+
+
+                <div class="trust-item">
+
+                    <span class="check">
+                        ✓
+                    </span>
+
+                    Secure application
+
+                </div>
+
+
+                <div class="trust-item">
+
+                    <span class="check">
+                        ✓
+                    </span>
+
+                    No hidden surprises
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- HERO CALCULATOR -->
+
+        <div
+            class="calculator-card"
+            id="calculator"
+        >
+
+            <div class="calculator-top">
+
+                <h2>
+                    Estimate your EMI
+                </h2>
+
+                <span class="live-pill">
+                    LIVE CALCULATION
+                </span>
+
+            </div>
+
+
+            <div class="field-label">
+
+                <span>
+                    Loan amount
+                </span>
+
+                <span>
+                    ₹50K – ₹25L
+                </span>
+
+            </div>
+
+
+            <div
+                class="amount-display"
+                id="amountDisplay"
+            >
+                ₹5,00,000
+            </div>
+
+
+            <input
+                type="range"
+                class="range"
+                id="amountSlider"
+                min="50000"
+                max="2500000"
+                step="10000"
+                value="500000"
+            >
+
+
+            <div class="range-values">
+
+                <span>
+                    ₹50K
+                </span>
+
+                <span>
+                    ₹25L
+                </span>
+
+            </div>
+
+
+            <!-- Interest Rate -->
+
+            <div style="margin-top:22px">
+
+                <div class="field-label">
+
+                    <span>
+                        Interest rate
+                    </span>
+
+                    <span id="rateDisplay">
+                        12.5% p.a.
+                    </span>
+
+                </div>
+
+
+                <div
+                    style="
+                        font-size:24px;
+                        font-weight:800;
+                        color:#102a56;
+                        margin-bottom:8px
+                    "
+                >
+
+                    <span id="rateValue">
+                        12.5%
+                    </span>
+
+                </div>
+
+
+                <input
+                    type="range"
+                    class="range"
+                    id="rateSlider"
+                    min="8"
+                    max="24"
+                    step="0.1"
+                    value="12.5"
+                >
+
+
+                <div class="range-values">
+
+                    <span>
+                        8%
+                    </span>
+
+                    <span>
+                        24%
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <!-- Tenure -->
+
+            <div style="margin-top:20px">
+
+                <div class="field-label">
+
+                    <span>
+                        Tenure
+                    </span>
+
+                    <span id="tenureLabel">
+                        36 months
+                    </span>
+
+                </div>
+
+
+                <div class="tenure-options">
+
+                    <button
+                        class="tenure"
+                        data-months="12"
+                    >
+                        12 mo
+                    </button>
+
+
+                    <button
+                        class="tenure"
+                        data-months="24"
+                    >
+                        24 mo
+                    </button>
+
+
+                    <button
+                        class="tenure active"
+                        data-months="36"
+                    >
+                        36 mo
+                    </button>
+
+
+                    <button
+                        class="tenure"
+                        data-months="48"
+                    >
+                        48 mo
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- Result -->
+
+            <div class="result-box">
+
+                <div class="result-small">
+                    Your estimated monthly EMI
+                </div>
+
+
+                <div
+                    class="emi-value"
+                    id="emi"
+                >
+                    ₹16,700
+                </div>
+
+
+                <div class="result-breakdown">
+
+                    <div>
+
+                        <span>
+                            Principal
+                        </span>
+
+                        <strong id="principal">
+                            ₹5,00,000
+                        </strong>
+
+                    </div>
+
+
+                    <div>
+
+                        <span>
+                            Total interest
+                        </span>
+
+                        <strong id="interest">
+                            ₹1,01,200
+                        </strong>
+
+                    </div>
+
+
+                    <div>
+
+                        <span>
+                            Total repayment
+                        </span>
+
+                        <strong id="total">
+                            ₹6,01,200
+                        </strong>
+
+                    </div>
+
+
+                    <div>
+
+                        <span>
+                            Rate
+                        </span>
+
+                        <strong id="resultRate">
+                            12.5% p.a.
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <button
+                    class="primary-btn"
+                    onclick="applyNow()"
+                >
+                    Check My Eligibility →
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     INVESTORS / INSTITUTIONAL BACKING
+     
+     NOTE:
+     Replace these demo institutions with verified partners/
+     investors before production.
+========================================================= -->
+
+<section class="section investors">
+
+    <div class="container">
+
+        <div class="investor-heading">
+
+            <div class="eyebrow">
+                Backed by trust
+            </div>
+
+
+            <h2 class="section-title">
+
+                Backed by leading financial institutions.
+
+            </h2>
+
+
+            <p class="section-subtitle">
+
+                Our investors and strategic partners bring
+                deep expertise across banking, financial
+                services and technology.
+
+            </p>
+
+        </div>
+
+
+        <div class="investor-logos">
+
+            <div class="investor-card">
+
+                <div class="investor-logo icici">
+                    ICICI
+                </div>
+
+                <span>
+                    ICICI Bank
+                </span>
+
+            </div>
+
+
+            <div class="investor-card">
+
+                <div class="investor-logo kotak">
+                    KOTAK
+                </div>
+
+                <span>
+                    Kotak
+                </span>
+
+            </div>
+
+
+            <div class="investor-card">
+
+                <div class="investor-logo hdfc">
+                    HDFC
+                </div>
+
+                <span>
+                    HDFC
+                </span>
+
+            </div>
+
+
+            <div class="investor-card">
+
+                <div class="investor-logo axis">
+                    AXIS
+                </div>
+
+                <span>
+                    Axis
+                </span>
+
+            </div>
+
+
+            <div class="investor-card">
+
+                <div class="investor-logo tata">
+                    TATA
+                </div>
+
+                <span>
+                    Tata
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <div class="investor-note">
+
+            <span class="investor-check">
+                ✓
+            </span>
+
+
+            <div>
+
+                <strong>
+                    Institutional backing
+                </strong>
+
+                <p>
+                    Supported by established financial
+                    institutions and strategic investors.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     LOAN PRODUCTS
+========================================================= -->
+
+<section
+    class="section loan-types"
+    id="loans"
+>
+
+    <div class="container">
+
+        <div class="section-header">
+
+            <div class="eyebrow">
+                Our products
+            </div>
+
+
+            <h2 class="section-title">
+                Choose what you need.
+            </h2>
+
+
+            <p class="section-subtitle">
+
+                Explore loans designed around real
+                financial needs.
+
+            </p>
+
+        </div>
+
+
+        <div class="loan-grid">
+
+            <div class="loan-card">
+
+                <div class="loan-icon">
+                    ₹
+                </div>
+
+
+                <h3>
+                    MSME Loan
+                </h3>
+
+
+                <p>
+                    For travel, medical expenses, education,
+                    weddings or unexpected needs.
+                </p>
+
+
+                <a href="#">
+                    Explore loan →
+                </a>
+
+            </div>
+
+
+            <div class="loan-card">
+
+                <div class="loan-icon">
+                    ▣
+                </div>
+
+
+                <h3>
+                    Green Finance Loan
+                </h3>
+
+
+                <p>
+                    Capital to grow your business, manage
+                    cash flow or purchase equipment.
+                </p>
+
+
+                <a href="#">
+                    Explore loan →
+                </a>
+
+            </div>
+
+
+            <div class="loan-card">
+
+                <div class="loan-icon">
+                    🚗
+                </div>
+
+
+                <h3>
+                    Equipment & Machinery Loan
+                </h3>
+
+
+                <p>
+                    Flexible financing options for new and
+                    pre-owned vehicles.
+                </p>
+
+
+                <a href="#">
+                    Explore loan →
+                </a>
+
+            </div>
+
+
+            <div class="loan-card">
+
+                <div class="loan-icon">
+                    🏠
+                </div>
+
+
+                <h3>
+                    LAP
+                </h3>
+
+
+                <p>
+                    Financing solutions designed to help
+                    you purchase or improve your home.
+                </p>
+
+
+                <a href="#">
+                    Explore loan →
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     CALCULATOR TOOLS
+========================================================= -->
+
+<section
+    class="section tools"
+    id="calculators"
+>
+
+    <div class="container">
+
+        <div class="section-header">
+
+            <div class="eyebrow">
+                Financial tools
+            </div>
+
+
+            <h2 class="section-title">
+
+                Know your numbers before you apply.
+
+            </h2>
+
+
+            <p class="section-subtitle">
+
+                Make an informed decision with simple,
+                transparent financial tools.
+
+            </p>
+
+        </div>
+
+
+        <div class="tools-grid">
+
+            <div class="tool-card">
+
+                <div class="tool-icon">
+                    🧮
+                </div>
+
+
+                <h3>
+                    EMI Calculator
+                </h3>
+
+
+                <p>
+                    See your monthly EMI, interest and total
+                    repayment instantly.
+                </p>
+
+
+                <button
+                    class="text-btn"
+                    onclick="document.getElementById('calculator').scrollIntoView()"
+                >
+                    Calculate EMI →
+                </button>
+
+            </div>
+
+
+            <div class="tool-card">
+
+                <div class="tool-icon">
+                    ✓
+                </div>
+
+
+                <h3>
+                    Eligibility Calculator
+                </h3>
+
+
+                <p>
+                    Get an estimate of the loan amount you
+                    may qualify for.
+                </p>
+
+
+                <button
+                    class="text-btn"
+                    onclick="document.getElementById('eligibility').scrollIntoView()"
+                >
+                    Check eligibility →
+                </button>
+
+            </div>
+
+
+            <div class="tool-card">
+
+                <div class="tool-icon">
+                    📊
+                </div>
+
+
+                <h3>
+                    Prepayment Calculator
+                </h3>
+
+
+                <p>
+                    See how making an early payment could
+                    affect your loan.
+                </p>
+
+
+                <button
+                    class="text-btn"
+                    onclick="alert('Prepayment calculator coming soon.')"
+                >
+                    Calculate savings →
+                </button>
+
+            </div>
+
+
+            <div class="tool-card">
+
+                <div class="tool-icon">
+                    ↔
+                </div>
+
+
+                <h3>
+                    Loan Comparison
+                </h3>
+
+
+                <p>
+                    Compare different tenures and understand
+                    the cost difference.
+                </p>
+
+
+                <button
+                    class="text-btn"
+                    onclick="alert('Loan comparison coming soon.')"
+                >
+                    Compare options →
+                </button>
+
+            </div>
+
+
+            <div class="tool-card">
+
+                <div class="tool-icon">
+                    💰
+                </div>
+
+
+                <h3>
+                    Affordability Calculator
+                </h3>
+
+
+                <p>
+                    Find an EMI range that fits your monthly
+                    budget.
+                </p>
+
+
+                <button
+                    class="text-btn"
+                    onclick="alert('Affordability calculator coming soon.')"
+                >
+                    Find my EMI →
+                </button>
+
+            </div>
+
+
+            <div class="tool-card">
+
+                <div class="tool-icon">
+                    📅
+                </div>
+
+
+                <h3>
+                    Repayment Schedule
+                </h3>
+
+
+                <p>
+                    Understand how each EMI contributes to
+                    principal and interest.
+                </p>
+
+
+                <button
+                    class="text-btn"
+                    onclick="alert('Repayment schedule coming soon.')"
+                >
+                    View schedule →
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     ELIGIBILITY
+========================================================= -->
+
+<section
+    class="section eligibility-section"
+    id="eligibility"
+>
+
+    <div class="container">
+
+        <div class="eligibility-box">
+
+            <div>
+
+                <div class="eyebrow">
+                    Quick estimate
+                </div>
+
+
+                <h2>
+                    How much could you potentially borrow?
+                </h2>
+
+
+                <p>
+                    Give us a few basic details. We'll show
+                    you an estimated range before you start
+                    an application.
+                </p>
+
+            </div>
+
+
+            <div>
+
+                <div class="form-grid">
+
+                    <div class="form-field">
+
+                        <label>
+                            Monthly income
+                        </label>
+
+                        <input
+                            type="number"
+                            id="income"
+                            placeholder="₹ 75,000"
+                        >
+
+                    </div>
+
+
+                    <div class="form-field">
+
+                        <label>
+                            Existing EMIs
+                        </label>
+
+                        <input
+                            type="number"
+                            id="existingEmi"
+                            placeholder="₹ 10,000"
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <div
+                    class="form-field"
+                    style="margin-top:15px"
+                >
+
+                    <label>
+                        Employment type
+                    </label>
+
+
+                    <select id="employment">
+
+                        <option value="salaried">
+                            Salaried
+                        </option>
+
+                        <option value="self">
+                            Self-employed
+                        </option>
+
+                        <option value="business">
+                            Business owner
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <button
+                    class="primary-btn"
+                    style="
+                        width:100%;
+                        margin-top:15px
+                    "
+                    onclick="checkEligibility()"
+                >
+                    Check My Eligibility
+                </button>
+
+
+                <div
+                    class="eligibility-result"
+                    id="eligibilityResult"
+                >
+
+                    <span>
+                        Estimated potential loan range
+                    </span>
+
+
+                    <strong id="eligibleAmount">
+                        ₹3L – ₹7L
+                    </strong>
+
+
+                    <small style="color:#697386">
+
+                        This is only an indicative estimate
+                        and not a loan approval.
+
+                    </small>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     HELP ME CHOOSE
+========================================================= -->
+
+<section
+    class="section choose"
+    id="choose"
+>
+
+    <div class="container choose-grid">
+
+        <div>
+
+            <div
+                class="eyebrow"
+                style="
+                    background:rgba(255,255,255,.1);
+                    color:white
+                "
+            >
+                Not sure?
+            </div>
+
+
+            <h2>
+                We'll help you find the right loan.
+            </h2>
+
+
+            <p>
+                Answer three simple questions.
+                No financial jargon required.
+            </p>
+
+        </div>
+
+
+        <div class="choose-box">
+
+
+            <!-- QUESTION 1 -->
+
+            <div
+                class="question active"
+                id="q1"
+            >
+
+                <h3>
+                    What do you need the money for?
+                </h3>
+
+
+                <div class="choice-grid">
+
+                    <button
+                        class="choice"
+                        onclick="selectChoice(this, 1)"
+                    >
+                        Medical expenses
+                    </button>
+
+
+                    <button
+                        class="choice"
+                        onclick="selectChoice(this, 1)"
+                    >
+                        Education
+                    </button>
+
+
+                    <button
+                        class="choice"
+                        onclick="selectChoice(this, 1)"
+                    >
+                        Business
+                    </button>
+
+
+                    <button
+                        class="choice"
+                        onclick="selectChoice(this, 1)"
+                    >
+                        Home renovation
+                    </button>
+
+
+                    <button
+                        class="choice"
+                        onclick="selectChoice(this, 1)"
+                    >
+                        Vehicle
+                    </button>
+
+
+                    <button
+                        class="choice"
+                        onclick="selectChoice(this, 1)"
+                    >
+                        MSME expenses
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- QUESTION 2 -->
+
+            <div
+                class="question"
+                id="q2"
+            >
+
+                <h3>
+                    How much do you need?
+                </h3>
+
+
+                <div class="choice-grid">
+
+                    <button
+                        class="choice"
+                        onclick="selectChoice(this, 2)"
+                    >
+                        ₹50K – ₹2L
+                    </button>
+
+
+                    <button
+                        class="choice"
+                        onclick="selectChoice(this, 2)"
+                    >
+                        ₹2L – ₹5L
+                    </button>
+
+
+                    <button
+                        class="choice"
+                        onclick="selectChoice(this, 2)"
+                    >
+                        ₹5L – ₹10L
+                    </button>
+
+
+                    <button
+                        class="choice"
+                        onclick="selectChoice(this, 2)"
+                    >
+                        ₹10L+
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- QUESTION 3 -->
+
+            <div
+                class="question"
+                id="q3"
+            >
+
+                <h3>
+                    How quickly do you need it?
+                </h3>
+
+
+                <div class="choice-grid">
+
+                    <button
+                        class="choice"
+                        onclick="showRecommendation('today')"
+                    >
+                        Today
+                    </button>
+
+
+                    <button
+                        class="choice"
+                        onclick="showRecommendation('week')"
+                    >
+                        This week
+                    </button>
+
+
+                    <button
+                        class="choice"
+                        onclick="showRecommendation('flexible')"
+                    >
+                        I'm flexible
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- RECOMMENDATION -->
+
+            <div
+                class="question"
+                id="recommendation"
+            >
+
+                <div
+                    style="
+                        font-size:30px;
+                        margin-bottom:10px
+                    "
+                >
+                    ✓
+                </div>
+
+
+                <h3>
+                    A MSME Loan may be a good fit.
+                </h3>
+
+
+                <p
+                    style="
+                        color:#697386;
+                        margin-bottom:18px
+                    "
+                >
+                    Based on your answers, this product
+                    may match your requirements.
+                </p>
+
+
+                <button
+                    class="primary-btn"
+                    onclick="applyNow()"
+                >
+                    Explore MSME Loan →
+                </button>
+
+            </div>
+
+
+            <div class="choose-footer">
+
+                <span
+                    class="step-count"
+                    id="stepCount"
+                >
+                    Question 1 of 3
+                </span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     HOW IT WORKS
+========================================================= -->
+
+<section class="section how">
+
+    <div class="container">
+
+        <div class="section-header">
+
+            <div class="eyebrow">
+                Simple process
+            </div>
+
+
+            <h2 class="section-title">
+
+                From application to money, clearly.
+
+            </h2>
+
+
+            <p class="section-subtitle">
+                No guessing what happens next.
+            </p>
+
+        </div>
+
+
+        <div class="steps">
+
+            <div class="step">
+
+                <div class="step-number">
+                    1
+                </div>
+
+
+                <h3>
+                    Apply
+                </h3>
+
+
+                <p>
+                    Tell us about yourself and the loan
+                    you're looking for.
+                </p>
+
+            </div>
+
+
+            <div class="step">
+
+                <div class="step-number">
+                    2
+                </div>
+
+
+                <h3>
+                    Verify
+                </h3>
+
+
+                <p>
+                    Complete KYC and provide the required
+                    documents securely.
+                </p>
+
+            </div>
+
+
+            <div class="step">
+
+                <div class="step-number">
+                    3
+                </div>
+
+
+                <h3>
+                    Get a decision
+                </h3>
+
+
+                <p>
+                    Review your loan offer and understand
+                    the complete cost.
+                </p>
+
+            </div>
+
+
+            <div class="step">
+
+                <div class="step-number">
+                    4
+                </div>
+
+
+                <h3>
+                    Get your funds
+                </h3>
+
+
+                <p>
+                    Once approved and accepted, funds are
+                    disbursed to your account.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     TRANSPARENCY
+========================================================= -->
+
+<section class="section transparency">
+
+    <div class="container transparency-box">
+
+        <div>
+
+            <div class="eyebrow">
+                Before you apply
+            </div>
+
+
+            <h2 class="section-title">
+
+                Know exactly what you're signing up for.
+
+            </h2>
+
+
+            <p class="section-subtitle">
+
+                We believe borrowing should never involve
+                unpleasant surprises.
+
+            </p>
+
+
+            <button
+                class="secondary-btn"
+                style="margin-top:20px"
+                onclick="alert('Full pricing page coming soon.')"
+            >
+                View complete pricing →
+            </button>
+
+        </div>
+
+
+        <div class="price-card">
+
+            <div class="price-header">
+
+                <h3>
+                    MSME Loan
+                </h3>
+
+
+                <span
+                    style="
+                        opacity:.7;
+                        font-size:12px
+                    "
+                >
+                    Example loan illustration
+                </span>
+
+            </div>
+
+
+            <div class="price-row">
+
+                <span>
+                    Loan amount
+                </span>
+
+                <strong>
+                    ₹5,00,000
+                </strong>
+
+            </div>
+
+
+            <div class="price-row">
+
+                <span>
+                    Tenure
+                </span>
+
+                <strong>
+                    36 months
+                </strong>
+
+            </div>
+
+
+            <div class="price-row">
+
+                <span>
+                    Interest rate
+                </span>
+
+                <strong id="pricingRate">
+                    12.5% p.a.
+                </strong>
+
+            </div>
+
+
+            <div class="price-row">
+
+                <span>
+                    APR
+                </span>
+
+                <strong>
+                    14.1%
+                </strong>
+
+            </div>
+
+
+            <div class="price-row">
+
+                <span>
+                    Estimated EMI
+                </span>
+
+                <strong>
+                    ₹16,700
+                </strong>
+
+            </div>
+
+
+            <div class="price-row">
+
+                <span>
+                    Processing fee
+                </span>
+
+                <strong>
+                    ₹5,000 + GST
+                </strong>
+
+            </div>
+
+
+            <div class="price-row">
+
+                <span>
+                    Total repayment
+                </span>
+
+                <strong>
+                    ₹6,01,200
+                </strong>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     DOCUMENTS
+========================================================= -->
+
+<section class="section documents">
+
+    <div class="container">
+
+        <div class="section-header">
+
+            <div class="eyebrow">
+                Be prepared
+            </div>
+
+
+            <h2 class="section-title">
+                What will you need?
+            </h2>
+
+
+            <p class="section-subtitle">
+
+                Most applications require a few basic
+                documents.
+
+            </p>
+
+        </div>
+
+
+        <div class="document-grid">
+
+            <div class="document-card">
+
+                <div class="doc-icon">
+                    🪪
+                </div>
+
+
+                <h3>
+                    Identity proof
+                </h3>
+
+
+                <p>
+                    Valid identity and KYC documents as
+                    applicable.
+                </p>
+
+            </div>
+
+
+            <div class="document-card">
+
+                <div class="doc-icon">
+                    🏠
+                </div>
+
+
+                <h3>
+                    Address proof
+                </h3>
+
+
+                <p>
+                    An accepted document confirming your
+                    current address.
+                </p>
+
+            </div>
+
+
+            <div class="document-card">
+
+                <div class="doc-icon">
+                    💼
+                </div>
+
+
+                <h3>
+                    Income documents
+                </h3>
+
+
+                <p>
+                    Salary slips, bank statements or other
+                    applicable income documents.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     FAQ
+========================================================= -->
+
+<section
+    class="section faq"
+    id="faq"
+>
+
+    <div class="container faq-container">
+
+        <div class="section-header">
+
+            <div class="eyebrow">
+                Need to know?
+            </div>
+
+
+            <h2 class="section-title">
+                Frequently asked questions
+            </h2>
+
+        </div>
+
+
+        <div class="faq-item">
+
+            <button class="faq-question">
+
+                <span>
+                    How is my EMI calculated?
+                </span>
+
+                <span>
+                    +
+                </span>
+
+            </button>
+
+
+            <div class="faq-answer">
+
+                <div class="faq-answer-inner">
+
+                    Your EMI depends on the loan amount,
+                    interest rate and repayment tenure.
+                    Our EMI calculator lets you adjust all
+                    three and see the estimated result instantly.
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="faq-item">
+
+            <button class="faq-question">
+
+                <span>
+                    What affects my loan eligibility?
+                </span>
+
+                <span>
+                    +
+                </span>
+
+            </button>
+
+
+            <div class="faq-answer">
+
+                <div class="faq-answer-inner">
+
+                    Eligibility can depend on factors such as
+                    income, existing obligations, credit history,
+                    employment profile and the lender's applicable
+                    policies.
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="faq-item">
+
+            <button class="faq-question">
+
+                <span>
+                    Are there any additional charges?
+                </span>
+
+                <span>
+                    +
+                </span>
+
+            </button>
+
+
+            <div class="faq-answer">
+
+                <div class="faq-answer-inner">
+
+                    Applicable fees and charges vary by product.
+                    We recommend reviewing the complete pricing,
+                    Key Facts Statement and applicable terms before
+                    accepting an offer.
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="faq-item">
+
+            <button class="faq-question">
+
+                <span>
+                    Can I prepay my loan?
+                </span>
+
+                <span>
+                    +
+                </span>
+
+            </button>
+
+
+            <div class="faq-answer">
+
+                <div class="faq-answer-inner">
+
+                    Prepayment options and applicable charges
+                    depend on the specific loan product and
+                    applicable terms.
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="faq-item">
+
+            <button class="faq-question">
+
+                <span>
+                    What happens after I apply?
+                </span>
+
+                <span>
+                    +
+                </span>
+
+            </button>
+
+
+            <div class="faq-answer">
+
+                <div class="faq-answer-inner">
+
+                    You will typically go through verification,
+                    document/KYC checks, credit assessment and
+                    offer review before disbursal, subject to
+                    applicable approval criteria.
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     TRUST
+========================================================= -->
+
+<section
+    class="section trust"
+    id="trust"
+>
+
+    <div class="container">
+
+        <div class="section-header">
+
+            <div class="eyebrow">
+                Why VC360pro
+            </div>
+
+
+            <h2 class="section-title">
+                Built around trust.
+            </h2>
+
+
+            <p class="section-subtitle">
+                Financial decisions deserve clarity.
+            </p>
+
+        </div>
+
+
+        <div class="trust-grid">
+
+            <div class="trust-card">
+
+                <div class="trust-card-icon">
+                    🔒
+                </div>
+
+
+                <h3>
+                    Secure
+                </h3>
+
+
+                <p>
+                    Your information is handled through
+                    secure systems and processes.
+                </p>
+
+            </div>
+
+
+            <div class="trust-card">
+
+                <div class="trust-card-icon">
+                    ₹
+                </div>
+
+
+                <h3>
+                    Transparent pricing
+                </h3>
+
+
+                <p>
+                    Understand rates, fees and repayment
+                    before making a decision.
+                </p>
+
+            </div>
+
+
+            <div class="trust-card">
+
+                <div class="trust-card-icon">
+                    ⚖
+                </div>
+
+
+                <h3>
+                    Responsible lending
+                </h3>
+
+
+                <p>
+                    Borrowing decisions should be based on
+                    affordability and suitability.
+                </p>
+
+            </div>
+
+
+            <div class="trust-card">
+
+                <div class="trust-card-icon">
+                    ?
+                </div>
+
+
+                <h3>
+                    Customer support
+                </h3>
+
+
+                <p>
+                    Get help when you need it, including
+                    access to grievance mechanisms.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     EMPLOYEE TESTIMONIALS
+========================================================= -->
+
+<section class="section employee-testimonials">
+
+    <div class="container">
+
+        <div class="section-header">
+
+            <div class="eyebrow">
+                Life at VC360pro
+            </div>
+
+
+            <h2 class="section-title">
+                The people behind the promise.
+            </h2>
+
+
+            <p class="section-subtitle">
+
+                Great financial products are built by people
+                who care about making borrowing simpler and
+                better.
+
+            </p>
+
+        </div>
+
+
+        <div class="employee-grid">
+
+
+            <!-- Employee 1 -->
+
+            <div class="employee-card">
+
+                <div class="quote-mark">
+                    “
+                </div>
+
+
+                <p class="employee-quote">
+
+                    What I love most about VC360pro is that we're
+                    constantly asking how we can make financial
+                    products easier for customers to understand.
+
+                </p>
+
+
+                <div class="employee-profile">
+
+                    <div
+                        class="employee-avatar avatar-blue"
+                    >
+                        AK
+                    </div>
+
+
+                    <div>
+
+                        <strong>
+                            Arjun Kapoor
+                        </strong>
+
+                        <span>
+                            Product Manager
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- Employee 2 -->
+
+            <div class="employee-card featured">
+
+                <div class="quote-mark">
+                    “
+                </div>
+
+
+                <p class="employee-quote">
+
+                    We're building technology that has a real
+                    impact on people's lives. Every improvement
+                    we make to the application experience matters.
+
+                </p>
+
+
+                <div class="employee-profile">
+
+                    <div
+                        class="employee-avatar avatar-teal"
+                    >
+                        PS
+                    </div>
+
+
+                    <div>
+
+                        <strong>
+                            Priya Sharma
+                        </strong>
+
+                        <span>
+                            Engineering Lead
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- Employee 3 -->
+
+            <div class="employee-card">
+
+                <div class="quote-mark">
+                    “
+                </div>
+
+
+                <p class="employee-quote">
+
+                    The best part of working here is the
+                    ownership. You can take an idea from a
+                    customer problem all the way to the product.
+
+                </p>
+
+
+                <div class="employee-profile">
+
+                    <div
+                        class="employee-avatar avatar-purple"
+                    >
+                        RM
+                    </div>
+
+
+                    <div>
+
+                        <strong>
+                            Rohan Mehta
+                        </strong>
+
+                        <span>
+                            Credit Operations
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="employee-stats">
+
+            <div>
+
+                <strong>
+                    50+
+                </strong>
+
+                <span>
+                    Employees
+                </span>
+
+            </div>
+
+
+            <div>
+
+                <strong>
+                    12+
+                </strong>
+
+                <span>
+                    Cities
+                </span>
+
+            </div>
+
+
+            <div>
+
+                <strong>
+                    4.6/5
+                </strong>
+
+                <span>
+                    Employee rating
+                </span>
+
+            </div>
+
+
+            <div>
+
+                <strong>
+                    40%
+                </strong>
+
+                <span>
+                    Women in workforce
+                </span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     FINAL CTA
+========================================================= -->
+
+<section class="final-cta">
+
+    <div class="container">
+
+        <div class="cta-box">
+
+            <div>
+
+                <h2>
+                    Ready to see what you may qualify for?
+                </h2>
+
+
+                <p>
+
+                    Start with a quick eligibility check.
+                    No need to commit before you understand
+                    your options.
+
+                </p>
+
+            </div>
+
+
+            <button
+                class="primary-btn"
+                style="
+                    background:white;
+                    color:#102a56;
+                    padding:15px 24px
+                "
+                onclick="applyNow()"
+            >
+                Check My Eligibility →
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     FOOTER
+========================================================= -->
+
+<footer>
+
+    <div class="container">
+
+        <div class="footer-grid">
+
+
+            <div>
+
+                <div class="footer-logo">
+                    VC360pro
+                </div>
+
+
+                <p class="footer-about">
+
+                    Simple, transparent financial solutions
+                    designed to help customers make informed
+                    borrowing decisions.
+
+                </p>
+
+            </div>
+
+
+            <div>
+
+                <h4>
+                    Loans
+                </h4>
+
+
+                <ul>
+
+                    <li>
+                        MSME Loan
+                    </li>
+
+                    <li>
+                        Business Loan
+                    </li>
+
+                    <li>
+                        Vehicle Finance
+                    </li>
+
+                    <li>
+                        Home Finance
+                    </li>
+
+                </ul>
+
+            </div>
+
+
+            <div>
+
+                <h4>
+                    Tools
+                </h4>
+
+
+                <ul>
+
+                    <li>
+                        EMI Calculator
+                    </li>
+
+                    <li>
+                        Eligibility Calculator
+                    </li>
+
+                    <li>
+                        Prepayment Calculator
+                    </li>
+
+                    <li>
+                        Loan Comparison
+                    </li>
+
+                </ul>
+
+            </div>
+
+
+            <div>
+
+                <h4>
+                    Help & Company
+                </h4>
+
+
+                <ul>
+
+                    <li>
+                        FAQs
+                    </li>
+
+                    <li>
+                        Contact Us
+                    </li>
+
+                    <li>
+                        Grievance Redressal
+                    </li>
+
+                    <li>
+                        About Us
+                    </li>
+
+                    <li>
+                        Privacy Policy
+                    </li>
+
+                    <li>
+                        Terms & Conditions
+                    </li>
+
+                </ul>
+
+            </div>
+
+        </div>
+
+
+        <div class="footer-bottom">
+
+            <span>
+                © 2026 VC360pro.
+                Demo website for UI/UX exploration.
+            </span>
+
+
+            <span>
+                Regulatory disclosures • Privacy • Security
+            </span>
+
+        </div>
+
+    </div>
+
+</footer>
+
+
+<!-- =========================================================
+     WHATSAPP SUPPORT
+========================================================= -->
+
+<div class="whatsapp-widget">
+
+
+    <!-- Chat popup -->
+
+    <div
+        class="whatsapp-chat"
+        id="whatsappChat"
+    >
+
+        <button
+            class="whatsapp-close"
+            onclick="toggleWhatsApp()"
+            aria-label="Close WhatsApp chat"
+        >
+            ×
+        </button>
+
+
+        <div class="whatsapp-chat-header">
+
+            <div class="whatsapp-avatar">
+                vC
+            </div>
+
+
+            <div>
+
+                <strong>
+                    VC360pro Support
+                </strong>
+
+                <span>
+                    Typically replies quickly
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <div class="whatsapp-message">
+
+            <div class="whatsapp-bubble">
+
+                👋 Hi! Need help choosing a loan or
+                understanding your EMI?
+
+            </div>
+
+        </div>
+
+
+        <button
+            class="whatsapp-start"
+            onclick="openWhatsApp()"
+        >
+
+            <span>
+                Chat with us on WhatsApp
+            </span>
+
+            <span>
+                →
+            </span>
+
+        </button>
+
+
+        <div class="whatsapp-disclaimer">
+
+            By continuing, you may be redirected to WhatsApp.
+
+        </div>
+
+    </div>
+
+
+    <!-- Floating button -->
+
+    <button
+        class="whatsapp-button"
+        id="whatsappButton"
+        onclick="toggleWhatsApp()"
+        aria-label="Chat with VC360pro on WhatsApp"
+    >
+
+        <svg
+            viewBox="0 0 32 32"
+            aria-hidden="true"
+        >
+
+            <path
+                fill="currentColor"
+                d="M19.11 17.08c-.27-.14-1.59-.78-1.84-.87-.25-.09-.43-.14-.61.14-.18.27-.7.87-.86 1.05-.16.18-.32.2-.59.07-.27-.14-1.14-.42-2.17-1.34-.8-.71-1.34-1.59-1.5-1.86-.16-.27-.02-.42.12-.55.12-.12.27-.32.41-.48.14-.16.18-.27.27-.45.09-.18.05-.34-.02-.48-.07-.14-.61-1.46-.84-2-.22-.53-.45-.46-.61-.47h-.52c-.18 0-.48.07-.73.34-.25.27-.95.93-.95 2.27s.98 2.63 1.11 2.81c.14.18 1.93 2.95 4.67 4.13.65.28 1.16.45 1.56.58.66.21 1.26.18 1.73.11.53-.08 1.59-.65 1.82-1.28.23-.63.23-1.17.16-1.28-.07-.11-.25-.18-.52-.32z"
+            />
+
+            <path
+                fill="currentColor"
+                d="M16.03 3.2c-7.05 0-12.78 5.73-12.78 12.78 0 2.25.59 4.45 1.72 6.39L3.14 28.8l6.58-1.73a12.75 12.75 0 0 0 6.31 1.66h.01c7.05 0 12.78-5.73 12.78-12.78S23.08 3.2 16.03 3.2zm0 23.45h-.01a10.63 10.63 0 0 1-5.42-1.48l-.39-.23-3.9 1.02 1.04-3.8-.25-.39a10.62 10.62 0 1 1 8.93 4.88z"
+            />
+
+        </svg>
+
+
+        <span class="whatsapp-notification">
+            1
+        </span>
+
+    </button>
+
+</div>
+
+
+<!-- =========================================================
+     MOBILE STICKY CTA
+========================================================= -->
+
+<div class="mobile-cta">
+
+    <button
+        class="calculate"
+        onclick="document.getElementById('calculator').scrollIntoView()"
+    >
+        Calculate EMI
+    </button>
+
+
+    <button
+        class="apply"
+        onclick="applyNow()"
+    >
+        Apply Now
+    </button>
+
+</div>
+
+
+<!-- =========================================================
+     JAVASCRIPT
+========================================================= -->
+
+<script>
+
+
+/* =========================================================
+   EMI CALCULATOR
+========================================================= */
+
+const amountSlider =
+    document.getElementById("amountSlider");
+
+const amountDisplay =
+    document.getElementById("amountDisplay");
+
+const emiElement =
+    document.getElementById("emi");
+
+const principalElement =
+    document.getElementById("principal");
+
+const interestElement =
+    document.getElementById("interest");
+
+const totalElement =
+    document.getElementById("total");
+
+const tenureLabel =
+    document.getElementById("tenureLabel");
+
+const rateSlider =
+    document.getElementById("rateSlider");
+
+const rateValue =
+    document.getElementById("rateValue");
+
+const rateDisplay =
+    document.getElementById("rateDisplay");
+
+const resultRateElement =
+    document.getElementById("resultRate");
+
+const pricingRateElement =
+    document.getElementById("pricingRate");
+
+
+let selectedTenure = 36;
+
+let interestRate = 12.5;
+
+
+/* Currency formatting */
+
+function formatCurrency(number) {
+
+    return new Intl.NumberFormat("en-IN", {
+
+        style: "currency",
+
+        currency: "INR",
+
+        maximumFractionDigits: 0
+
+    }).format(number);
+
+}
+
+
+/* Calculate EMI */
+
+function calculateEMI() {
+
+    const principal =
+        Number(amountSlider.value);
+
+
+    const monthlyRate =
+        interestRate / 12 / 100;
+
+
+    const months =
+        selectedTenure;
+
+
+    const emi =
+        principal *
+        monthlyRate *
+        Math.pow(
+            1 + monthlyRate,
+            months
+        ) /
+        (
+            Math.pow(
+                1 + monthlyRate,
+                months
+            ) - 1
+        );
+
+
+    const total =
+        emi * months;
+
+
+    const interest =
+        total - principal;
+
+
+    amountDisplay.textContent =
+        formatCurrency(principal);
+
+
+    principalElement.textContent =
+        formatCurrency(principal);
+
+
+    emiElement.textContent =
+        formatCurrency(emi);
+
+
+    interestElement.textContent =
+        formatCurrency(interest);
+
+
+    totalElement.textContent =
+        formatCurrency(total);
+
+
+    tenureLabel.textContent =
+        months + " months";
+
+
+    resultRateElement.textContent =
+        interestRate.toFixed(1) +
+        "% p.a.";
+
+
+    pricingRateElement.textContent =
+        interestRate.toFixed(1) +
+        "% p.a.";
+
+}
+
+
+/* Amount slider */
+
+amountSlider.addEventListener(
+    "input",
+    calculateEMI
+);
+
+
+/* Interest rate slider */
+
+rateSlider.addEventListener(
+    "input",
+    function() {
+
+        interestRate =
+            Number(rateSlider.value);
+
+
+        rateValue.textContent =
+            interestRate.toFixed(1) +
+            "%";
+
+
+        rateDisplay.textContent =
+            interestRate.toFixed(1) +
+            "% p.a.";
+
+
+        calculateEMI();
+
+    }
+);
+
+
+/* Tenure */
+
+document
+    .querySelectorAll(".tenure")
+    .forEach(button => {
+
+        button.addEventListener(
+            "click",
+            () => {
+
+                document
+                    .querySelectorAll(".tenure")
+                    .forEach(btn =>
+                        btn.classList.remove("active")
+                    );
+
+
+                button.classList.add("active");
+
+
+                selectedTenure =
+                    Number(
+                        button.dataset.months
+                    );
+
+
+                calculateEMI();
+
+            }
+        );
+
+    });
+
+
+calculateEMI();
+
+
+/* =========================================================
+   ELIGIBILITY CALCULATOR
+========================================================= */
+
+function checkEligibility() {
+
+    const income =
+        Number(
+            document.getElementById("income").value
+        );
+
+
+    const existing =
+        Number(
+            document.getElementById("existingEmi").value
+        ) || 0;
+
+
+    const result =
+        document.getElementById(
+            "eligibilityResult"
+        );
+
+
+    const output =
+        document.getElementById(
+            "eligibleAmount"
+        );
+
+
+    if (!income || income <= 0) {
+
+        alert(
+            "Please enter your monthly income."
+        );
+
+        return;
+
+    }
+
+
+    const available =
+        Math.max(
+            income - existing,
+            0
+        );
+
+
+    /*
+       FRONTEND DEMO ONLY.
+
+       Real eligibility must use the
+       NBFC's actual underwriting,
+       credit policy and applicable
+       regulatory requirements.
+    */
+
+    const low =
+        Math.max(
+            100000,
+            available * 12
+        );
+
+
+    const high =
+        Math.max(
+            low,
+            available * 24
+        );
+
+
+    output.textContent =
+        formatCurrency(low) +
+        " – " +
+        formatCurrency(high);
+
+
+    result.classList.add("show");
+
+}
+
+
+/* =========================================================
+   HELP ME CHOOSE
+========================================================= */
+
+function selectChoice(
+    button,
+    questionNumber
+) {
+
+    const parent =
+        button.parentElement;
+
+
+    parent
+        .querySelectorAll(".choice")
+        .forEach(btn =>
+            btn.classList.remove("selected")
+        );
+
+
+    button.classList.add("selected");
+
+
+    setTimeout(
+        () => {
+
+            document
+                .getElementById(
+                    "q" + questionNumber
+                )
+                .classList.remove("active");
+
+
+            if (questionNumber < 3) {
+
+                document
+                    .getElementById(
+                        "q" +
+                        (questionNumber + 1)
+                    )
+                    .classList.add("active");
+
+
+                document
+                    .getElementById("stepCount")
+                    .textContent =
+                        "Question " +
+                        (questionNumber + 1) +
+                        " of 3";
+
+            }
+
+        },
+        250
+    );
+
+}
+
+
+function showRecommendation() {
+
+    document
+        .getElementById("q3")
+        .classList.remove("active");
+
+
+    document
+        .getElementById("recommendation")
+        .classList.add("active");
+
+
+    document
+        .getElementById("stepCount")
+        .textContent =
+            "Recommendation";
+
+}
+
+
+/* =========================================================
+   FAQ ACCORDION
+========================================================= */
+
+document
+    .querySelectorAll(".faq-question")
+    .forEach(question => {
+
+        question.addEventListener(
+            "click",
+            () => {
+
+                const item =
+                    question.parentElement;
+
+
+                const wasOpen =
+                    item.classList.contains("open");
+
+
+                document
+                    .querySelectorAll(".faq-item")
+                    .forEach(faq => {
+
+                        faq.classList.remove(
+                            "open"
+                        );
+
+
+                        faq
+                            .querySelector(
+                                ".faq-question span:last-child"
+                            )
+                            .textContent = "+";
+
+                    });
+
+
+                if (!wasOpen) {
+
+                    item.classList.add("open");
+
+
+                    question
+                        .querySelector(
+                            "span:last-child"
+                        )
+                        .textContent = "−";
+
+                }
+
+            }
+        );
+
+    });
+
+
+/* =========================================================
+   APPLY BUTTON
+========================================================= */
+
+function applyNow() {
+
+    document
+        .getElementById("eligibility")
+        .scrollIntoView({
+            behavior: "smooth"
+        });
+
+
+    setTimeout(
+        () => {
+
+            const income =
+                document.getElementById(
+                    "income"
+                );
+
+
+            if (income) {
+
+                income.focus();
+
+            }
+
+        },
+        700
+    );
+
+}
+
+
+/* =========================================================
+   MOBILE MENU
+========================================================= */
+
+const menuButton =
+    document.querySelector(".menu-btn");
+
+const navLinks =
+    document.querySelector(".nav-links");
+
+
+menuButton.addEventListener(
+    "click",
+    () => {
+
+        navLinks.classList.toggle(
+            "mobile-open"
+        );
+
+    }
+);
+
+
+navLinks
+    .querySelectorAll("a")
+    .forEach(link => {
+
+        link.addEventListener(
+            "click",
+            () => {
+
+                navLinks.classList.remove(
+                    "mobile-open"
+                );
+
+            }
+        );
+
+    });
+
+
+/* =========================================================
+   WHATSAPP CHAT
+========================================================= */
+
+const whatsappChat =
+    document.getElementById(
+        "whatsappChat"
+    );
+
+
+function toggleWhatsApp() {
+
+    whatsappChat.classList.toggle(
+        "open"
+    );
+
+}
+
+
+/*
+   IMPORTANT:
+   Replace this demo number with
+   your official WhatsApp Business
+   number.
+
+   Format:
+   Country code + number
+   No +, spaces or hyphens.
+
+   Example:
+   919876543210
+*/
+
+function openWhatsApp() {
+
+    const phoneNumber =
+        "919557269926";
+
+
+    const message =
+        "Hi VC360pro, I would like help understanding my loan options.";
+
+
+    const whatsappUrl =
+        "https://wa.me/" +
+        phoneNumber +
+        "?text=" +
+        encodeURIComponent(message);
+
+
+    window.open(
+        whatsappUrl,
+        "_blank",
+        "noopener,noreferrer"
+    );
+
+}
+
+
+/* Close WhatsApp when clicking outside */
+
+document.addEventListener(
+    "click",
+    function(event) {
+
+        const widget =
+            document.querySelector(
+                ".whatsapp-widget"
+            );
+
+
+        if (
+            whatsappChat.classList.contains("open") &&
+            !widget.contains(event.target)
+        ) {
+
+            whatsappChat.classList.remove(
+                "open"
+            );
+
+        }
+
+    }
+);
+
+</script>
+
+</body>
+
+</html>

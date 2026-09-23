@@ -300,10 +300,6 @@
 
   margin: 0;
 
-  padding-bottom: 7px;
-
-  border-bottom: 4px solid #249bc6;
-
   font-size: 32px;
 
   font-weight: 600;
@@ -704,7 +700,15 @@
 
   margin: 0 0 12px;
 
-  color: #103770;
+  background: none !important;
+
+  background-clip: initial !important;
+
+  -webkit-background-clip: initial !important;
+
+  color: #249bc6 !important;
+
+  -webkit-text-fill-color: #249bc6;
 
   font-size: 40px;
 
@@ -839,7 +843,9 @@
   display: flex;
 
   align-items: center;
-
+  color: #249bc6 !important;
+  background: none;
+  -webkit-text-fill-color: #249bc6;
   justify-content: center;
 
   width: 62px;

@@ -90,7 +90,14 @@ export default function ContactUs() {
                 Get quick assistance from our team for your financial queries
                 and requirements.
               </p>
-              <button type="button">LET'S CHAT</button>
+              <button
+                type="button"
+                onClick={() => {
+                  window.location.href = "https://wa.me/919557269926";
+                }}
+              >
+                LET'S CHAT
+              </button>
             </div>
             <div className="contact-person-wrapper">
               {contact.formImage ? (

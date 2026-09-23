@@ -17,6 +17,15 @@ body {
   font-family: inherit;
 }
 
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  text-decoration: none;
+}
+
 /* Shared homepage-style accordion used by product FAQ sections. */
 .shared-faq {
   min-height: 0;
