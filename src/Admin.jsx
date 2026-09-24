@@ -270,13 +270,15 @@ function Partners({ data, update }) {
     <section className="adm-panel">
       <div className="adm-panel-title">
         <div>
-          <h2>Technology Partners</h2>
-          <p className="adm-note">These five PDF policies are the only documents shown on the public Technology Partners section.</p>
+          <h2>Technology Partner Documents</h2>
+          <p className="adm-note">These PDFs are shown in the Governance Policies &amp; Codes section and are separate from Technology Partner logos.</p>
         </div>
       </div>
       <div className="adm-media-grid">
         {TECHNOLOGY_PDF_NAMES.map((name) => {
-          const item = (data.partners?.technologyPartners || []).find((x) => x.name === name) || { id: createId("tech-pdf"), name, pdfUrl: "" };
+          const item = (data.partners?.technologyPartnerPdfs || []).find((x) => x.name === name) ||
+            (data.partners?.technologyPartners || []).find((x) => x.name === name && x.pdfUrl) ||
+            { id: createId("tech-pdf"), name, pdfUrl: "" };
           return (
             <div className="logo-card partner-pdf-admin-card" key={item.id || name}>
               <div className="partner-pdf-admin-icon">PDF</div>
@@ -294,11 +296,15 @@ function Partners({ data, update }) {
                     }
                     const pdfUrl = await readFileAsDataUrl(file);
                     update((d) => {
-                      d.partners.technologyPartners = d.partners?.technologyPartners || [];
-                      const existingIndex = d.partners.technologyPartners.findIndex((x) => x.name === name);
-                      const entry = { id: existingIndex >= 0 ? d.partners.technologyPartners[existingIndex].id : createId("tech-pdf"), name, pdfUrl, fileName: file.name, mimeType: "application/pdf" };
-                      if (existingIndex >= 0) d.partners.technologyPartners[existingIndex] = entry;
-                      else d.partners.technologyPartners.push(entry);
+                      d.partners.technologyPartnerPdfs = d.partners?.technologyPartnerPdfs || [];
+                      const existingIndex = d.partners.technologyPartnerPdfs.findIndex((x) => x.name === name);
+                      const entry = { id: existingIndex >= 0 ? d.partners.technologyPartnerPdfs[existingIndex].id : createId("tech-pdf"), name, pdfUrl, fileName: file.name, mimeType: "application/pdf" };
+                      if (existingIndex >= 0) d.partners.technologyPartnerPdfs[existingIndex] = entry;
+                      else d.partners.technologyPartnerPdfs.push(entry);
+
+                      if (Array.isArray(d.partners.technologyPartners)) {
+                        d.partners.technologyPartners = d.partners.technologyPartners.filter((x) => !(x.name === name && x.pdfUrl));
+                      }
                     });
                     event.target.value = "";
                   }}
@@ -309,7 +315,10 @@ function Partners({ data, update }) {
                 <>
                   <a href={item.pdfUrl} target="_blank" rel="noreferrer">Open PDF</a>
                   <button className="adm-danger" onClick={() => update((d) => {
-                    d.partners.technologyPartners = (d.partners?.technologyPartners || []).filter((x) => x.name !== name);
+                    d.partners.technologyPartnerPdfs = (d.partners?.technologyPartnerPdfs || []).filter((x) => x.name !== name);
+                    if (Array.isArray(d.partners.technologyPartners)) {
+                      d.partners.technologyPartners = d.partners.technologyPartners.filter((x) => !(x.name === name && x.pdfUrl));
+                    }
                   })}>Delete</button>
                 </>
               )}
@@ -327,6 +336,7 @@ function Partners({ data, update }) {
         <Upload label="Banner" value={data.partners?.banner || ""} onChange={(v) => update((d) => d.partners.banner = v)} />
       </section>
       {group("Lending Partners", "lendingPartners")}
+      {group("Technology Partners", "technologyPartnerLogos")}
       {pdfGroup()}
     </>
   );

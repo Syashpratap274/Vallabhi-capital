@@ -376,13 +376,19 @@ body {
   border-radius: 12px;
   background: #f9fbfd;
   overflow: hidden;
+  min-width: 0;
 }
 
 .login-country-code {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   padding: 0 14px 0 16px;
   color: #103770;
   font-family: "Poppins", sans-serif;
   font-weight: 600;
+  white-space: nowrap;
+  line-height: 1;
 }
 
 .login-input-wrap input,
@@ -916,6 +922,10 @@ body {
     gap: 18px;
   }
 
+  .navbar-link {
+    font-size: clamp(14px, 1.2vw, 18px);
+  }
+
   .navbar-logo img {
     width: 180px;
     max-width: 180px;
@@ -985,5 +995,21 @@ body {
   .navbar-mobile-toggle {
     width: 38px;
     height: 38px;
+  }
+}
+
+@media (max-width: 360px) {
+  .navbar-container {
+    gap: 10px;
+  }
+
+  .navbar-logo img {
+    width: 120px;
+    max-width: 120px;
+  }
+
+  .navbar-login {
+    padding: 7px 10px;
+    font-size: 16px;
   }
 }

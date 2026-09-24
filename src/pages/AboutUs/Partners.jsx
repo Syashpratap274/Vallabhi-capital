@@ -14,17 +14,25 @@ export default function Partners() {
   const cms = useCms();
   const p = cms.partners || {};
 
-  const LogoGroup = ({ title, desc, keyName }) => (
+  const technologyPartnerLogos = Array.isArray(p.technologyPartnerLogos)
+    ? p.technologyPartnerLogos
+    : (Array.isArray(p.technologyPartners) ? p.technologyPartners.filter((x) => x?.image || x?.logo || x?.src) : []);
+
+  const technologyPartnerPdfs = Array.isArray(p.technologyPartnerPdfs)
+    ? p.technologyPartnerPdfs
+    : (Array.isArray(p.technologyPartners) ? p.technologyPartners.filter((x) => x?.pdfUrl || x?.url || x?.file) : []);
+
+  const LogoGroup = ({ title, desc, keyName, items }) => (
     <section id={keyName === "lendingPartners" ? "lending-partners" : "technology-partners"} className="partners-section">
       <div className="partners-section-heading">
         <h2>{title}</h2>
         {desc && <p>{desc}</p>}
       </div>
       <div className="partners-logo-grid">
-        {(p[keyName] || []).length ? (
-          (p[keyName] || []).map((x) => (
+        {(items || []).length ? (
+          (items || []).map((x) => (
             <div className="partner-logo-card" key={x.id || x.name || Math.random().toString(36).slice(2)}>
-              <img src={x.image} alt={x.name || title} />
+              <img src={x.image || x.logo || x.src} alt={x.name || title} />
             </div>
           ))
         ) : (
@@ -38,7 +46,7 @@ export default function Partners() {
   );
 
   const pdfList = TECH_PDF_NAMES.map((name) => {
-    const item = (Array.isArray(p.technologyPartners) ? p.technologyPartners : []).find((x) => x?.name === name);
+    const item = technologyPartnerPdfs.find((x) => x?.name === name);
     const shortLabel = {
       "Fair practice code": "FPC",
       "KYC & AML Policy": "KYC",
@@ -57,8 +65,8 @@ export default function Partners() {
 
   return (
     <main className="partners-page">
-      <LogoGroup title="Our Lending Partners" keyName="lendingPartners" />
-      <LogoGroup title="Our Technology Partners" keyName="technologyPartners" />
+      <LogoGroup title="Our Lending Partners" keyName="lendingPartners" items={p.lendingPartners || []} />
+      <LogoGroup title="Our Technology Partners" keyName="technologyPartners" items={technologyPartnerLogos} />
 
       <section className="partners-section partners-policy-section">
         <div className="partners-policy-block">

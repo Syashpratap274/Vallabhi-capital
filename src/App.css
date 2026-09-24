@@ -5,6 +5,16 @@
 	margin: 0 auto;
 }
 
+.app-shell * {
+	min-width: 0;
+}
+
 .app-shell-admin {
 	max-width: none;
+}
+
+@media (max-width: 900px) {
+	.app-shell {
+		max-width: 100%;
+	}
 }

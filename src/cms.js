@@ -128,7 +128,7 @@ const seed = {
     teamHeading: "MEET OUR ", teamHeadingHighlight: "GREAT TEAM", teamSubtitle: "",
     team: []
   },
-  partners: { banner: "", lendingPartners: [], technologyPartners: [] },
+  partners: { banner: "", lendingPartners: [], technologyPartnerLogos: [], technologyPartnerPdfs: [], technologyPartners: [] },
   career: { banner: "/images/aboutus/Career-banner.jpg", employeeTestimonials: [], jobs: [] },
   esg: {
     banner: { image: "", title: "Building a Sustainable Future", subtitle: "Through Responsible Finance" },
@@ -218,6 +218,8 @@ export function mergeCmsData(base, override) {
       ...(fallback.partners || {}),
       ...(current.partners || {}),
       lendingPartners: mergeList(current.partners?.lendingPartners, fallback.partners?.lendingPartners),
+      technologyPartnerLogos: mergeList(current.partners?.technologyPartnerLogos, fallback.partners?.technologyPartnerLogos),
+      technologyPartnerPdfs: mergeList(current.partners?.technologyPartnerPdfs, fallback.partners?.technologyPartnerPdfs),
       technologyPartners: mergeList(current.partners?.technologyPartners, fallback.partners?.technologyPartners),
     },
     career: {
@@ -381,14 +383,36 @@ export function normalizeCms(data) {
   out.partners = out.partners || {};
   out.partners.banner = out.partners.banner || "";
   out.partners.lendingPartners = Array.isArray(out.partners.lendingPartners) ? out.partners.lendingPartners.map((x, i) => ({ ...x, id: x.id || createId(`partner-${i}`), name: x.name || "", image: x.image || "" })) : [];
-  out.partners.technologyPartners = Array.isArray(out.partners.technologyPartners) ? out.partners.technologyPartners.map((x, i) => ({
+
+  const legacyTechItems = Array.isArray(out.partners.technologyPartners) ? out.partners.technologyPartners : [];
+  const techLogoItems = Array.isArray(out.partners.technologyPartnerLogos)
+    ? out.partners.technologyPartnerLogos
+    : legacyTechItems.filter((x) => x?.image || x?.logo || x?.src);
+  const techPdfItems = Array.isArray(out.partners.technologyPartnerPdfs)
+    ? out.partners.technologyPartnerPdfs
+    : legacyTechItems.filter((x) => x?.pdfUrl || x?.url || x?.file);
+
+  out.partners.technologyPartnerLogos = techLogoItems.map((x, i) => ({
+    ...x,
+    id: x.id || createId(`tech-logo-${i}`),
+    name: x.name || "",
+    image: x.image || x.logo || x.src || "",
+  }));
+
+  out.partners.technologyPartnerPdfs = techPdfItems.map((x, i) => ({
     ...x,
     id: x.id || createId(`tech-pdf-${i}`),
     name: x.name || "",
     pdfUrl: x.pdfUrl || x.url || x.file || "",
     fileName: x.fileName || x.name || "",
     mimeType: x.mimeType || "application/pdf",
-  })) : [];
+  }));
+
+  out.partners.technologyPartners = [
+    ...out.partners.technologyPartnerLogos,
+    ...out.partners.technologyPartnerPdfs,
+  ];
+
   return out;
 }
 function slugifyCms(s){return String(s||"").toLowerCase().trim().replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"")}
