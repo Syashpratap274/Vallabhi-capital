@@ -122,43 +122,6 @@ export default function Industries() {
       </section>
 
       {/* =====================================================
-          ABOUT INDUSTRIES
-      ===================================================== */}
-
-      <section className="industries-about-section">
-
-        <div className="industries-about-card">
-
-          <div className="industries-about-content">
-
-            <h2>
-              About Industries
-            </h2>
-
-            <p>
-              Every industry has different business needs,
-              cash-flow cycles, and growth plans. Vallabhi Capital
-              provides tailored financing solutions to help
-              businesses manage working capital, invest in assets,
-              and move forward with confidence.
-            </p>
-
-          </div>
-
-          <div className="industries-about-image">
-
-            <img
-              src={sectionTwoImage}
-              alt="Vallabhi Capital"
-            />
-
-          </div>
-
-        </div>
-
-      </section>
-
-      {/* =====================================================
           INDUSTRIES WE SERVED
       ===================================================== */}
 

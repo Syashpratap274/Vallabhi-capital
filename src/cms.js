@@ -378,6 +378,17 @@ export function normalizeCms(data) {
   out.company.values = Array.isArray(out.company.values) ? out.company.values.map((x, i) => ({ ...x, id: x.id || createId(`value-${i}`), title: x.title || "", description: x.description || "", logo: x.logo || x.image || x.icon || "", published: x.published !== false })) : [];
   out.company.founders = Array.isArray(out.company.founders) ? out.company.founders.map((x, i) => ({ ...x, id: x.id || createId(`founder-${i}`), name: x.name || "", designation: x.designation || "", description: x.description || "", image: x.image || "", linkedin: x.linkedin || "", published: x.published !== false })) : [];
   out.company.team = Array.isArray(out.company.team) ? out.company.team.map((x, i) => ({ ...x, id: x.id || createId(`team-${i}`), image: x.image || x.photo || "", description: x.description || x.text || "", published: x.published !== false })) : [];
+  out.partners = out.partners || {};
+  out.partners.banner = out.partners.banner || "";
+  out.partners.lendingPartners = Array.isArray(out.partners.lendingPartners) ? out.partners.lendingPartners.map((x, i) => ({ ...x, id: x.id || createId(`partner-${i}`), name: x.name || "", image: x.image || "" })) : [];
+  out.partners.technologyPartners = Array.isArray(out.partners.technologyPartners) ? out.partners.technologyPartners.map((x, i) => ({
+    ...x,
+    id: x.id || createId(`tech-pdf-${i}`),
+    name: x.name || "",
+    pdfUrl: x.pdfUrl || x.url || x.file || "",
+    fileName: x.fileName || x.name || "",
+    mimeType: x.mimeType || "application/pdf",
+  })) : [];
   return out;
 }
 function slugifyCms(s){return String(s||"").toLowerCase().trim().replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"")}
@@ -626,9 +637,35 @@ export function useCmsSection(key) {
 export const sortItems = items => [...(items||[])].sort((a,b)=>(a.order||0)-(b.order||0));
 
 export const readFileAsDataUrl = (file, ownership = {}) => new Promise((resolve,reject)=>{
+  const persistDataUrl = async (dataUrl, type = file.type || "application/octet-stream") => {
+    try {
+      const response = await apiRequest("/api/media", {
+        method: "POST",
+        body: JSON.stringify({
+          dataUrl,
+          name: file.name,
+          type,
+          pageKey: ownership.pageKey || null,
+          fieldPath: ownership.fieldPath || null,
+          entityId: ownership.entityId || null,
+        }),
+      });
+      return response.url;
+    } catch (error) {
+      console.warn("Unable to store uploaded file in media API; saving it with the CMS data instead.", error);
+      return dataUrl;
+    }
+  };
+
   if(!file.type.startsWith("image/")){
     const r=new FileReader();
-    r.onload=()=>resolve(r.result);
+    r.onload=async()=> {
+      try {
+        resolve(await persistDataUrl(String(r.result), file.type || "application/pdf"));
+      } catch (error) {
+        reject(error);
+      }
+    };
     r.onerror=reject;
     r.readAsDataURL(file);
     return;
@@ -647,26 +684,7 @@ export const readFileAsDataUrl = (file, ownership = {}) => new Promise((resolve,
         ctx.drawImage(img,0,0,c.width,c.height);
         const dataUrl=c.toDataURL("image/webp",0.82);
 
-        // Uploaded media is stored in Neon instead of localStorage.
-        try {
-          const response = await apiRequest("/api/media", {
-            method: "POST",
-            body: JSON.stringify({
-              dataUrl,
-              name: file.name,
-              type: "image/webp",
-              pageKey: ownership.pageKey || null,
-              fieldPath: ownership.fieldPath || null,
-              entityId: ownership.entityId || null,
-            }),
-          });
-          // Store only the compact media URL in the CMS JSON. The image bytes
-          // remain in the media table, keeping multi-image gallery saves small.
-          resolve(response.url);
-        } catch (error) {
-          console.warn("Unable to store image in media API; saving it with the CMS data instead.", error);
-          resolve(dataUrl);
-        }
+        resolve(await persistDataUrl(dataUrl, "image/webp"));
       } catch (error) {
         reject(error);
       }

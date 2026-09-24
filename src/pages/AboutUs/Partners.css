@@ -197,6 +197,7 @@
 }
 
 
+
 /* =========================================================
    PARTNER LOGO
 ========================================================= */
@@ -212,6 +213,108 @@
   object-fit: contain;
 
   display: block;
+}
+
+
+/* =========================================================
+   GOVERNANCE POLICIES SECTION
+========================================================= */
+
+.partners-policy-section {
+  padding-top: 0;
+}
+
+.partners-policy-block {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0;
+}
+
+.partners-policy-subheading {
+  margin-bottom: 18px;
+}
+
+.partners-policy-subheading h3 {
+  margin: 0 0 8px;
+  color: #123f70;
+  font-size: 26px;
+  font-weight: 700;
+}
+
+.partners-policy-subheading p {
+  margin: 0;
+  color: #5b6f82;
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+.partners-policy-list {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.partners-policy-item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+  min-height: 92px;
+  padding: 18px 20px;
+  border-radius: 14px;
+  background: #f7f9ff;
+  border: 1px solid #dfe8ff;
+  text-decoration: none;
+  color: #123f70;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.partners-policy-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px rgba(25, 70, 110, 0.08);
+}
+
+.partners-policy-item-disabled {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.partners-policy-icon {
+  position: relative;
+  flex-shrink: 0;
+  width: 54px;
+  height: 64px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #ef4136, #d3202b);
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  line-height: 1;
+  box-shadow: 0 10px 18px rgba(211, 32, 43, 0.18);
+}
+
+.partners-policy-icon::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 16px;
+  height: 16px;
+  background: rgba(255, 255, 255, 0.22);
+  clip-path: polygon(0 0, 100% 0, 100% 100%);
+  border-top-right-radius: 8px;
+}
+
+.partners-policy-name {
+  display: block;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.5;
+  word-break: break-word;
 }
 
 
@@ -291,6 +394,10 @@
 
 
 @media (max-width: 700px) {
+
+  .partners-policy-list {
+    grid-template-columns: 1fr;
+  }
 
   .partners-hero {
     width: calc(100% - 30px);

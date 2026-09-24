@@ -51,6 +51,30 @@ test('preserves uploaded industry images during CMS normalization', () => {
   assert.equal(cms.industries.items[0].homepageImage, '/api/media?id=home-1');
 });
 
+test('recreates the partners CMS section and keeps uploaded policy PDFs', () => {
+  const cms = normalizeCms({
+    homepage: {},
+    products: { items: [], whyPoints: [] },
+    industries: { items: [] },
+    blogs: [],
+    gallery: { folders: [] },
+    company: { team: [] },
+    partners: {
+      lendingPartners: [],
+      technologyPartners: [
+        { id: 'pdf-1', name: 'Fair practice code', pdfUrl: 'data:application/pdf;base64,abc123', fileName: 'fair-practice-code.pdf' },
+      ],
+    },
+    career: { employeeTestimonials: [], jobs: [] },
+    contact: {},
+    leads: [],
+  });
+
+  assert.deepEqual(cms.partners.technologyPartners[0].name, 'Fair practice code');
+  assert.equal(cms.partners.technologyPartners[0].pdfUrl, 'data:application/pdf;base64,abc123');
+  assert.equal(cms.partners.technologyPartners[0].fileName, 'fair-practice-code.pdf');
+});
+
 test('preserves server industry content when local records are stale and blank', () => {
   const merged = mergeCmsData(
     { industries: { items: [{ id: 'industry-1', name: 'Chemical', slug: 'chemical', heading: 'Saved heading', subtitle: 'Saved subtitle', content: 'Saved content' }] } },

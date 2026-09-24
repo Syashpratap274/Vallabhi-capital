@@ -217,7 +217,120 @@ function AboutBlockEditor({ title, value = {}, update }) {
 function TextPointsEditor({ title, items, setItems }) { return <div className="adm-repeater"><div className="adm-repeater-head"><strong>{title}</strong><button className="adm-secondary" type="button" onClick={() => setItems([...(items || []), { id: createId("point"), text: "" }])}>+ Add point</button></div>{(items || []).map((x, i) => <div className="adm-card-editor" key={x.id || i}><div className="adm-row-title"><h4>{title} {i + 1}</h4><button className="adm-danger" type="button" onClick={() => setItems(items.filter((_, n) => n !== i))}>Remove</button></div><Field label="Text" value={x.text} onChange={(v) => { const next = [...items]; next[i] = { ...x, text: v }; setItems(next); }} textarea /></div>)}</div>; }
 
 function ValuesEditor({ items, update }) { return <section className="adm-panel"><div className="adm-panel-title"><div><h2>Our Values</h2><p className="adm-note">The About page displays exactly four value cards. Use the Logo upload inside each value for its individual icon.</p></div>{items.length < 4 && <button className="adm-primary" onClick={() => update([...(items || []), { id: createId("value"), title: "", description: "", logo: "", published: true }])}>+ Add Value</button>}</div>{(items || []).slice(0, 4).map((x, i) => <div className="adm-card-editor" key={x.id || i}><div className="adm-row-title"><h4>Value {i + 1}</h4><button className="adm-danger" type="button" onClick={() => update(items.filter((_, n) => n !== i))}>Remove</button></div><Field label="Title" value={x.title} onChange={(v) => { const next = [...items]; next[i] = { ...x, title: v }; update(next); }} /><Field label="Description" value={x.description} onChange={(v) => { const next = [...items]; next[i] = { ...x, description: v }; update(next); }} textarea /><Upload label="Value logo / icon" help="This image appears on this value card. The Company assets logo is used only as a fallback." value={x.logo || x.image || x.icon || ""} onChange={(v) => { const next = [...items]; next[i] = { ...x, logo: v }; update(next); }} /><Toggle value={x.published !== false} onChange={(v) => { const next = [...items]; next[i] = { ...x, published: v }; update(next); }} /></div>)}</section>; }
-function Partners({ data, update }) { const group=(title,key)=><section className="adm-panel"><div className="adm-panel-title"><div><h2>{title}</h2><p className="adm-note">These logos continue to power the existing Partners page.</p></div><button className="adm-primary" onClick={()=>{const input=document.createElement("input");input.type="file";input.accept="image/*";input.onchange=async()=>{if(input.files?.[0]){const image=await readFileAsDataUrl(input.files[0]);update(d=>d.partners[key].push({id:createId("partner"),name:"",image}));}};input.click();}}>+ Add Logo</button></div><div className="adm-media-grid">{(data.partners?.[key]||[]).map((x,i)=><div className="logo-card" key={x.id}><img src={x.image} alt="Partner logo"/><span>{x.name||`Partner ${i+1}`}</span><button className="adm-danger" onClick={()=>update(d=>d.partners[key]=d.partners[key].filter(y=>y.id!==x.id))}>Delete</button></div>)}</div></section>; return <><section className="adm-panel"><h2>Partners Banner</h2><Upload label="Banner" value={data.partners?.banner||""} onChange={v=>update(d=>d.partners.banner=v)}/></section>{group("Lending Partners","lendingPartners")}{group("Technology Partners","technologyPartners")}</>; }
+function Partners({ data, update }) {
+  const TECHNOLOGY_PDF_NAMES = [
+    "Fair practice code",
+    "KYC & AML Policy",
+    "Interest Rate Policy",
+    "Refund & Cancellation Policy",
+    "Terms & Condition Policy",
+  ];
+
+  const group = (title, key) => (
+    <section className="adm-panel">
+      <div className="adm-panel-title">
+        <div>
+          <h2>{title}</h2>
+          <p className="adm-note">These logos continue to power the existing Partners page.</p>
+        </div>
+        <button
+          className="adm-primary"
+          onClick={() => {
+            const input = document.createElement("input");
+            input.type = "file";
+            input.accept = "image/*";
+            input.onchange = async () => {
+              if (input.files?.[0]) {
+                const image = await readFileAsDataUrl(input.files[0]);
+                update((d) => {
+                  d.partners[key] = d.partners?.[key] || [];
+                  d.partners[key].push({ id: createId("partner"), name: "", image });
+                });
+              }
+            };
+            input.click();
+          }}
+        >
+          + Add Logo
+        </button>
+      </div>
+      <div className="adm-media-grid">
+        {(data.partners?.[key] || []).map((x, i) => (
+          <div className="logo-card" key={x.id || i}>
+            <img src={x.image} alt="Partner logo" />
+            <span>{x.name || `Partner ${i + 1}`}</span>
+            <button className="adm-danger" onClick={() => update((d) => d.partners[key] = (d.partners?.[key] || []).filter((y) => y.id !== x.id))}>Delete</button>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+
+  const pdfGroup = () => (
+    <section className="adm-panel">
+      <div className="adm-panel-title">
+        <div>
+          <h2>Technology Partners</h2>
+          <p className="adm-note">These five PDF policies are the only documents shown on the public Technology Partners section.</p>
+        </div>
+      </div>
+      <div className="adm-media-grid">
+        {TECHNOLOGY_PDF_NAMES.map((name) => {
+          const item = (data.partners?.technologyPartners || []).find((x) => x.name === name) || { id: createId("tech-pdf"), name, pdfUrl: "" };
+          return (
+            <div className="logo-card partner-pdf-admin-card" key={item.id || name}>
+              <div className="partner-pdf-admin-icon">PDF</div>
+              <span>{name}</span>
+              <label className="adm-upload partner-pdf-upload">
+                <input
+                  type="file"
+                  accept="application/pdf"
+                  onChange={async (event) => {
+                    const file = event.target.files?.[0];
+                    if (!file) return;
+                    if (file.type && !file.type.toLowerCase().includes("pdf")) {
+                      window.alert("Only PDF files are allowed.");
+                      return;
+                    }
+                    const pdfUrl = await readFileAsDataUrl(file);
+                    update((d) => {
+                      d.partners.technologyPartners = d.partners?.technologyPartners || [];
+                      const existingIndex = d.partners.technologyPartners.findIndex((x) => x.name === name);
+                      const entry = { id: existingIndex >= 0 ? d.partners.technologyPartners[existingIndex].id : createId("tech-pdf"), name, pdfUrl, fileName: file.name, mimeType: "application/pdf" };
+                      if (existingIndex >= 0) d.partners.technologyPartners[existingIndex] = entry;
+                      else d.partners.technologyPartners.push(entry);
+                    });
+                    event.target.value = "";
+                  }}
+                />
+                {item.pdfUrl ? "Replace PDF" : "Upload PDF"}
+              </label>
+              {item.pdfUrl && (
+                <>
+                  <a href={item.pdfUrl} target="_blank" rel="noreferrer">Open PDF</a>
+                  <button className="adm-danger" onClick={() => update((d) => {
+                    d.partners.technologyPartners = (d.partners?.technologyPartners || []).filter((x) => x.name !== name);
+                  })}>Delete</button>
+                </>
+              )}
+            </div>
+          );
+        })}
+      </div>
+    </section>
+  );
+
+  return (
+    <>
+      <section className="adm-panel">
+        <h2>Partners Banner</h2>
+        <Upload label="Banner" value={data.partners?.banner || ""} onChange={(v) => update((d) => d.partners.banner = v)} />
+      </section>
+      {group("Lending Partners", "lendingPartners")}
+      {pdfGroup()}
+    </>
+  );
+}
 function CareerAdmin({ data, update, setModal }) { return <><section className="adm-panel"><h2>Career Banner</h2><Upload label="Banner" value={data.career?.banner||""} onChange={v=>update(d=>d.career.banner=v)}/></section><List title="Employee Testimonials" description="These remain the same Admin-managed employee testimonials used by the Career page." items={data.career?.employeeTestimonials||[]} onAdd={()=>setModal({type:"employee",title:"Add Employee Testimonial",item:{id:createId("employee"),name:"",designation:"",text:"",image:"",published:true}})} onEdit={x=>setModal({type:"employee",title:"Edit Employee Testimonial",item:structuredClone(x)})} onDelete={x=>update(d=>d.career.employeeTestimonials=d.career.employeeTestimonials.filter(y=>y.id!==x.id))}/><List title="Job Openings" description="Only published jobs are displayed on the Career page." items={data.career?.jobs||[]} onAdd={()=>setModal({type:"job",title:"Add Job Opening",item:{id:createId("job"),title:"",department:"",location:"",experience:"",type:"Full Time",description:"",responsibilities:"",requirements:"",applicationEmail:"",published:false}})} onEdit={x=>setModal({type:"job",title:"Edit Job Opening",item:structuredClone(x)})} onDelete={x=>update(d=>d.career.jobs=d.career.jobs.filter(y=>y.id!==x.id))}/></>; }
 function ESGAdmin({ data, update }) {
   const esg = data.esg || {};
