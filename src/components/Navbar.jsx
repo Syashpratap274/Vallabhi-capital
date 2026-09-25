@@ -183,27 +183,25 @@ function Navbar() {
     setError("");
 
     const cms = getCms();
-    const existingLead = (cms.leads || []).find((lead) => lead.phone === phone.trim() && lead.source === "Apply Now");
-    if (!existingLead) {
-      saveCms({
-        ...cms,
-        leads: [
-          ...(cms.leads || []),
-          {
-            id: createId("lead"),
-            name: "",
-            company: "",
-            phone: phone.trim(),
-            email: "",
-            product: "",
-            loanAmount: "",
-            source: "Apply Now",
-            status: "New",
-            date: new Date().toLocaleString("en-IN"),
-          },
-        ],
-      });
-    }
+    const leads = [...(cms.leads || [])];
+    const existingLeadIndex = leads.findIndex((lead) => lead.phone === phone.trim() && lead.source === "Apply Now");
+    const consentedAt = new Date().toISOString();
+    const lead = existingLeadIndex >= 0 ? leads[existingLeadIndex] : {
+      id: createId("lead"),
+      name: "",
+      company: "",
+      phone: phone.trim(),
+      email: "",
+      product: "",
+      loanAmount: "",
+      source: "Apply Now",
+      status: "New",
+      date: new Date().toLocaleString("en-IN"),
+    };
+    const consentedLead = { ...lead, consented: true, consentedAt };
+    if (existingLeadIndex >= 0) leads[existingLeadIndex] = consentedLead;
+    else leads.push(consentedLead);
+    saveCms({ ...cms, leads });
   };
 
   const handleOtpSubmit = (event) => {

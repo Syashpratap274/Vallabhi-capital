@@ -14,11 +14,12 @@ export default function LeadsAdmin({ data, update }) {
   ));
 
   const exportCsv = () => {
-    const headers = ["Name", "Company", "Phone", "Email", "Product", "Aadhaar", "PAN", "Loan Amount", "Purpose", "Source", "Status", "Date"];
+    const headers = ["Name", "Company", "Phone", "Consent", "Email", "Product", "Aadhaar", "PAN", "Loan Amount", "Purpose", "Source", "Status", "Date"];
     const rows = leads.map((lead) => [
       lead.name,
       lead.company,
       lead.phone,
+      lead.consented ? "Consented" : "Not recorded",
       lead.email,
       lead.product,
       lead.aadhaar,
@@ -48,9 +49,9 @@ export default function LeadsAdmin({ data, update }) {
       </select>
     </div>
     {filtered.length ? <div className="adm-table-wrap"><table><thead><tr>
-      <th>Name</th><th>Company</th><th>Phone</th><th>Aadhaar</th><th>PAN</th><th>Loan Amount</th><th>Purpose</th><th>Status</th><th>Date</th>
+      <th>Name</th><th>Company</th><th>Phone / Consent</th><th>Aadhaar</th><th>PAN</th><th>Loan Amount</th><th>Purpose</th><th>Status</th><th>Date</th>
     </tr></thead><tbody>{filtered.map((lead) => <tr key={lead.id}>
-      <td>{lead.name}</td><td>{lead.company}</td><td>{lead.phone}</td><td>{lead.aadhaar}</td><td>{lead.pan}</td><td>{lead.loanAmount}</td><td>{lead.purpose}</td>
+      <td>{lead.name}</td><td>{lead.company}</td><td><div>{lead.phone}</div><small className={lead.consented ? "adm-consent-status" : "adm-consent-missing"}>{lead.consented ? "Consented" : "Not recorded"}</small></td><td>{lead.aadhaar}</td><td>{lead.pan}</td><td>{lead.loanAmount}</td><td>{lead.purpose}</td>
       <td><select value={lead.status || "New"} onChange={(event) => update((next) => { const item = next.leads.find((entry) => entry.id === lead.id); if (item) item.status = event.target.value; })}>
         <option>New</option><option>Contacted</option><option>Follow-up</option><option>Converted</option><option>Closed</option>
       </select></td><td>{lead.date}</td>
