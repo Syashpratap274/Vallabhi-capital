@@ -598,14 +598,11 @@
   max-width: none;
   margin: 100px 0 0;
   margin-left: 5.625%;
-
   display: grid;
-  grid-template-columns: 30% minmax(0, 1fr);
-  column-gap: 16px;
-
+  grid-template-columns: 32% minmax(0, 1fr);
+  column-gap: 32px;
   background: #fff;
   border-radius: 0;
-
   overflow: hidden;
   box-sizing: border-box;
   padding: 0 !important;
@@ -618,14 +615,12 @@
 ========================================================= */
 
 .industries-served-left {
+  min-width: 0;
   min-height: 0;
-
   display: flex;
   flex-direction: column;
   gap: 18px;
-
   padding: 10px 0 0;
-
   background: #fff;
   box-sizing: border-box;
 }
@@ -644,26 +639,23 @@
 
 .industries-served-heading h2 {
   margin: 0;
-
   font-size: 40px;
   line-height: 1;
   font-weight: 700;
-
   color: #0b4f94;
 }
 
 .industries-served-heading h2 + h2 {
   margin: -6px 0 0;
-
   font-size: 40px;
   line-height: 1;
   font-weight: 400;
-
   color: #0b4f94;
 }
 
 .industries-served-heading p {
-  max-width: 340px;
+  width: 100%;
+  max-width: 100%;
   margin: 0;
   color: #656060;
   font-size: 16px;
@@ -672,9 +664,8 @@
 }
 
 .industries-first-line {
-  white-space: nowrap;
+  white-space: normal;
 }
-
 
 /* =========================================================
    BUTTON
