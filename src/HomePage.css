@@ -114,7 +114,7 @@
   flex-direction: column;
   margin: 0;
   font-family: "Poppins", sans-serif;
-  font-size: clamp(38px, 3.2vw, 62px);
+  font-size: clamp(40px, 3.4vw, 66px);
   line-height: 1.05;
   font-weight: 700;
 }
@@ -1588,7 +1588,7 @@
   }
 
   .hp-hero h1 {
-    font-size: clamp(40px, 10vw, 58px);
+    font-size: clamp(42px, 10vw, 60px);
     line-height: 1.05;
   }
 

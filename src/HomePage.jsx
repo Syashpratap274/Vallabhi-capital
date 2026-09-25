@@ -79,7 +79,7 @@ function Hero({ cms }) {
           <span className="hp-hero-title-main">Empowering India's</span>
           <span className="hp-hero-title-accent">MSME Growth</span>
         </h1>
-        <p>Customized, simple and faster financing solutions from small to large businesses.</p>
+        <p>Customized, simple and faster financing solutions<br></br> from small to large businesses.</p>
         <div className="hp-hero-buttons">
           <a href="/products" className="hp-white-btn">Explore Our Products</a>
           <a href="/apply" onClick={openApplication} className="hp-blue-btn">Apply Now</a>
@@ -107,8 +107,7 @@ function HeroCalculator() {
   return (
     <div className="hp-hero-card hp-calculator-card">
       <div className="hp-calculator-top">
-        <h2>Estimate your EMI</h2>
-        <span>LIVE CALCULATION</span>
+        <h2>Calculate your EMI</h2>
       </div>
       <div className="hp-calculator-label">
         <span>Loan amount</span>
