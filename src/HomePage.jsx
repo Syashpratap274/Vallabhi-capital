@@ -71,9 +71,15 @@ function Hero({ cms }) {
       <img className="hp-hero-bg" src={cms.bannerImage} alt="" />
       <div className="hp-hero-overlay" />
       <div className="hp-hero-copy">
-        <div className="hp-rbi">RBI Registered NBFC*</div>
-        <h1>Find a Loan that<br /><span>Fits your life</span></h1>
-        <p>Simple, secure and faster financing solutions for growing businesses.</p>
+        <div className="hp-rbi">
+          <span className="hp-rbi-mark" aria-label="RBI logo">RBI</span>
+          <span>Registered NBFC*</span>
+        </div>
+        <h1>
+          <span className="hp-hero-title-main">Empowering India's</span>
+          <span className="hp-hero-title-accent">MSME Growth</span>
+        </h1>
+        <p>Customized, simple and faster financing solutions from small to large businesses.</p>
         <div className="hp-hero-buttons">
           <a href="/products" className="hp-white-btn">Explore Our Products</a>
           <a href="/apply" onClick={openApplication} className="hp-blue-btn">Apply Now</a>
@@ -157,10 +163,8 @@ function HeroCalculator() {
         <small>Your estimated monthly EMI</small>
         <strong>{formatCurrency(emi)}</strong>
         <div className="hp-calculator-breakdown">
-          <div><span>Principal</span><b>{formatCurrency(amount)}</b></div>
           <div><span>Total interest</span><b>{formatCurrency(total - amount)}</b></div>
           <div><span>Total repayment</span><b>{formatCurrency(total)}</b></div>
-          <div><span>Rate</span><b>{rate}% p.a.</b></div>
         </div>
       </div>
     </div>
@@ -168,15 +172,16 @@ function HeroCalculator() {
 }
 
 function Products({ cms }) {
-  const productItems = sortItems(cms.products?.items || []).filter(p => p.published !== false && p.homepageVisible !== false).slice(0, 6);
+  const productItems = sortItems(cms.products?.items || [])
+    .filter((p) => p.published !== false);
   return (
     <section className="hp-products">
       <div className="hp-section-head">
         <div>
-          <h2>Your Trusted Loan Partner</h2>
+          <h2>Solutions For All Needs</h2>
           <p>For every situation and every journey</p>
         </div>
-        <a href="/products" className="hp-dark-btn">All Products</a>
+        <a href="/products" className="hp-dark-btn">View all Solutions</a>
       </div>
       <div className="hp-product-grid">
         {productItems.map((product) => (
@@ -184,9 +189,11 @@ function Products({ cms }) {
             <div className="hp-product-image">
               <img src={product.productLogo || cms.productLogos?.[product.name] || product.cardImage || ""} alt={`${product.name} product`} />
             </div>
-            <h3>{product.name}</h3>
-            <p>{product.shortDescription}</p>
-            <ArrowButton href={`/products/${product.slug}`} label={product.name} />
+            <div className="hp-product-content">
+              <h3>{product.name}</h3>
+              <p>{product.shortDescription}</p>
+              <ArrowButton href={`/products/${product.slug}`} label={product.name} />
+            </div>
           </article>
         ))}
       </div>
@@ -260,8 +267,8 @@ function IndustriesServed({ cms }) {
       <div className="industries-served-left">
 
         <div className="industries-served-heading">
-          <h2>Industries</h2>
-          <h2>We Served</h2>
+        <h2>Serving Diverse</h2>
+          <h2>Business Sectors</h2>
           <p>
             <span className="industries-first-line">Tailored financing solutions for every industry,</span><br />
             helping businesses manage growth, cash flow,
@@ -273,7 +280,7 @@ function IndustriesServed({ cms }) {
           href="/industries"
           className="all-industries-btn"
         >
-          All Industries
+          View all Sectors
         </a>
 
       </div>

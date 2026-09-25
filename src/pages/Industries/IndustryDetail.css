@@ -67,7 +67,7 @@
 
   color: #fff;
 
-  font-size: 64px;
+  font-size: 52px;
   line-height: 1.18;
   font-weight: 700;
 
@@ -416,7 +416,7 @@
 @media (max-width: 1200px) {
 
   .industry-detail-hero-content h1 {
-    font-size: 54px;
+    font-size: 46px;
   }
 
 
@@ -554,7 +554,7 @@
   }
 
   .industry-detail-hero-content h1 {
-    font-size: clamp(34px, 8vw, 52px);
+    font-size: clamp(30px, 7vw, 44px);
 
     line-height: 1.2;
   }
@@ -700,7 +700,7 @@
 
 
   .industry-detail-hero-content h1 {
-    font-size: 32px;
+    font-size: 30px;
   }
 
 

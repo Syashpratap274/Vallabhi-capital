@@ -124,7 +124,7 @@ body {
 
 .hero-text h1 span {
   color: #249bc6;
-  white-space: nowrap;
+  overflow-wrap: anywhere;
 }
 
 .hero-text p {
@@ -562,8 +562,9 @@ body {
   color: #ffffff !important;
   letter-spacing: 0.8px;
   word-spacing: normal;
-  white-space: nowrap;
-  display: inline-block;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  display: block;
 }
 
 
@@ -593,9 +594,9 @@ body {
 .why-grid {
   width: 100%;
 
-  display: flex;
-  flex-wrap: wrap;
-  align-items: flex-start;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  align-items: stretch;
   justify-content: flex-start;
   gap: 20px 30px;
 }
@@ -606,7 +607,7 @@ body {
 ========================================================= */
 
 .why-item {
-  width: max-content;
+  width: 100%;
   max-width: 100%;
 
   height: auto;
@@ -616,13 +617,14 @@ body {
 
   box-sizing: border-box;
 
-  display: inline-flex;
+  display: flex;
   align-items: center;
   justify-content: flex-start;
   gap: 12px;
 
   text-align: left;
-  white-space: nowrap;
+  white-space: normal;
+  overflow-wrap: anywhere;
 
   background: #ffffff;
 
@@ -638,10 +640,7 @@ body {
 
   font-weight: 500;
 
-  justify-self: start;
-
-  box-shadow:
-    0 1px 2px rgba(0, 0, 0, 0.03);
+  justify-self: stretch;
 }
 
 .why-item-icon {
@@ -668,7 +667,8 @@ body {
 .why-item-text {
   display: inline-block;
   flex: 1;
-  white-space: nowrap;
+  white-space: normal;
+  overflow-wrap: anywhere;
 }
 
 
@@ -759,6 +759,10 @@ body {
     padding: 15px 20px;
 
     font-size: 17px;
+  }
+
+  .why-item-text {
+    white-space: normal;
   }
 }
 

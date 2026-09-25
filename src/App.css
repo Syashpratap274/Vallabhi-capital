@@ -5,8 +5,42 @@
 	margin: 0 auto;
 }
 
-.app-shell * {
+* {
+	box-sizing: border-box;
+}
+
+.app-shell *,
+.app-shell *::before,
+.app-shell *::after {
 	min-width: 0;
+	box-sizing: border-box;
+}
+
+.app-shell h1,
+.app-shell h2,
+.app-shell h3,
+.app-shell h4,
+.app-shell p,
+.app-shell span,
+.app-shell a {
+	overflow-wrap: anywhere;
+}
+
+img,
+svg,
+video,
+canvas {
+	display: block;
+	max-width: 100%;
+	height: auto;
+}
+
+a,
+button,
+input,
+textarea,
+select {
+	max-width: 100%;
 }
 
 .app-shell-admin {

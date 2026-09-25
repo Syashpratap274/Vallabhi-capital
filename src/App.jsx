@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
+import React from "react";
 import "./App.css";
 
 import Navbar from "./components/Navbar";
@@ -32,6 +33,11 @@ import About from "./pages/AboutUs/About";
 function AppShell() {
   const location = useLocation();
   const isAdmin = location.pathname.startsWith("/admin");
+
+  React.useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+  }, [location.pathname]);
+
   return (
     <div className={`app-shell${isAdmin ? " app-shell-admin" : ""}`}>
       {!isAdmin && <Navbar />}

@@ -5,9 +5,18 @@ FOOTER
 */
 
 import { Link } from "react-router-dom";
+import { useCms, sortItems } from "../cms";
 import "./Footer.css";
 
 function Footer() {
+  const cms = useCms();
+  const products = sortItems(cms.products?.items || []).filter(
+    (item) => item.published !== false && item.name && item.slug
+  );
+  const industries = sortItems(cms.industries?.items || []).filter(
+    (item) => item.published !== false && item.name && item.slug
+  );
+
   return (
     <footer className="products-footer">
       <div className="footer-inner">
@@ -133,45 +142,11 @@ function Footer() {
 
           <h3>Products</h3>
 
-          <Link to="/products/msme">
-            MSME Loan
-          </Link>
-
-          <Link to="/products/loan-against-property">
-            Loan Against Property
-          </Link>
-
-          <Link to="/products/machinery-and-equipment">
-            Machinery &amp; Equipment
-          </Link>
-
-          <Link to="/products/green-finance">
-            Green Finance
-          </Link>
-
-          <Link to="/products/mid-corporate">
-            Mid - Corporate
-          </Link>
-
-          <Link to="/products/micro-enterprises">
-            Micro Enterprises
-          </Link>
-
-          <Link to="/products/purchase-finance">
-            Purchase Financing
-          </Link>
-
-          <Link to="/products/work-order-finance">
-            Work Order Finance
-          </Link>
-
-          <Link to="/products/invoice-discounting">
-            Invoice Discounting
-          </Link>
-
-          <Link to="/products/vendor-finance">
-            Vendor Finance
-          </Link>
+          {products.map((product) => (
+            <Link key={product.id || product.slug} to={`/products/${product.slug}`}>
+              {product.name}
+            </Link>
+          ))}
 
         </div>
 
@@ -184,45 +159,11 @@ function Footer() {
 
           <h3>Industries</h3>
 
-          <Link to="/industries/auto-auto-ancillary">
-            Auto &amp; Auto Ancillary
-          </Link>
-
-          <Link to="/industries/hospitality">
-            Hospitality
-          </Link>
-
-          <Link to="/industries/construction">
-            Construction
-          </Link>
-
-          <Link to="/industries/logistics">
-            Logistic
-          </Link>
-
-          <Link to="/industries/capital-goods">
-            Capital Goods
-          </Link>
-
-          <Link to="/industries/pharma-health">
-            Pharma Health
-          </Link>
-
-          <Link to="/industries/micro-enterprises">
-            Micro Enterprises
-          </Link>
-
-          <Link to="/industries/agro">
-            Agro
-          </Link>
-
-          <Link to="/industries/chemical">
-            Chemical
-          </Link>
-
-          <Link to="/industries/e-mobility-green">
-            E - Mobility &amp; Green
-          </Link>
+          {industries.map((industry) => (
+            <Link key={industry.id || industry.slug} to={`/industries/${industry.slug}`}>
+              {industry.name}
+            </Link>
+          ))}
 
 
           {/* GRIEVANCES */}
