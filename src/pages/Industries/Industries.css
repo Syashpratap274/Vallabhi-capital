@@ -4,7 +4,9 @@
 
 .industries-page {
   width: 100%;
+  min-width: 0;
   min-height: 100vh;
+
   margin: 0;
   padding: 0 0 32px;
 
@@ -12,6 +14,13 @@
   color: #111111;
 
   overflow-x: hidden;
+
+  box-sizing: border-box;
+}
+
+.industries-page *,
+.industries-page *::before,
+.industries-page *::after {
   box-sizing: border-box;
 }
 
@@ -60,9 +69,8 @@
 .industries-hero-content {
   position: relative;
 
-  width: calc(100% - 80px);
+  width: min(1680px, calc(100% - 80px));
   max-width: 1680px;
-
   height: 100%;
 
   margin: 0 auto;
@@ -166,7 +174,7 @@
 .industries-about-card {
   position: relative;
 
-  width: calc(100% - 80px);
+  width: min(1680px, calc(100% - 80px));
   max-width: 1680px;
 
   min-height: 310px;
@@ -190,8 +198,6 @@
 
   box-shadow:
     0 3px 12px rgba(0, 0, 0, 0.08);
-
-  box-sizing: border-box;
 }
 
 .industries-about-content {
@@ -250,31 +256,46 @@
   object-position: bottom center;
 }
 
-
 /* =========================================================
-   INDUSTRIES SERVED
+   INDUSTRIES SERVED SECTION
+   FULL-WIDTH / RESPONSIVE FIX
 ========================================================= */
 
-.industries-served-section {
+.industries-page .industries-served-section {
   width: 100%;
+  max-width: none;
 
-  padding: 0 0 60px;
-  margin-bottom: 12px;
+  margin: 0;
+  padding: 0 0 70px;
+
+  display: block;
+
+  overflow: visible;
 
   box-sizing: border-box;
 }
 
 
 /* =========================================================
-   MAIN CONTAINER
-   LARGE DESKTOP WIDTH
+   INDUSTRIES CONTAINER
+
+   IMPORTANT:
+   Uses viewport width so it cannot get squeezed by
+   another global .container / flex / grid rule.
 ========================================================= */
 
-.industries-page .industries-container {
-  width: calc(100% - 80px);
+.industries-page .industries-served-section > .industries-container {
+  width: calc(100vw - 80px);
   max-width: 1680px;
-  margin: 0 auto;
+
+  min-width: 0;
+
+  margin-left: auto;
+  margin-right: auto;
+
   padding: 0;
+
+  display: block;
 
   box-sizing: border-box;
 }
@@ -284,44 +305,57 @@
    SECTION TITLE
 ========================================================= */
 
-.industries-section-title {
+.industries-page .industries-section-title {
+  display: block;
+
+  width: 100%;
+
   margin: 0 0 45px;
+  padding: 0;
 
   color: #249fc8;
+
+  font-family: "Poppins", sans-serif;
 
   font-size: clamp(30px, 2.5vw, 46px);
 
   line-height: 1.2;
+
   font-weight: 700;
+
+  text-align: left;
+
+  white-space: normal;
+  word-break: normal;
+  overflow-wrap: normal;
+
+  box-sizing: border-box;
 }
 
 
 /* =========================================================
    INDUSTRY GRID
-
-   DESKTOP:
-   5 LARGE CARDS PER ROW
-
-   10 CARDS:
-   ROW 1 = 5
-   ROW 2 = 5
 ========================================================= */
 
 .industries-page .industries-grid {
-  width: 100%;
-  max-width: 1680px;
+  display: grid !important;
 
-  margin: 0;
-  padding: 0;
+  width: 100% !important;
+  max-width: none !important;
 
-  display: grid;
+  min-width: 0;
+
+  margin: 0 !important;
+  padding: 0 !important;
 
   grid-template-columns:
-    repeat(5, minmax(230px, 1fr));
+    repeat(5, minmax(0, 1fr)) !important;
 
-  justify-content: start;
-  column-gap: 18px;
+  column-gap: 24px;
   row-gap: 42px;
+
+  align-items: stretch;
+  justify-items: stretch;
 
   box-sizing: border-box;
 }
@@ -331,17 +365,19 @@
    INDUSTRY CARD
 ========================================================= */
 
-.industries-page .industry-card {
-  width: 100%;
-  min-width: 0;
-  max-width: 320px;
-
-  justify-self: center;
-  margin: 0;
-  padding: 0;
-
+.industries-page .industries-grid .industry-card {
   display: flex;
+
+  width: 100% !important;
+  max-width: none !important;
+  min-width: 0 !important;
+
+  margin: 0 !important;
+  padding: 0 !important;
+
   flex-direction: column;
+
+  align-self: stretch;
 
   overflow: hidden;
 
@@ -366,7 +402,12 @@
     box-shadow 0.25s ease;
 }
 
-.industries-page .industry-card:hover {
+
+/* =========================================================
+   CARD HOVER
+========================================================= */
+
+.industries-page .industries-grid .industry-card:hover {
   transform: translateY(-5px);
 
   box-shadow:
@@ -375,18 +416,18 @@
 
 
 /* =========================================================
-   INDUSTRY IMAGE
-
-   LARGE CARD IMAGE
+   IMAGE WRAPPER
 ========================================================= */
 
-.industries-page .industry-image-wrapper {
+.industries-page .industries-grid .industry-image-wrapper {
   position: relative;
 
-  width: 100%;
+  width: 100% !important;
   height: 270px;
 
-  flex-shrink: 0;
+  min-width: 0;
+
+  flex: 0 0 270px;
 
   overflow: hidden;
 
@@ -397,13 +438,22 @@
     0;
 
   background: #eeeeee;
+
+  box-sizing: border-box;
 }
 
-.industries-page .industry-image {
+
+/* =========================================================
+   IMAGE
+========================================================= */
+
+.industries-page .industries-grid .industry-image {
   display: block;
 
-  width: 100%;
-  height: 100%;
+  width: 100% !important;
+  height: 100% !important;
+
+  min-width: 0;
 
   object-fit: cover;
   object-position: center;
@@ -412,7 +462,12 @@
     transform 0.4s ease;
 }
 
-.industries-page .industry-card:hover
+
+/* =========================================================
+   IMAGE HOVER
+========================================================= */
+
+.industries-page .industries-grid .industry-card:hover
 .industry-image {
   transform: scale(1.05);
 }
@@ -422,35 +477,64 @@
    CARD CONTENT
 ========================================================= */
 
-.industries-page .industry-card-content {
-  width: 100%;
+.industries-page .industries-grid .industry-card-content {
+  width: 100% !important;
 
-  min-height: 160px;
-  height: clamp(220px, 17.1vw, 328px);
+  min-width: 0;
 
-  padding: 22px;
+  min-height: 165px;
+
+  margin: 0;
+  padding: 20px;
 
   display: flex;
+
+  flex: 1 1 auto;
+
   flex-direction: column;
-  height: 68%;
+
   align-items: flex-start;
 
-  box-sizing: border-box;
-  min-height: 0;
-  flex: 1;
-
-  padding: 16px 18px;
-  width: 100%;
-
-    height: 68%;
+  justify-content: space-between;
 
   color: #111111;
-    min-height: 0;
-    padding: 18px;
+
+  box-sizing: border-box;
+}
+
+
+/* =========================================================
+   CARD TITLE
+========================================================= */
+
+.industries-page .industries-grid .industry-card-content h3 {
+  display: block;
+
+  width: 100%;
+
+  min-width: 0;
+
+  margin: 0;
+
+  color: #111111;
+
+  font-family: "Poppins", sans-serif;
+
+  font-size: 19px;
 
   line-height: 1.35;
 
   font-weight: 700;
+
+  text-align: left;
+
+  white-space: normal;
+
+  word-break: normal;
+
+  overflow-wrap: break-word;
+
+  box-sizing: border-box;
 }
 
 
@@ -458,17 +542,16 @@
    KNOW MORE BUTTON
 ========================================================= */
 
-.industries-page .industry-know-more {
-  margin-top: auto;
-
+.industries-page .industries-grid .industry-know-more {
   display: inline-flex;
 
-  align-items: center;
-  justify-content: center;
-
-  gap: 8px;
+  width: auto !important;
 
   min-width: 130px;
+
+  max-width: 100%;
+
+  margin-top: 22px;
 
   padding:
     10px
@@ -476,16 +559,29 @@
     10px
     15px;
 
+  align-items: center;
+  justify-content: center;
+
+  gap: 8px;
+
   border: none;
   border-radius: 24px;
 
   background: #063d72;
+
   color: #ffffff;
 
+  font-family: "Poppins", sans-serif;
+
   font-size: 12px;
+
   font-weight: 600;
 
+  line-height: 1;
+
   text-decoration: none;
+
+  white-space: nowrap;
 
   cursor: pointer;
 
@@ -496,7 +592,7 @@
     transform 0.2s ease;
 }
 
-.industries-page .industry-know-more:hover {
+.industries-page .industries-grid .industry-know-more:hover {
   background: #052e56;
 
   transform: translateX(2px);
@@ -504,374 +600,146 @@
 
 
 /* =========================================================
-   ARROW
+   DESKTOP
+   1200px - 1599px
+
+   4 CARDS
 ========================================================= */
 
-.industries-page .industry-arrow {
-  position: relative;
+@media (max-width: 1599px) and (min-width: 1200px) {
 
-  width: 23px;
-  height: 23px;
-
-  display: flex;
-
-  align-items: center;
-  justify-content: center;
-
-  flex-shrink: 0;
-
-  border-radius: 50%;
-
-  background: #ffffff;
-}
-
-.industries-page .industry-arrow::after {
-  content: "";
-
-  width: 7px;
-  height: 7px;
-
-  border-top:
-    2px solid #063d72;
-
-  border-right:
-    2px solid #063d72;
-
-  transform: rotate(45deg);
-}
-
-
-/* =========================================================
-   FINAL CTA
-========================================================= */
-
-.industries-cta-section {
-  width: 100%;
-
-  padding:
-    20px
-    0
-    100px;
-
-  box-sizing: border-box;
-}
-
-.industries-cta {
-  width: calc(100% - 80px);
-  max-width: 1680px;
-
-  min-height: 285px;
-
-  margin: 0 auto;
-
-  padding: 50px 40px;
-
-  border-radius: 15px;
-
-  background:
-    linear-gradient(
-      100deg,
-      #269fc8 0%,
-      #15a982 100%
-    );
-
-  display: flex;
-
-  flex-direction: column;
-
-  align-items: center;
-  justify-content: center;
-
-  text-align: center;
-
-  color: #ffffff;
-
-  box-sizing: border-box;
-}
-
-.industries-cta h2 {
-  margin: 0;
-
-  font-size: clamp(30px, 3vw, 48px);
-
-  line-height: 1.2;
-  font-weight: 700;
-}
-
-.industries-cta p {
-  margin:
-    12px
-    0
-    28px;
-
-  font-size: clamp(14px, 1vw, 18px);
-
-  line-height: 1.4;
-}
-
-.industries-apply-btn {
-  display: inline-flex;
-
-  align-items: center;
-  justify-content: center;
-
-  min-width: 165px;
-
-  padding: 14px 30px;
-
-  border: none;
-  border-radius: 6px;
-
-  background: #ffffff;
-  color: #123f70;
-
-  font-size: 17px;
-  font-weight: 700;
-
-  text-decoration: none;
-
-  cursor: pointer;
-
-  transition:
-    transform 0.2s ease,
-    box-shadow 0.2s ease;
-}
-
-.industries-apply-btn:hover {
-  transform: translateY(-2px);
-
-  box-shadow:
-    0 7px 18px rgba(0, 0, 0, 0.15);
-}
-
-
-/* =========================================================
-   LARGE DESKTOP
-========================================================= */
-
-@media (min-width: 1600px) {
-
-  .industries-page .industries-container {
-    width: calc(100% - 100px);
-    max-width: 1680px;
+  .industries-page .industries-served-section > .industries-container {
+    width: calc(100vw - 80px);
+    max-width: 1500px;
   }
 
   .industries-page .industries-grid {
     grid-template-columns:
-      repeat(5, minmax(0, 1fr));
+      repeat(4, minmax(0, 1fr)) !important;
 
-    column-gap: 32px;
-    row-gap: 45px;
+    column-gap: 24px;
+    row-gap: 38px;
   }
 
   .industries-page .industry-image-wrapper {
-    height: 290px;
-  }
-
-  .industries-page .industry-card-content {
-    min-height: 170px;
-    padding: 24px;
-  }
-
-  .industries-page .industry-card-content h3 {
-    font-size: 20px;
+    height: 250px;
+    flex-basis: 250px;
   }
 }
 
 
 /* =========================================================
    TABLET / SMALL DESKTOP
+   901px - 1199px
+
+   3 CARDS
 ========================================================= */
 
-@media (max-width: 1200px) {
+@media (max-width: 1199px) and (min-width: 901px) {
 
-  .industries-page .industries-container {
-    width: calc(100% - 60px);
+  .industries-page .industries-served-section > .industries-container {
+    width: calc(100vw - 60px);
+    max-width: none;
   }
 
   .industries-page .industries-grid {
     grid-template-columns:
-      repeat(3, minmax(0, 1fr));
+      repeat(3, minmax(0, 1fr)) !important;
 
-    column-gap: 24px;
+    column-gap: 22px;
     row-gap: 32px;
   }
 
   .industries-page .industry-image-wrapper {
     height: 240px;
+    flex-basis: 240px;
+  }
+
+  .industries-page .industry-card-content {
+    min-height: 155px;
+    padding: 18px;
+  }
+
+  .industries-page .industry-card-content h3 {
+    font-size: 17px;
   }
 }
 
 
 /* =========================================================
    TABLET
+   701px - 900px
+
+   2 CARDS
 ========================================================= */
 
-@media (max-width: 900px) {
+@media (max-width: 900px) and (min-width: 701px) {
 
-  .industries-hero {
-    min-height: 600px;
+  .industries-page .industries-served-section > .industries-container {
+    width: calc(100vw - 60px);
+    max-width: none;
   }
 
-  .industries-about-card {
-    width: calc(100% - 60px);
-  }
+  .industries-page .industries-grid {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr)) !important;
 
-  .industries-page .industries-container {
-    width: calc(100% - 60px);
-  }
-
-  .industries-cta {
-    width: calc(100% - 60px);
-  }
-
-  .industries-about-content {
-    width: 70%;
-  }
-
-  .industries-about-image {
-    right: 20px;
-    width: 280px;
+    column-gap: 20px;
+    row-gap: 30px;
   }
 
   .industries-page .industry-image-wrapper {
-    height: 220px;
+    height: 230px;
+    flex-basis: 230px;
+  }
+
+  .industries-page .industry-card-content {
+    min-height: 150px;
+    padding: 18px;
+  }
+
+  .industries-page .industry-card-content h3 {
+    font-size: 17px;
   }
 }
 
 
 /* =========================================================
    MOBILE
+   501px - 700px
+
+   2 CARDS
 ========================================================= */
 
-@media (max-width: 700px) {
+@media (max-width: 700px) and (min-width: 501px) {
 
-  /* HERO */
-
-  .industries-hero {
-    height: 700px;
-    min-height: 700px;
+  .industries-page .industries-served-section > .industries-container {
+    width: calc(100vw - 30px);
+    max-width: none;
   }
 
-  .industries-hero-content {
-    width: calc(100% - 40px);
-
-    padding-top: 60px;
-  }
-
-  .industries-hero-content h1 {
-    font-size: 38px;
-    line-height: 1.15;
-  }
-
-  .industries-hero-content p {
-    max-width: 100%;
-
-    margin-top: 18px;
-
-    font-size: 16px;
-    line-height: 1.5;
-  }
-
-  .hero-explore-btn {
-    margin-top: 25px;
-
-    padding: 12px 18px;
-
-    font-size: 14px;
-  }
-
-
-  /* ABOUT */
-
-  .industries-about-section {
-    padding: 45px 0;
-  }
-
-  .industries-about-card {
-    width: calc(100% - 30px);
-
-    min-height: auto;
-
-    display: flex;
-    flex-direction: column;
-
-    align-items: stretch;
-  }
-
-  .industries-about-content {
-    width: 100%;
-
-    padding:
-      30px
-      25px
-      20px;
-  }
-
-  .industries-about-content h2 {
-    margin-bottom: 15px;
-
-    font-size: 28px;
-  }
-
-  .industries-about-content p {
-    font-size: 16px;
-  }
-
-  .industries-about-image {
-    position: relative;
-
-    right: auto;
-    bottom: auto;
-
-    width: 100%;
-    height: 230px;
-
-    display: flex;
-
-    justify-content: center;
-  }
-
-  .industries-about-image img {
-    width: 240px;
-  }
-
-
-  /* INDUSTRIES */
-
-  .industries-served-section {
-    padding-bottom: 50px;
-  }
-
-  .industries-page .industries-container {
-    width: calc(100% - 30px);
-  }
-
-  .industries-section-title {
-    margin-bottom: 25px;
+  .industries-page .industries-section-title {
+    margin-bottom: 30px;
 
     font-size: 29px;
   }
 
   .industries-page .industries-grid {
     grid-template-columns:
-      repeat(2, minmax(0, 1fr));
+      repeat(2, minmax(0, 1fr)) !important;
 
-    column-gap: 18px;
+    column-gap: 15px;
     row-gap: 25px;
   }
 
   .industries-page .industry-image-wrapper {
     height: 210px;
+    flex-basis: 210px;
   }
 
   .industries-page .industry-card-content {
-    min-height: 135px;
-
-    padding:
-      16px
-      15px
-      16px;
+    min-height: 140px;
+    padding: 16px 15px;
   }
 
   .industries-page .industry-card-content h3 {
@@ -889,82 +757,90 @@
 
     font-size: 10px;
   }
-
-
-  /* CTA */
-
-  .industries-cta-section {
-    padding:
-      10px
-      0
-      60px;
-  }
-
-  .industries-cta {
-    width: calc(100% - 30px);
-
-    min-height: 250px;
-
-    padding: 35px 20px;
-  }
-
-  .industries-cta h2 {
-    font-size: 29px;
-  }
-
-  .industries-cta p {
-    max-width: 320px;
-
-    font-size: 14px;
-  }
-
-  .industries-apply-btn {
-    min-width: 140px;
-
-    padding:
-      12px
-      25px;
-
-    font-size: 15px;
-  }
 }
 
 
 /* =========================================================
    SMALL MOBILE
+   500px AND BELOW
+
+   1 CARD PER ROW
 ========================================================= */
 
-@media (max-width: 450px) {
+@media (max-width: 500px) {
+
+  .industries-page .industries-served-section > .industries-container {
+    width: calc(100vw - 30px);
+    max-width: none;
+  }
+
+  .industries-page .industries-section-title {
+    margin-bottom: 25px;
+
+    font-size: 28px;
+  }
 
   .industries-page .industries-grid {
-    grid-template-columns: 1fr;
-    gap: 22px;
+    grid-template-columns:
+      minmax(0, 1fr) !important;
+
+    column-gap: 0;
+    row-gap: 22px;
+  }
+
+  .industries-page .industry-card {
+    width: 100% !important;
   }
 
   .industries-page .industry-image-wrapper {
     height: 240px;
+    flex-basis: 240px;
   }
 
-  .industries-hero-content h1 {
-    font-size: 32px;
+  .industries-page .industry-card-content {
+    min-height: 145px;
+    padding: 17px 16px;
   }
 
-  .industries-about-content {
+  .industries-page .industry-card-content h3 {
+    font-size: 17px;
+    line-height: 1.35;
+  }
+
+  .industries-page .industry-know-more {
+    min-width: 115px;
+
     padding:
-      25px
-      20px
-      15px;
+      9px
+      10px
+      9px
+      13px;
+
+    font-size: 11px;
+  }
+}
+
+
+/* =========================================================
+   EXTRA SMALL MOBILE
+========================================================= */
+
+@media (max-width: 360px) {
+
+  .industries-page .industries-served-section > .industries-container {
+    width: calc(100vw - 24px);
   }
 
-  .industries-about-content h2 {
+  .industries-page .industries-section-title {
     font-size: 25px;
   }
 
-  .industries-about-content p {
-    font-size: 15px;
+  .industries-page .industry-image-wrapper {
+    height: 220px;
+    flex-basis: 220px;
   }
 
-  .industries-cta h2 {
-    font-size: 25px;
+  .industries-page .industry-card-content {
+    padding: 15px;
   }
 }
