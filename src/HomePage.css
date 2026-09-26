@@ -352,7 +352,7 @@
 .hp-section-head h2 {
   margin: 0;
   color: #249bc6;
-  font-size: 40px;
+  font-size: clamp(28px, 3vw, 40px);
   line-height: 1.15;
   font-weight: 600;
 }
@@ -639,7 +639,7 @@
 
 .industries-served-heading h2 {
   margin: 0;
-  font-size: 40px;
+  font-size: clamp(28px, 3vw, 40px);
   line-height: 1;
   font-weight: 700;
   color: #0b4f94;
@@ -647,7 +647,7 @@
 
 .industries-served-heading h2 + h2 {
   margin: -6px 0 0;
-  font-size: 40px;
+  font-size: clamp(28px, 3vw, 40px);
   line-height: 1;
   font-weight: 400;
   color: #0b4f94;

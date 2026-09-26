@@ -59,7 +59,7 @@
 
   color: #ffffff;
 
-  font-size: 52px;
+  font-size: clamp(30px, 4.6vw, 52px);
   line-height: 1.2;
 
   font-weight: 700;
@@ -117,7 +117,7 @@
 
   color: #123f70;
 
-  font-size: 38px;
+  font-size: clamp(28px, 3.2vw, 38px);
 
   line-height: 1.25;
 
