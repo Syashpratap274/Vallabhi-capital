@@ -89,6 +89,7 @@ function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [authType, setAuthType] = useState("user");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [applicationSubmitted, setApplicationSubmitted] = useState(false);
   const [applicationStep, setApplicationStep] = useState("otp");
   const [consentChecked, setConsentChecked] = useState(false);
   const [showConsentDetails, setShowConsentDetails] = useState(false);
@@ -144,6 +145,7 @@ function Navbar() {
 
   const openLoginModal = () => {
     resetLoginState();
+    setApplicationStep(applicationSubmitted ? "success" : "otp");
     setAuthType("user");
     setIsLoginOpen(true);
   };
@@ -152,11 +154,12 @@ function Navbar() {
     const openApplication = () => openLoginModal();
     window.addEventListener("vc-open-application", openApplication);
     return () => window.removeEventListener("vc-open-application", openApplication);
-  }, []);
+  }, [applicationSubmitted]);
 
   const openSelectedAuthModal = (type) => {
     setAuthType(type);
     resetLoginState();
+    setApplicationStep(applicationSubmitted ? "success" : "otp");
     setIsLoginOpen(true);
   };
 
@@ -299,6 +302,7 @@ function Navbar() {
     if (leadIndex >= 0) leads[leadIndex] = updatedLead;
     else leads.push(updatedLead);
     saveCms({ ...cms, leads });
+    setApplicationSubmitted(true);
     setApplicationStep("success");
   };
 
@@ -929,7 +933,7 @@ function Navbar() {
 
             {applicationStep === "success" ? (
               <div className="application-success">
-                <p>Thank you, our team will contact you soon.</p>
+                <p>You have applied. Our team will contact you soon.</p>
               </div>
             ) : applicationStep === "form" ? (
               <form className="application-form" onSubmit={handleApplicationSubmit}>

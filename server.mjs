@@ -59,8 +59,9 @@ const server = http.createServer(async (req, res) => {
 
     if (url.pathname === "/api/cms") {
       if (req.method === "GET") {
-        res.setHeader("Cache-Control", "no-store, no-cache, must-revalidate, proxy-revalidate");
-        return send(res, 200, { data: await getCmsState() });
+        return send(res, 200, { data: await getCmsState() }, {
+          "Cache-Control": "public, max-age=0, s-maxage=10, stale-while-revalidate=30, stale-if-error=3600",
+        });
       }
       if (req.method === "PUT") {
         const data = JSON.parse(await readBody(req));

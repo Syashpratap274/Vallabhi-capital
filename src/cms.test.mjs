@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { mergeCmsData, normalizeCms, readPersistedCmsSnapshot, saveCms, upsertGalleryFolder } from './cms.js';
+import { mergeCmsData, normalizeCms, readPersistedCmsSnapshot, refreshCms, saveCms, upsertGalleryFolder } from './cms.js';
 
 test('reads the last cached CMS snapshot instantly before Neon responds', () => {
   globalThis.window = {
@@ -29,6 +29,26 @@ test('reads the last cached CMS snapshot instantly before Neon responds', () => 
   const snapshot = readPersistedCmsSnapshot();
   assert.equal(snapshot.homepage.blogs[0].title, 'Cached blog');
   assert.equal(snapshot.blogs[0].title, 'Cached blog');
+});
+
+test('coalesces simultaneous CMS refreshes into one request', async () => {
+  let requestCount = 0;
+  globalThis.window = {
+    localStorage: {
+      getItem() { return null; },
+      setItem() {},
+    },
+    dispatchEvent() {},
+  };
+  globalThis.fetch = async () => {
+    requestCount += 1;
+    await new Promise((resolve) => setTimeout(resolve, 5));
+    return { ok: true, status: 200, json: async () => ({ data: {} }) };
+  };
+
+  await Promise.all([refreshCms(), refreshCms(), refreshCms()]);
+
+  assert.equal(requestCount, 1);
 });
 
 test('preserves a custom industry heading field from admin', () => {

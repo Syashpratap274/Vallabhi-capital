@@ -1,10 +1,14 @@
-import { ensureTables, getCmsState, saveCmsState } from "./_db.mjs";
+import { getCmsState, saveCmsState } from "./_db.mjs";
+
+const CMS_CACHE_HEADERS = {
+  "Cache-Control": "public, max-age=0, s-maxage=10, stale-while-revalidate=30, stale-if-error=3600",
+};
 
 export default async function handler(req, res) {
   try {
     if (req.method === "GET") {
       const data = await getCmsState();
-      res.setHeader("Cache-Control", "no-store, no-cache, must-revalidate, proxy-revalidate");
+      res.setHeader("Cache-Control", CMS_CACHE_HEADERS["Cache-Control"]);
       return res.status(200).json({ data });
     }
 

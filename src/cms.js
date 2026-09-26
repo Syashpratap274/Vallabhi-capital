@@ -421,6 +421,7 @@ function slugifyCms(s){return String(s||"").toLowerCase().trim().replace(/[^a-z0
 let cmsCache = normalizeCms(seed);
 let cmsInitialized = false;
 let cmsInitPromise = null;
+let cmsRefreshPromise = null;
 let cmsWritePromise = Promise.resolve();
 let pendingCmsWrite = null;
 let cmsWriteTimer = null;
@@ -461,7 +462,7 @@ async function apiRequest(url, options = {}) {
   try {
     const response = await fetch(`${CMS_API_BASE}${url}`, {
       ...options,
-      cache: options.method === "GET" ? "no-store" : options.cache,
+      cache: options.method === "GET" ? "default" : options.cache,
       signal: options.signal || controller.signal,
       headers: {
         "Content-Type": "application/json",
@@ -635,29 +636,38 @@ export function saveCms(data) {
   return result;
 }
 
-export async function refreshCms() {
-  try {
-    await cmsWritePromise;
-    const response = await apiRequest("/api/cms", { method: "GET" });
-    if (response?.data && typeof response.data === "object") {
-      cmsCache = normalizeCms(response.data);
-      if (typeof window !== "undefined" && window.localStorage) {
-        window.localStorage.setItem(CMS_KEY, JSON.stringify(cmsCache));
-      }
-      cmsInitialized = true;
-      if (typeof window !== "undefined") {
-        window.dispatchEvent(new CustomEvent("vc-cms-updated", { detail: cmsCache }));
+export function refreshCms() {
+  if (cmsInitPromise) return cmsInitPromise;
+  if (cmsRefreshPromise) return cmsRefreshPromise;
+
+  cmsRefreshPromise = (async () => {
+    try {
+      await cmsWritePromise;
+      const response = await apiRequest("/api/cms", { method: "GET" });
+      if (response?.data && typeof response.data === "object") {
+        cmsCache = normalizeCms(response.data);
+        if (typeof window !== "undefined" && window.localStorage) {
+          window.localStorage.setItem(CMS_KEY, JSON.stringify(cmsCache));
+        }
+        cmsInitialized = true;
+        if (typeof window !== "undefined") {
+          window.dispatchEvent(new CustomEvent("vc-cms-updated", { detail: cmsCache }));
+        }
+        return cmsCache;
       }
       return cmsCache;
+    } catch (error) {
+      console.error("CMS refresh failed:", error);
+      if (typeof window !== "undefined") {
+        window.dispatchEvent(new CustomEvent("vc-cms-error", { detail: error }));
+      }
+      throw error;
     }
-    return cmsCache;
-  } catch (error) {
-    console.error("CMS refresh failed:", error);
-    if (typeof window !== "undefined") {
-      window.dispatchEvent(new CustomEvent("vc-cms-error", { detail: error }));
-    }
-    throw error;
-  }
+  })().finally(() => {
+    cmsRefreshPromise = null;
+  });
+
+  return cmsRefreshPromise;
 }
 
 export async function resetCms() {

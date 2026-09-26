@@ -984,13 +984,35 @@
 
   .product-detail-hero {
 
+    display: flex;
+
+    flex-direction: column;
+
     height: auto;
 
-    min-height: 650px;
+    min-height: 0;
 
-    align-items: flex-end;
+    padding: 0;
 
-    padding: 25px 18px;
+  }
+
+
+
+  .product-detail-hero-bg {
+
+    height: clamp(250px, 72vw, 360px);
+
+    bottom: auto;
+
+  }
+
+
+
+  .product-detail-hero-overlay {
+
+    height: clamp(250px, 72vw, 360px);
+
+    bottom: auto;
 
   }
 
@@ -998,11 +1020,23 @@
 
   .product-detail-hero-copy {
 
+    order: 1;
+
     margin: 0;
 
-    padding: 0 0 15px;
+    padding: 24px 18px;
 
-    max-width: none;
+    width: 100%;
+
+    height: auto;
+
+    min-height: clamp(250px, 72vw, 360px);
+
+    justify-content: center;
+
+    align-items: flex-start;
+
+    text-align: left;
 
   }
 
@@ -1010,7 +1044,11 @@
 
   .product-detail-hero-copy h1 {
 
-    font-size: 36px;
+    align-self: flex-start;
+
+    font-size: clamp(1.75rem, 7vw, 2.5rem);
+
+    line-height: 1.15;
 
   }
 
@@ -1018,7 +1056,25 @@
 
   .product-detail-hero-copy span {
 
-    font-size: 15px;
+    align-self: flex-start;
+
+    font-size: clamp(0.9rem, 4vw, 1.2rem);
+
+    line-height: 1.45;
+
+    margin-top: 6px;
+
+  }
+
+
+
+  .product-detail-hero-copy p {
+
+    text-align: left;
+
+    font-size: clamp(0.8rem, 3.5vw, 1rem);
+
+    line-height: 1.45;
 
   }
 
@@ -1026,17 +1082,27 @@
 
   .product-detail-hero-eligibility {
 
-    top: 20px;
+    order: 2;
 
-    left: 18px;
+    position: relative;
 
-    right: 18px;
+    top: auto;
+
+    bottom: auto;
+
+    left: auto;
+
+    right: auto;
 
     width: auto;
 
+    margin: -44px 18px 0;
+
     transform: none;
 
-    padding: 18px;
+    padding: clamp(14px, 4.5vw, 18px);
+
+    border-radius: 16px;
 
   }
 
@@ -1044,7 +1110,7 @@
 
   .product-detail-hero-eligibility h2 {
 
-    font-size: 17px;
+    font-size: clamp(1rem, 4.5vw, 1.25rem);
 
     margin-bottom: 12px;
 
@@ -1056,7 +1122,7 @@
 
     margin: 8px 0;
 
-    font-size: 13px;
+    font-size: clamp(0.75rem, 3.5vw, 0.875rem);
 
   }
 
@@ -1066,9 +1132,19 @@
 
     height: 44px;
 
-    font-size: 14px;
+    font-size: clamp(0.8rem, 3.5vw, 0.9rem);
 
     margin-top: 8px;
+
+  }
+
+
+
+  .product-detail-application {
+
+    margin-top: clamp(16px, 5vw, 24px);
+
+    padding-top: 20px;
 
   }
 

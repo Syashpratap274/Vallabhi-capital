@@ -5,6 +5,17 @@ loadProjectEnv();
 
 let sqlClient;
 let tablesPromise;
+let cmsStateCache;
+let cmsStateCacheExpiresAt = 0;
+let cmsStateCacheIsSet = false;
+let cmsStateLoadPromise = null;
+const CMS_STATE_CACHE_TTL_MS = process.env.VERCEL ? 10000 : 10 * 60 * 1000;
+
+function cacheCmsState(data) {
+  cmsStateCache = data;
+  cmsStateCacheExpiresAt = Date.now() + CMS_STATE_CACHE_TTL_MS;
+  cmsStateCacheIsSet = true;
+}
 
 export const CMS_PAGE_KEYS = [
   "homepage",
@@ -79,29 +90,66 @@ export async function ensureTables() {
 }
 
 export async function getCmsState() {
-  const sql = getSql();
-  await ensureTables();
+  if (cmsStateCacheIsSet && Date.now() < cmsStateCacheExpiresAt) {
+    return cmsStateCache;
+  }
 
-  const stateRows = await sql`
-    SELECT data, updated_at
-    FROM cms_state
-    WHERE id = 1
-    LIMIT 1
-  `;
+  if (cmsStateLoadPromise) return cmsStateLoadPromise;
+
+  cmsStateLoadPromise = loadCmsState();
+  try {
+    return await cmsStateLoadPromise;
+  } finally {
+    cmsStateLoadPromise = null;
+  }
+}
+
+async function loadCmsState() {
+  const sql = getSql();
+  let stateRows;
+
+  try {
+    stateRows = await sql`
+      SELECT data, updated_at
+      FROM cms_state
+      WHERE id = 1
+      LIMIT 1
+    `;
+  } catch (error) {
+    if (error.code !== "42P01") throw error;
+    await ensureTables();
+    stateRows = await sql`
+      SELECT data, updated_at
+      FROM cms_state
+      WHERE id = 1
+      LIMIT 1
+    `;
+  }
 
   if (stateRows[0]?.data && typeof stateRows[0].data === "object") {
     // cms_state is authoritative. cms_pages is never merged over it.
-    return stateRows[0].data;
+    cacheCmsState(stateRows[0].data);
+    return cmsStateCache;
   }
 
   // Compatibility recovery for databases created by an older version that
   // only populated cms_pages. This path runs only when cms_state is empty.
-  const pageRows = await sql`
-    SELECT page_key, data
-    FROM cms_pages
-    ORDER BY page_key
-  `;
-  if (!pageRows.length) return null;
+  let pageRows;
+  try {
+    pageRows = await sql`
+      SELECT page_key, data
+      FROM cms_pages
+      ORDER BY page_key
+    `;
+  } catch (error) {
+    if (error.code !== "42P01") throw error;
+    cacheCmsState(null);
+    return null;
+  }
+  if (!pageRows.length) {
+    cacheCmsState(null);
+    return null;
+  }
 
   const recovered = pageRows.reduce((data, row) => ({
     ...data,
@@ -116,6 +164,7 @@ export async function getCmsState() {
     ON CONFLICT (id) DO NOTHING
   `;
 
+  cacheCmsState(recovered);
   return recovered;
 }
 
@@ -133,6 +182,7 @@ export async function saveCmsState(data) {
       data = EXCLUDED.data,
       updated_at = NOW()
   `;
+  cacheCmsState(data);
 
   // Keep compatibility rows synchronized without delaying the authoritative save.
   Promise.all(CMS_PAGE_KEYS.filter((pageKey) => pageKey in data).map((pageKey) => sql`
