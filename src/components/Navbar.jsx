@@ -84,6 +84,7 @@ function Navbar() {
   const products = sortItems(cms.products?.items || []).filter((item) => item.published !== false && item.name && item.slug);
   const industries = sortItems(cms.industries?.items || []).filter((item) => item.published !== false && item.name && item.slug);
   const galleryFolders = (cms.gallery?.folders || []).filter((folder) => folder?.id && folder?.title).slice(0, 4);
+  const esgInitiatives = sortItems(cms.esg?.initiatives || []).filter((event) => event.title?.trim());
   const [isLoginOpen, setIsLoginOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [authType, setAuthType] = useState("user");
@@ -480,21 +481,15 @@ function Navbar() {
                   </Link>
 
                   <div className="submenu-menu">
-
-                    <Link
-                      to="/esg"
-                      state={{ section: "key-highlight-1" }}
-                    >
-                      Key Highlight 1
-                    </Link>
-
-                    <Link
-                      to="/esg"
-                      state={{ section: "key-highlight-2" }}
-                    >
-                      Key Highlight 2
-                    </Link>
-
+                    {esgInitiatives.map((event) => (
+                      <Link
+                        key={event.id}
+                        to="/esg"
+                        state={{ section: event.id }}
+                      >
+                        {event.title}
+                      </Link>
+                    ))}
                   </div>
                 </div>
 
