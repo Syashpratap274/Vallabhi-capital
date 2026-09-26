@@ -891,10 +891,18 @@
 
 @media (max-width: 700px) {
 
+  .homepage > section + section {
+    margin-top: 20px;
+  }
+
+  .hp-products {
+    margin-top: 20px;
+  }
+
   .industries-served-section {
     width: calc(100% - 24px);
 
-    margin: var(--products-industries-gap) auto var(--homepage-section-gap);
+    margin: 42px auto var(--homepage-section-gap);
   }
 
   .industries-served-left {
@@ -1607,7 +1615,7 @@
 
   .hp-products {
     min-height: auto;
-    padding: var(--homepage-section-gap) 20px 0;
+    padding: 0 20px 0;
   }
 
   .hp-product-grid {
@@ -1652,8 +1660,13 @@
 
   .hp-why {
     width: 92%;
-    height: 650px;
+    height: auto;
+    min-height: 0;
     margin-top: var(--homepage-section-gap);
+    overflow: visible;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
   }
 
   .hp-why-blue-shape {
@@ -1664,18 +1677,20 @@
   }
 
   .hp-why-person {
+    position: relative;
     left: 0;
-    top: 15px;
+    top: 0;
     width: 100%;
     height: 300px;
+    overflow: hidden;
   }
 
   .hp-why-content {
-    position: absolute;
+    position: relative;
     left: 0;
     right: 0;
-    top: 320px;
-    padding: 25px;
+    top: 0;
+    padding: 25px 20px 30px;
   }
 
   .hp-why-content h2 {
@@ -1684,6 +1699,19 @@
 
   .hp-why-content > p {
     font-size: 18px;
+  }
+
+  .hp-features {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+    width: 100%;
+    margin-top: 18px;
+  }
+
+  .hp-feature {
+    width: 100%;
+    max-width: 100%;
   }
 
   .hp-how {

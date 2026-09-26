@@ -116,6 +116,11 @@ function Navbar() {
 
   const [showProfileDetails, setShowProfileDetails] = useState(false);
   const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
+  const [mobileSubmenu, setMobileSubmenu] = useState(null);
+
+  const toggleMobileSubmenu = (menuKey) => {
+    setMobileSubmenu((current) => (current === menuKey ? null : menuKey));
+  };
 
   const resetLoginState = () => {
     setPhone("");
@@ -579,19 +584,78 @@ function Navbar() {
           {/* MOBILE NAVIGATION */}
           {isMobileMenuOpen && (
             <div className="navbar-mobile-menu">
-              <Link to="/products" onClick={() => setIsMobileMenuOpen(false)}>
-                Our Product
-              </Link>
-              <Link to="/industries" onClick={() => setIsMobileMenuOpen(false)}>
-                Industries
-              </Link>
-              <Link to="/company" onClick={() => setIsMobileMenuOpen(false)}>
-                About Us
-              </Link>
-              <Link to="/contact-us" onClick={() => setIsMobileMenuOpen(false)}>
+              <div className="navbar-mobile-group">
+                <button
+                  type="button"
+                  className="navbar-mobile-item-button"
+                  onClick={() => toggleMobileSubmenu("products")}
+                >
+                  <span>Products</span>
+                  <span className={`navbar-chevron ${mobileSubmenu === "products" ? "navbar-chevron-open" : ""}`} aria-hidden="true" />
+                </button>
+                {mobileSubmenu === "products" && (
+                  <div className="navbar-mobile-submenu">
+                    {products.map((product) => (
+                      <Link
+                        key={product.id}
+                        to={`/products/${product.slug}`}
+                        onClick={() => { setIsMobileMenuOpen(false); setMobileSubmenu(null); }}
+                      >
+                        {product.name}
+                      </Link>
+                    ))}
+                  </div>
+                )}
+              </div>
+
+              <div className="navbar-mobile-group">
+                <button
+                  type="button"
+                  className="navbar-mobile-item-button"
+                  onClick={() => toggleMobileSubmenu("industries")}
+                >
+                  <span>Industries</span>
+                  <span className={`navbar-chevron ${mobileSubmenu === "industries" ? "navbar-chevron-open" : ""}`} aria-hidden="true" />
+                </button>
+                {mobileSubmenu === "industries" && (
+                  <div className="navbar-mobile-submenu">
+                    {industries.map((industry) => (
+                      <Link
+                        key={industry.id}
+                        to={`/industries/${industry.slug}`}
+                        onClick={() => { setIsMobileMenuOpen(false); setMobileSubmenu(null); }}
+                      >
+                        {industry.name}
+                      </Link>
+                    ))}
+                  </div>
+                )}
+              </div>
+
+              <div className="navbar-mobile-group">
+                <button
+                  type="button"
+                  className="navbar-mobile-item-button"
+                  onClick={() => toggleMobileSubmenu("about")}
+                >
+                  <span>About Us</span>
+                  <span className={`navbar-chevron ${mobileSubmenu === "about" ? "navbar-chevron-open" : ""}`} aria-hidden="true" />
+                </button>
+                {mobileSubmenu === "about" && (
+                  <div className="navbar-mobile-submenu">
+                    <Link to="/company" onClick={() => { setIsMobileMenuOpen(false); setMobileSubmenu(null); }}>Company</Link>
+                    <Link to="/partners" onClick={() => { setIsMobileMenuOpen(false); setMobileSubmenu(null); }}>Partners</Link>
+                    <Link to="/esg" onClick={() => { setIsMobileMenuOpen(false); setMobileSubmenu(null); }}>ESG</Link>
+                    <Link to="/career" onClick={() => { setIsMobileMenuOpen(false); setMobileSubmenu(null); }}>Career</Link>
+                    <Link to="/gallery" onClick={() => { setIsMobileMenuOpen(false); setMobileSubmenu(null); }}>Gallery</Link>
+                  </div>
+                )}
+              </div>
+
+              <Link to="/contact-us" className="navbar-mobile-link" onClick={() => setIsMobileMenuOpen(false)}>
                 Contact Us
               </Link>
-              <a href="/apply" onClick={(event) => { event.preventDefault(); setIsMobileMenuOpen(false); openLoginModal(); }}>
+              <a href="/apply" className="navbar-mobile-link navbar-mobile-cta" onClick={(event) => { event.preventDefault(); setIsMobileMenuOpen(false); openLoginModal(); }}>
                 Apply Now
               </a>
             </div>
