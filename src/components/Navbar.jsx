@@ -1083,7 +1083,7 @@ function Navbar() {
                 <div className="application-consent">
                   <label className="application-consent-check">
                     <input type="checkbox" checked={consentChecked} onChange={(event) => { setConsentChecked(event.target.checked); setError(""); }} />
-                    <span>I agree to the <Link to="/terms-and-conditions">Terms and Conditions</Link> and <Link to="/policies/privacy-policy">Privacy Policy</Link> and consent to the use of my phone number and SMS, and to receive communications, including promotional offers, via SMS, WhatsApp, email, and other permitted channels.</span>
+                    <span>I agree to Vallabhi Capital’s <Link to="/terms-and-conditions">Terms and Conditions</Link> and <Link to="/policies/privacy-policy">Privacy Policy</Link> and consent to the collection and use of my phone number and SMS, and to receive communications, including promotional offers, via SMS, WhatsApp, email, and other permitted channels.</span>
                   </label>
                   <button type="button" className="login-text-button application-view-details" onClick={() => setShowConsentDetails(true)}>View Details</button>
                 </div>
@@ -1182,8 +1182,8 @@ function Navbar() {
               <div className="consent-details-modal" role="dialog" aria-modal="true" aria-labelledby="consent-details-title" onClick={(event) => event.stopPropagation()}>
                 <button type="button" className="login-close" aria-label="Close consent details" onClick={() => setShowConsentDetails(false)}>×</button>
                 <h3 id="consent-details-title">Consent Details</h3>
-                <p>I agree to Vallabhi Capital’s <Link to="/terms-and-conditions">Terms and Conditions</Link> and <Link to="/policies/privacy-policy">Privacy Policy</Link> and consent to the use of my phone number and SMS, and to receive communications, including promotional offers, via SMS, WhatsApp, email, and other permitted channels.</p>
-                <p>I expressly consent to Vallabhi Capital obtaining my credit report from CIBIL through a third-party provider to assess my creditworthiness and eligibility for financial products. I authorise Vallabhi Capital to share my credit information with third party and authorised service providers solely for evaluating and processing my eligibility.</p>
+                <p>I agree to Vallabhi Capital’s <Link to="/terms-and-conditions">Terms and Conditions</Link> and <Link to="/policies/privacy-policy">Privacy Policy</Link> and consent to the collection and use of my phone number and SMS, and to receive communications, including promotional offers, via SMS, WhatsApp, email, and other permitted channels.</p>
+                <p>I expressly consent to Vallabhi Capital obtaining my credit report and relevant information from credit bureaus and authorised third-party providers to assess my creditworthiness and eligibility for financial products. I authorise Vallabhi Capital to receive, process, use, and share my credit and related information with authorised third parties, lending partners, and service providers solely for evaluating and processing my eligibility and application.</p>
               </div>
             </div>
           )}
