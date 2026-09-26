@@ -95,9 +95,7 @@ function Footer() {
             <h4>Head Office</h4>
 
             <p>
-              B-303, Rustomjee Central Park Business
-              Spaces Andheri - Kurla Rd, Chakala, Andheri
-              East, Mumbai, Maharashtra - 400093
+              B-803/804, Rustomjee Central Park, Andheri Kurla Rd, Chakala, Andheri East, Mumbai - 400069
             </p>
           </div>
 
