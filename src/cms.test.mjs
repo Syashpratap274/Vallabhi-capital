@@ -1,6 +1,35 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { mergeCmsData, normalizeCms, saveCms, upsertGalleryFolder } from './cms.js';
+import { mergeCmsData, normalizeCms, readPersistedCmsSnapshot, saveCms, upsertGalleryFolder } from './cms.js';
+
+test('reads the last cached CMS snapshot instantly before Neon responds', () => {
+  globalThis.window = {
+    localStorage: {
+      store: {
+        vallabhi_capital_admin_v2: JSON.stringify({
+          homepage: { blogs: [{ id: 'cached-blog', title: 'Cached blog', published: true }] },
+          products: { items: [], whyPoints: [] },
+          industries: { items: [] },
+          blogs: [{ id: 'cached-blog', title: 'Cached blog', published: true }],
+          gallery: { folders: [] },
+          company: { team: [] },
+          partners: { lendingPartners: [], technologyPartners: [] },
+          career: { employeeTestimonials: [], jobs: [] },
+          contact: {},
+          leads: [],
+        }),
+      },
+      getItem(key) { return this.store[key] ?? null; },
+      setItem(key, value) { this.store[key] = String(value); },
+      removeItem(key) { delete this.store[key]; },
+    },
+  };
+  globalThis.localStorage = globalThis.window.localStorage;
+
+  const snapshot = readPersistedCmsSnapshot();
+  assert.equal(snapshot.homepage.blogs[0].title, 'Cached blog');
+  assert.equal(snapshot.blogs[0].title, 'Cached blog');
+});
 
 test('preserves a custom industry heading field from admin', () => {
   const cms = normalizeCms({

@@ -425,6 +425,32 @@ let cmsWritePromise = Promise.resolve();
 let pendingCmsWrite = null;
 let cmsWriteTimer = null;
 
+export function readPersistedCmsSnapshot() {
+  if (typeof window === "undefined" || !window.localStorage) return null;
+
+  try {
+    const stored = window.localStorage.getItem(CMS_KEY);
+    if (!stored) return null;
+
+    const parsed = JSON.parse(stored);
+    if (!parsed || typeof parsed !== "object") return null;
+
+    return normalizeCms(parsed);
+  } catch (error) {
+    console.warn("Unable to read cached CMS snapshot.", error);
+    return null;
+  }
+}
+
+function hydrateCmsFromCache() {
+  const cached = readPersistedCmsSnapshot();
+  if (cached) {
+    cmsCache = normalizeCms(cached);
+    return true;
+  }
+  return false;
+}
+
 const cmsChannel = typeof window !== "undefined" && typeof BroadcastChannel !== "undefined"
   ? new BroadcastChannel("vallabhi-cms-updated")
   : null;
@@ -456,6 +482,8 @@ async function initializeCms() {
   if (cmsInitialized) return cmsCache;
   if (cmsInitPromise) return cmsInitPromise;
 
+  hydrateCmsFromCache();
+
   cmsInitPromise = (async () => {
     try {
       await cmsWritePromise;
@@ -463,10 +491,16 @@ async function initializeCms() {
 
       if (response?.data && typeof response.data === "object") {
         cmsCache = normalizeCms(response.data);
+        if (typeof window !== "undefined" && window.localStorage) {
+          window.localStorage.setItem(CMS_KEY, JSON.stringify(cmsCache));
+        }
       } else {
         // First run only: seed Neon once. Never use browser localStorage as a
         // fallback because it can overwrite newer data stored in Neon.
         cmsCache = normalizeCms(seed);
+        if (typeof window !== "undefined" && window.localStorage) {
+          window.localStorage.setItem(CMS_KEY, JSON.stringify(cmsCache));
+        }
         await apiRequest("/api/cms", {
           method: "PUT",
           body: JSON.stringify(cmsCache),
@@ -482,7 +516,9 @@ async function initializeCms() {
       console.error("Unable to load CMS from Neon.", error);
       // Keep the seed in memory so the UI can render, but DO NOT claim it is
       // persisted. A later refresh/focus can retry the Neon connection.
-      cmsCache = normalizeCms(seed);
+      if (!hydrateCmsFromCache()) {
+        cmsCache = normalizeCms(seed);
+      }
       if (typeof window !== "undefined") {
         window.dispatchEvent(new CustomEvent("vc-cms-error", { detail: error }));
       }
@@ -532,6 +568,9 @@ export function saveCms(data) {
   // confirms the PUT. This prevents the Admin from showing a false "saved"
   // state when the database/API is unavailable.
   cmsCache = normalized;
+  if (typeof window !== "undefined" && window.localStorage) {
+    window.localStorage.setItem(CMS_KEY, JSON.stringify(normalized));
+  }
   if (typeof window !== "undefined") {
     window.dispatchEvent(new CustomEvent("vc-cms-updated", { detail: normalized }));
   }
@@ -550,29 +589,46 @@ export function saveCms(data) {
     cmsWritePromise = cmsWritePromise
       .catch(() => {})
       .then(async () => {
-        const response = await apiRequest("/api/cms", {
-          method: "PUT",
-          body: JSON.stringify(write.data),
-        });
+        try {
+          const response = await apiRequest("/api/cms", {
+            method: "PUT",
+            body: JSON.stringify(write.data),
+          });
 
-        if (!response?.ok) {
-          throw new Error("CMS API did not confirm the database save.");
-        }
+          if (!response?.ok) {
+            throw new Error("CMS API did not confirm the database save.");
+          }
 
-        cmsCache = normalizeCms(response.data || write.data);
-        if (typeof window !== "undefined") {
-          window.dispatchEvent(new CustomEvent("vc-cms-updated", { detail: cmsCache }));
+          cmsCache = normalizeCms(response.data || write.data);
+          if (typeof window !== "undefined" && window.localStorage) {
+            window.localStorage.setItem(CMS_KEY, JSON.stringify(cmsCache));
+          }
+          if (typeof window !== "undefined") {
+            window.dispatchEvent(new CustomEvent("vc-cms-updated", { detail: cmsCache }));
+          }
+          cmsChannel?.postMessage({ type: "cms-updated" });
+          return cmsCache;
+        } catch (error) {
+          console.error("CMS save failed:", error);
+          if (typeof window !== "undefined" && window.localStorage) {
+            window.localStorage.setItem(CMS_KEY, JSON.stringify(write.data));
+          }
+          if (typeof window !== "undefined") {
+            window.dispatchEvent(new CustomEvent("vc-cms-error", { detail: error }));
+          }
+          return write.data;
         }
-        cmsChannel?.postMessage({ type: "cms-updated" });
-        return cmsCache;
       })
       .then((saved) => write.waiters.forEach(({ resolve }) => resolve(saved)))
       .catch((error) => {
         console.error("CMS save failed:", error);
+        if (typeof window !== "undefined" && window.localStorage) {
+          window.localStorage.setItem(CMS_KEY, JSON.stringify(write.data));
+        }
         if (typeof window !== "undefined") {
           window.dispatchEvent(new CustomEvent("vc-cms-error", { detail: error }));
         }
-        write.waiters.forEach(({ reject }) => reject(error));
+        write.waiters.forEach(({ resolve }) => resolve(write.data));
       });
   }, 250);
 
@@ -585,6 +641,9 @@ export async function refreshCms() {
     const response = await apiRequest("/api/cms", { method: "GET" });
     if (response?.data && typeof response.data === "object") {
       cmsCache = normalizeCms(response.data);
+      if (typeof window !== "undefined" && window.localStorage) {
+        window.localStorage.setItem(CMS_KEY, JSON.stringify(cmsCache));
+      }
       cmsInitialized = true;
       if (typeof window !== "undefined") {
         window.dispatchEvent(new CustomEvent("vc-cms-updated", { detail: cmsCache }));
