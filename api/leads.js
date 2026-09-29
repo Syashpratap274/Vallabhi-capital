@@ -1,10 +1,12 @@
-import { sql } from "./_db.mjs";
+import { getSql } from "../server/db.mjs";
 
 export default async function handler(req, res) {
   try {
     if (req.method !== "POST") {
       res.setHeader("Allow", "POST");
-      return res.status(405).json({ error: "Method not allowed." });
+      return res.status(405).json({
+        error: "Method not allowed.",
+      });
     }
 
     const {
@@ -30,6 +32,7 @@ export default async function handler(req, res) {
     }
 
     const id = crypto.randomUUID();
+    const sql = getSql();
 
     await sql`
       INSERT INTO leads (
@@ -46,7 +49,9 @@ export default async function handler(req, res) {
         source,
         status,
         consented,
-        consented_at
+        consented_at,
+        subject,
+        message
       )
       VALUES (
         ${id},
@@ -62,7 +67,9 @@ export default async function handler(req, res) {
         ${source},
         'New',
         ${Boolean(consented)},
-        ${consented ? new Date() : null}
+        ${consented ? new Date() : null},
+        ${subject || null},
+        ${message || null}
       )
     `;
 
