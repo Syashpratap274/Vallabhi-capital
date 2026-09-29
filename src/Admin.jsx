@@ -225,6 +225,17 @@ function Partners({ data, update }) {
     "Terms & Condition Policy",
   ];
 
+  const reorderLogo = (key, currentIndex, targetIndex) => {
+    if (currentIndex === targetIndex) return;
+    update((d) => {
+      const items = [...(d.partners?.[key] || [])];
+      const [moved] = items.splice(currentIndex, 1);
+      if (!moved) return;
+      items.splice(targetIndex, 0, moved);
+      d.partners[key] = items;
+    });
+  };
+
   const group = (title, key) => (
     <section className="adm-panel">
       <div className="adm-panel-title">
@@ -258,6 +269,26 @@ function Partners({ data, update }) {
           <div className="logo-card" key={x.id || i}>
             <img src={x.image} alt="Partner logo" />
             <span>{x.name || `Partner ${i + 1}`}</span>
+            <div style={{ display: "flex", gap: "6px", width: "100%", justifyContent: "center", marginTop: "8px" }}>
+              <button
+                type="button"
+                className="adm-secondary"
+                style={{ fontSize: "11px", padding: "6px 8px", opacity: i === 0 ? 0.5 : 1, cursor: i === 0 ? "not-allowed" : "pointer" }}
+                disabled={i === 0}
+                onClick={() => reorderLogo(key, i, i - 1)}
+              >
+                ↑
+              </button>
+              <button
+                type="button"
+                className="adm-secondary"
+                style={{ fontSize: "11px", padding: "6px 8px", opacity: i === (data.partners?.[key] || []).length - 1 ? 0.5 : 1, cursor: i === (data.partners?.[key] || []).length - 1 ? "not-allowed" : "pointer" }}
+                disabled={i === (data.partners?.[key] || []).length - 1}
+                onClick={() => reorderLogo(key, i, i + 1)}
+              >
+                ↓
+              </button>
+            </div>
             <button className="adm-danger" onClick={() => update((d) => d.partners[key] = (d.partners?.[key] || []).filter((y) => y.id !== x.id))}>Delete</button>
           </div>
         ))}
