@@ -141,7 +141,6 @@ const seed = {
   },
   gallery: { folders: [{id:"events",title:"Events",photos:[]},{id:"people-and-culture",title:"People and Culture",photos:[]},{id:"csr",title:"CSR",photos:[]},{id:"media",title:"Media",photos:[]}] },
   contact: { banner: "", address: "Add your corporate office address here.", phone: "Add your phone number here.", email: "Add your email address here.", openingTime: "Mon - Fri: 9:00 AM - 6:00 PM", formImage: "" },
-  leads: []
 };
 
 function mergeList(current, fallback) {
@@ -241,7 +240,6 @@ export function mergeCmsData(base, override) {
       folders: mergeRecords(current.gallery?.folders, fallback.gallery?.folders),
     },
     contact: { ...(fallback.contact || {}), ...(current.contact || {}) },
-    leads: mergeList(current.leads, fallback.leads),
   };
 }
 

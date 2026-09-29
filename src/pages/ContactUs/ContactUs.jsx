@@ -1,32 +1,70 @@
 import React, { useState } from "react";
-import { useCms, saveCms, getCms, createId } from "../../cms";
+import { useCms } from "../../cms";
 import "./ContactUs.css";
+
 export default function ContactUs() {
   const { contact } = useCms();
   const [sent, setSent] = useState(false);
-  const submit = (e) => {
+
+  const submit = async (e) => {
     e.preventDefault();
-    const f = new FormData(e.currentTarget);
-    const d = getCms();
-    d.leads.push({
-      id: createId("lead"),
-      name: f.get("name"),
-      email: f.get("email"),
-      phone: f.get("phone"),
-      company: f.get("company") || "",
-      product: f.get("product") || "",
-      loanAmount: f.get("loanAmount") || "",
-      source: "Contact Form",
-      subject: f.get("subject"),
-      message: f.get("message"),
-      status: "New",
-      date: new Date().toLocaleString("en-IN"),
-    });
-    saveCms(d);
-    e.currentTarget.reset();
-    setSent(true);
-    setTimeout(() => setSent(false), 2500);
+
+    const form = e.currentTarget;
+    const f = new FormData(form);
+
+    const name = String(f.get("name") || "").trim();
+    const email = String(f.get("email") || "").trim();
+    const phone = String(f.get("phone") || "").replace(/\D/g, "");
+    const subject = String(f.get("subject") || "").trim();
+    const message = String(f.get("message") || "").trim();
+
+    if (!name || !email || !phone || !subject) {
+      return;
+    }
+
+    if (!/^\d{10}$/.test(phone)) {
+      alert("Please enter a valid 10-digit mobile number.");
+      return;
+    }
+
+    try {
+      const response = await fetch("/api/leads", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          source: "Contact Form",
+          name,
+          email,
+          phone,
+          subject,
+          message,
+        }),
+      });
+
+      const result = await response.json().catch(() => ({}));
+
+      if (!response.ok) {
+        throw new Error(
+          result.error || "Unable to submit your enquiry."
+        );
+      }
+
+      form.reset();
+      setSent(true);
+
+      setTimeout(() => setSent(false), 2500);
+    } catch (error) {
+      console.error("Contact form submission error:", error);
+
+      alert(
+        error.message ||
+          "Unable to submit your enquiry. Please try again."
+      );
+    }
   };
+
   return (
     <main className="contact-page">
       <section className="contact-hero">
@@ -39,20 +77,25 @@ export default function ContactUs() {
         ) : (
           <div className="contact-hero-image" />
         )}
+
         <div className="contact-hero-overlay">
           <h1>Contact Us</h1>
         </div>
       </section>
+
       <section className="contact-info-section">
         <div className="contact-section-heading">
           <span className="contact-small-label">CONTACT INFO</span>
+
           <h2>
             <span>Contact</span> & Join Together
           </h2>
+
           <p>
             Have a question or need assistance? Our team is here to help you.
           </p>
         </div>
+
         <div className="contact-info-grid">
           <Info
             icon="📍"
@@ -60,18 +103,21 @@ export default function ContactUs() {
             title="Visit Us At"
             value={contact.address}
           />
+
           <Info
             icon="☎"
             label="24/7 SERVICE"
             title="Call Us On"
             value={contact.phone}
           />
+
           <Info
             icon="✉"
             label="DROP A LINE"
             title="Mail Address"
             value={contact.email}
           />
+
           <Info
             icon="◷"
             label="OFFICE HOURS"
@@ -80,16 +126,20 @@ export default function ContactUs() {
           />
         </div>
       </section>
+
       <section className="contact-get-in-touch">
         <div className="contact-touch-inner">
           <div className="contact-touch-left">
             <div className="contact-chat-card">
               <div className="contact-chat-icon">♧</div>
+
               <h3>Chat With Live!</h3>
+
               <p>
                 Get quick assistance from our team for your financial queries
                 and requirements.
               </p>
+
               <button
                 type="button"
                 onClick={() => {
@@ -99,6 +149,7 @@ export default function ContactUs() {
                 LET'S CHAT
               </button>
             </div>
+
             <div className="contact-person-wrapper">
               {contact.formImage ? (
                 <img
@@ -111,13 +162,16 @@ export default function ContactUs() {
               )}
             </div>
           </div>
+
           <div className="contact-form-wrapper">
             <span className="contact-small-label">CONTACT US</span>
+
             <h2>
               <span>Reach & Get In Touch</span>
               <br />
               With Us!
             </h2>
+
             <form className="contact-form" onSubmit={submit}>
               <div className="contact-form-row">
                 <input
@@ -126,6 +180,7 @@ export default function ContactUs() {
                   placeholder="Your Name*"
                   required
                 />
+
                 <input
                   type="email"
                   name="email"
@@ -133,6 +188,7 @@ export default function ContactUs() {
                   required
                 />
               </div>
+
               <div className="contact-form-row">
                 <input
                   type="tel"
@@ -140,6 +196,7 @@ export default function ContactUs() {
                   placeholder="Your Number*"
                   required
                 />
+
                 <input
                   type="text"
                   name="subject"
@@ -147,10 +204,20 @@ export default function ContactUs() {
                   required
                 />
               </div>
-              <textarea name="message" placeholder="Enter Message" rows="7" />
-              <button type="submit" className="contact-submit-button">
+
+              <textarea
+                name="message"
+                placeholder="Enter Message"
+                rows="7"
+              />
+
+              <button
+                type="submit"
+                className="contact-submit-button"
+              >
                 SEND MESSAGE
               </button>
+
               {sent && (
                 <p style={{ marginTop: 12 }}>
                   Thank you. Your enquiry has been received.
@@ -163,13 +230,17 @@ export default function ContactUs() {
     </main>
   );
 }
+
 function Info({ icon, label, title, value }) {
   return (
     <div className="contact-info-card">
       <div className="contact-info-icon">{icon}</div>
+
       <div>
         <span className="contact-card-label">{label}</span>
+
         <h3>{title}</h3>
+
         <p>{value}</p>
       </div>
     </div>

@@ -31,7 +31,7 @@ export const CMS_PAGE_KEYS = [
   "leads",
 ];
 
-function getSql() {
+export function getSql() {
   if (!process.env.DATABASE_URL) {
     throw new Error("DATABASE_URL is not configured. Add your Neon connection string to .env.");
   }
@@ -216,4 +216,176 @@ export async function getMedia(id) {
     SELECT mime_type, data FROM cms_media WHERE id = ${id} LIMIT 1
   `;
   return rows[0] || null;
+}
+
+
+export async function findLeadByPhone(phone) {
+  const sql = getSql();
+  await ensureTables();
+
+  const rows = await sql`
+    SELECT
+      id,
+      name,
+      email,
+      phone,
+      company,
+      product,
+      aadhaar,
+      pan,
+      loan_amount,
+      purpose,
+      source,
+      status,
+      consented,
+      consented_at,
+      created_at,
+      updated_at
+    FROM leads
+    WHERE phone = ${phone}
+      AND source = 'Apply Now'
+    ORDER BY created_at DESC
+    LIMIT 1
+  `;
+
+  return rows[0] || null;
+}
+
+export async function createLead({
+  id,
+  name = "",
+  email = "",
+  phone,
+  company = "",
+  product = "",
+  aadhaar = "",
+  pan = "",
+  loanAmount = "",
+  purpose = "",
+  subject = "",
+  message = "",
+  source = "Apply Now",
+  status = "New",
+  consented = false,
+  consentedAt = null,
+}) {
+  const sql = getSql();
+  await ensureTables();
+
+  const rows = await sql`
+    INSERT INTO leads (
+      id,
+      name,
+      email,
+      phone,
+      company,
+      product,
+      aadhaar,
+      pan,
+      loan_amount,
+      purpose,
+      subject,
+      message,
+      source,
+      status,
+      consented,
+      consented_at
+    )
+    VALUES (
+      ${id},
+      ${name},
+      ${email},
+      ${phone},
+      ${company},
+      ${product},
+      ${aadhaar},
+      ${pan},
+      ${loanAmount || null},
+      ${purpose},
+      ${subject},
+      ${message},
+      ${source},
+      ${status},
+      ${consented},
+      ${consentedAt}
+    )
+    RETURNING *
+  `;
+
+  return rows[0] || null;
+}
+
+export async function updateLead(id, {
+  name,
+  email,
+  phone,
+  company,
+  product,
+  aadhaar,
+  pan,
+  loanAmount,
+  purpose,
+  subject,
+  message,
+  status,
+  consented,
+  consentedAt,
+}) {
+  const sql = getSql();
+  await ensureTables();
+
+  const rows = await sql`
+    UPDATE leads
+    SET
+      name = COALESCE(${name ?? null}, name),
+      email = COALESCE(${email ?? null}, email),
+      phone = COALESCE(${phone ?? null}, phone),
+      company = COALESCE(${company ?? null}, company),
+      product = COALESCE(${product ?? null}, product),
+      aadhaar = COALESCE(${aadhaar ?? null}, aadhaar),
+      pan = COALESCE(${pan ?? null}, pan),
+      loan_amount = COALESCE(${loanAmount ?? null}, loan_amount),
+      purpose = COALESCE(${purpose ?? null}, purpose),
+      subject = COALESCE(${subject ?? null}, subject),
+      message = COALESCE(${message ?? null}, message),
+      status = COALESCE(${status ?? null}, status),
+      consented = COALESCE(${consented ?? null}, consented),
+      consented_at = COALESCE(${consentedAt ?? null}, consented_at),
+      updated_at = NOW()
+    WHERE id = ${id}
+    RETURNING *
+  `;
+
+  return rows[0] || null;
+}
+
+export async function getAllLeads() {
+  const sql = getSql();
+  await ensureTables();
+
+  const rows = await sql`
+    SELECT
+      id,
+      name,
+      email,
+      phone,
+      company,
+      product,
+      aadhaar,
+      pan,
+      loan_amount,
+      purpose,
+      subject,
+      message,
+      source,
+      status,
+      consented,
+      consented_at,
+      created_at,
+      updated_at
+    FROM leads
+    ORDER BY created_at DESC
+  `;
+
+  return rows;
 }

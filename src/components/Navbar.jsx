@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { createId, getCms, saveCms, sortItems, useCms } from "../cms";
+import { sortItems, useCms } from "../cms";
 import "./Navbar.css";
 import imgLogo from "@/imports/OurProducts/514f9971796012cf4d48c9b2b22201833841a4ca.webp";
 
@@ -168,17 +168,37 @@ function Navbar() {
     resetLoginState();
   };
 
-  const handleSendOtp = () => {
-    const cleanedPhone = phone.replace(/\D/g, "");
+  const handleSendOtp = async () => {
+  const cleanedPhone = phone.replace(/\D/g, "");
 
-    if (!consentChecked) {
-      setError("Please provide consent before continuing.");
-      return;
-    }
+  if (!consentChecked) {
+    setError("Please provide consent before continuing.");
+    return;
+  }
 
-    if (cleanedPhone.length !== 10) {
-      setError("Please enter a valid 10-digit mobile number.");
-      return;
+  if (cleanedPhone.length !== 10) {
+    setError("Please enter a valid 10-digit mobile number.");
+    return;
+  }
+
+  try {
+    const response = await fetch("/api/leads", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        action: "consent",
+        source: "Apply Now",
+        phone: cleanedPhone,
+        consentedAt: new Date().toISOString(),
+      }),
+    });
+
+    const result = await response.json();
+
+    if (!response.ok) {
+      throw new Error(result.error || "Unable to save consent.");
     }
 
     const newOtp = String(
@@ -186,32 +206,18 @@ function Navbar() {
     );
 
     setGeneratedOtp(newOtp);
-    setUserPhone(phone.trim());
+    setUserPhone(cleanedPhone);
     setOtpSent(true);
     setOtp("");
     setError("");
+  } catch (error) {
+    console.error("Lead consent error:", error);
+    setError(
+      error.message || "Unable to continue. Please try again."
+    );
+  }
+};
 
-    const cms = getCms();
-    const leads = [...(cms.leads || [])];
-    const existingLeadIndex = leads.findIndex((lead) => lead.phone === phone.trim() && lead.source === "Apply Now");
-    const consentedAt = new Date().toISOString();
-    const lead = existingLeadIndex >= 0 ? leads[existingLeadIndex] : {
-      id: createId("lead"),
-      name: "",
-      company: "",
-      phone: phone.trim(),
-      email: "",
-      product: "",
-      loanAmount: "",
-      source: "Apply Now",
-      status: "New",
-      date: new Date().toLocaleString("en-IN"),
-    };
-    const consentedLead = { ...lead, consented: true, consentedAt };
-    if (existingLeadIndex >= 0) leads[existingLeadIndex] = consentedLead;
-    else leads.push(consentedLead);
-    saveCms({ ...cms, leads });
-  };
 
   const handleOtpSubmit = (event) => {
     event.preventDefault();
@@ -251,60 +257,90 @@ function Navbar() {
     }));
   };
 
-  const handleApplicationSubmit = (event) => {
-    event.preventDefault();
+  const handleApplicationSubmit = async (event) => {
+  event.preventDefault();
 
-    const aadhaar = applicationForm.aadhaar.trim();
-    const pan = applicationForm.pan.trim().toUpperCase();
-    const amount = applicationForm.amount.trim();
+  const aadhaar = applicationForm.aadhaar.trim();
+  const pan = applicationForm.pan.trim().toUpperCase();
+  const amount = applicationForm.amount.trim();
+  const mobile = applicationForm.mobile.replace(/\D/g, "");
 
-    if (!applicationForm.name.trim() || !applicationForm.mobile.trim() || !aadhaar || !pan || !amount || !applicationForm.purpose.trim()) {
-      setError("Please complete all application fields.");
-      return;
+  if (
+    !applicationForm.name.trim() ||
+    !mobile ||
+    !aadhaar ||
+    !pan ||
+    !amount ||
+    !applicationForm.purpose.trim()
+  ) {
+    setError("Please complete all application fields.");
+    return;
+  }
+
+  if (!/^\d{12}$/.test(aadhaar)) {
+    setError("Aadhaar must contain exactly 12 digits.");
+    return;
+  }
+
+  if (!/^[A-Z]{5}\d{4}[A-Z]$/.test(pan)) {
+    setError("PAN must be in the format ABCDE1234F.");
+    return;
+  }
+
+  if (
+    !/^\d+(?:\.\d{1,2})?$/.test(amount) ||
+    Number(amount) <= 0
+  ) {
+    setError("Enter a valid loan amount.");
+    return;
+  }
+
+  try {
+    const response = await fetch("/api/leads", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        action: "application",
+        source: "Apply Now",
+        phone: mobile,
+        name: applicationForm.name.trim(),
+        aadhaar,
+        pan,
+        loanAmount: amount,
+        purpose: applicationForm.purpose.trim(),
+      }),
+    });
+
+    const result = await response.json();
+
+    if (!response.ok) {
+      throw new Error(
+        result.error || "Unable to submit application."
+      );
     }
 
-    if (!/^\d{12}$/.test(aadhaar)) {
-      setError("Aadhaar must contain exactly 12 digits.");
-      return;
-    }
-
-    if (!/^[A-Z]{5}\d{4}[A-Z]$/.test(pan)) {
-      setError("PAN must be in the format ABCDE1234F.");
-      return;
-    }
-
-    if (!/^\d+(?:\.\d{1,2})?$/.test(amount) || Number(amount) <= 0) {
-      setError("Enter a valid loan amount.");
-      return;
-    }
-
-    setApplicationForm((current) => ({ ...current, aadhaar, pan, amount }));
-    setError("");
-
-    const cms = getCms();
-    const leadIndex = (cms.leads || []).findIndex((lead) => lead.phone === applicationForm.mobile && lead.source === "Apply Now");
-    const lead = leadIndex >= 0 ? cms.leads[leadIndex] : {
-      id: createId("lead"),
-      phone: applicationForm.mobile,
-      source: "Apply Now",
-      status: "New",
-      date: new Date().toLocaleString("en-IN"),
-    };
-    const updatedLead = {
-      ...lead,
-      name: applicationForm.name.trim(),
+    setApplicationForm((current) => ({
+      ...current,
+      mobile,
       aadhaar,
       pan,
-      loanAmount: amount,
-      purpose: applicationForm.purpose.trim(),
-    };
-    const leads = [...(cms.leads || [])];
-    if (leadIndex >= 0) leads[leadIndex] = updatedLead;
-    else leads.push(updatedLead);
-    saveCms({ ...cms, leads });
+      amount,
+    }));
+
+    setError("");
     setApplicationSubmitted(true);
     setApplicationStep("success");
-  };
+  } catch (error) {
+    console.error("Application submission error:", error);
+    setError(
+      error.message ||
+        "Unable to submit application. Please try again."
+    );
+  }
+};
+
 
   const handleProfileChange = (field, value) => {
     setProfile((current) => ({
