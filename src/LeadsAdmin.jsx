@@ -16,7 +16,9 @@ export default function LeadsAdmin() {
       setLoading(true);
       setError("");
 
-      const response = await fetch("/api/admin/leads");
+      const response = await fetch("/api/admin/leads", {
+        credentials: "include",
+      });
 
       if (!response.ok) {
         throw new Error("Unable to load leads.");
