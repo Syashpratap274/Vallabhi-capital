@@ -4,8 +4,6 @@
 
   padding-top: 90px;
 
-  overflow-x: hidden;
-
   font-family: "Poppins", sans-serif;
 
   color: #103770;
@@ -926,11 +924,12 @@
 
 
 
-@media (max-width: 1050px) {
+@media (max-width: 1024px) {
 
   .product-detail-hero-copy {
 
     margin-left: 370px;
+    width: min(90%, calc(100% - 395px));
 
   }
 
@@ -972,7 +971,7 @@
 
 
 
-@media (max-width: 760px) {
+@media (max-width: 768px) {
 
   .product-detail-page {
 

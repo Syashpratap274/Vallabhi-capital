@@ -688,7 +688,7 @@
    RESPONSIVE
 ========================================================= */
 
-@media (max-width: 1000px) {
+@media (max-width: 1024px) {
 
   .about-container {
     width: min(100% - 40px, 900px);
@@ -714,7 +714,7 @@
 }
 
 
-@media (max-width: 750px) {
+@media (max-width: 768px) {
 
   .about-intro-section {
     padding-top: 45px;

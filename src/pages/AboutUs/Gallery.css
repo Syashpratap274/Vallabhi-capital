@@ -8,7 +8,6 @@
   padding: 0;
   background: #ffffff;
   font-family: "Poppins", sans-serif;
-  overflow-x: hidden;
 }
 
 /* =========================================================
@@ -166,7 +165,8 @@
 .gallery-folder-image {
   position: relative;
   width: 100%;
-  height: 250px;
+  height: auto;
+  aspect-ratio: 4 / 3;
   overflow: hidden;
   background: #eef3f8;
 }
@@ -176,7 +176,7 @@
   height: 100%;
   display: block;
   object-fit: cover;
-  object-position: center;
+  object-position: top center;
 }
 
 .gallery-folder-placeholder {
@@ -253,9 +253,34 @@
 
 .gallery-folder-arrow {
   flex-shrink: 0;
+
+  width: 56px;
+  height: 56px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 1px solid #d8e8f2;
+  border-radius: 50%;
+
+  background: #f4fbfe;
+  color: #168fca;
+
+  font-family: inherit;
+  font-size: 0;
+
+  cursor: pointer;
+
+  transition:
+    background 0.25s ease,
+    border-color 0.25s ease,
+    color 0.25s ease,
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
 }
 
-@media (max-width: 767px) {
+@media (max-width: 768px) {
   .gallery-folder-content {
     align-items: flex-start;
     flex-direction: column;
@@ -298,35 +323,6 @@
 /* =========================================================
    FOLDER ARROW
 ========================================================= */
-
-.gallery-folder-arrow {
-  flex-shrink: 0;
-
-  width: 56px;
-  height: 56px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  border: 1px solid #d8e8f2;
-  border-radius: 50%;
-
-  background: #f4fbfe;
-  color: #168fca;
-
-  font-family: inherit;
-  font-size: 0;
-
-  cursor: pointer;
-
-  transition:
-    background 0.25s ease,
-    border-color 0.25s ease,
-    color 0.25s ease,
-    transform 0.25s ease,
-    box-shadow 0.25s ease;
-}
 
 .gallery-folder-arrow::before {
   width: 11px;
@@ -598,7 +594,7 @@
    RESPONSIVE
 ========================================================= */
 
-@media (max-width: 1000px) {
+@media (max-width: 1024px) {
 
   .gallery-hero {
     width: calc(100% - 50px);
@@ -621,7 +617,7 @@
 }
 
 
-@media (max-width: 600px) {
+@media (max-width: 480px) {
 
   .gallery-hero {
     width: calc(100% - 30px);
@@ -641,5 +637,15 @@
     width: calc(100% - 30px);
     padding-top: 50px;
     padding-bottom: 60px;
+  }
+
+  .gallery-folder-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (min-width: 480px) and (max-width: 1024px) {
+  .gallery-folder-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }

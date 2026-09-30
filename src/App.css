@@ -1,7 +1,7 @@
 .app-shell {
 	width: 100%;
 	max-width: 1440px;
-	min-height: 100vh;
+	min-height: 100dvh;
 	margin: 0 auto;
 }
 
@@ -47,7 +47,7 @@ select {
 	max-width: none;
 }
 
-@media (max-width: 900px) {
+@media (max-width: 1024px) {
 	.app-shell {
 		max-width: 100%;
 	}

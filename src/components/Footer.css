@@ -302,7 +302,7 @@ FOOTER
    LARGE TABLET
 ===================================================== */
 
-@media (max-width: 1200px) {
+@media (max-width: 1024px) {
 
   .footer-inner {
     width: calc(100% - 60px);
@@ -337,7 +337,7 @@ FOOTER
    TABLET
 ===================================================== */
 
-@media (max-width: 900px) {
+@media (max-width: 1024px) {
 
   .products-footer {
     padding: 50px 0 20px;
@@ -381,7 +381,7 @@ FOOTER
    MOBILE
 ===================================================== */
 
-@media (max-width: 600px) {
+@media (max-width: 480px) {
 
   .products-footer {
     padding: 45px 0 18px;
@@ -476,7 +476,7 @@ FOOTER
    SMALL MOBILE
 ===================================================== */
 
-@media (max-width: 400px) {
+@media (max-width: 480px) {
 
   .footer-inner {
     width: calc(100% - 24px);

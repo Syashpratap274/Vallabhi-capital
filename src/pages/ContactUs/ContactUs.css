@@ -11,7 +11,6 @@
 
   font-family: "Poppins", sans-serif;
 
-  overflow-x: hidden;
 }
 
 
@@ -553,7 +552,7 @@
    RESPONSIVE
 ========================================================= */
 
-@media (max-width: 1100px) {
+@media (max-width: 1024px) {
 
   .contact-hero {
     width: calc(100% - 50px);
@@ -575,7 +574,7 @@
 }
 
 
-@media (max-width: 700px) {
+@media (max-width: 768px) {
 
   .contact-hero {
     width: calc(100% - 30px);
@@ -633,7 +632,7 @@
 }
 
 
-@media (max-width: 450px) {
+@media (max-width: 480px) {
 
   .contact-hero {
     width: calc(100% - 30px);

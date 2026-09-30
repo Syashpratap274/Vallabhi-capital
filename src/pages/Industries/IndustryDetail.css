@@ -4,7 +4,6 @@
 
 .industry-detail-page {
   width: 100%;
-  overflow-x: hidden;
   background: #fff;
   color: #171717;
   font-family: "Poppins", sans-serif;
@@ -413,7 +412,7 @@
    LARGE TABLET
 ========================================================= */
 
-@media (max-width: 1200px) {
+@media (max-width: 1024px) {
 
   .industry-detail-hero-content h1 {
     font-size: 46px;
@@ -483,7 +482,7 @@
    TABLET
 ========================================================= */
 
-@media (max-width: 950px) {
+@media (max-width: 1024px) {
 
   .industry-detail-stats-wrap {
     min-height: 400px;
@@ -537,7 +536,7 @@
    MOBILE
 ========================================================= */
 
-@media (max-width: 700px) {
+@media (max-width: 768px) {
 
   /* =======================================================
      HERO
@@ -690,7 +689,7 @@
    SMALL MOBILE
 ========================================================= */
 
-@media (max-width: 450px) {
+@media (max-width: 480px) {
 
   .industry-detail-hero {
     height: 300px;

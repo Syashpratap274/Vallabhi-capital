@@ -5,15 +5,13 @@
 .industries-page {
   width: 100%;
   min-width: 0;
-  min-height: 100vh;
+  min-height: 100dvh;
 
   margin: 0;
   padding: 0 0 32px;
 
   background: #ffffff;
   color: #111111;
-
-  overflow-x: hidden;
 
   box-sizing: border-box;
 }
@@ -280,12 +278,11 @@
    INDUSTRIES CONTAINER
 
    IMPORTANT:
-   Uses viewport width so it cannot get squeezed by
-   another global .container / flex / grid rule.
+  Uses its parent width to stay within the page container.
 ========================================================= */
 
 .industries-page .industries-served-section > .industries-container {
-  width: calc(100vw - 80px);
+  width: calc(100% - 80px);
   max-width: 1680px;
 
   min-width: 0;
@@ -606,10 +603,10 @@
    4 CARDS
 ========================================================= */
 
-@media (max-width: 1599px) and (min-width: 1200px) {
+@media (max-width: 1599px) and (min-width: 1280px) {
 
   .industries-page .industries-served-section > .industries-container {
-    width: calc(100vw - 80px);
+    width: calc(100% - 80px);
     max-width: 1500px;
   }
 
@@ -635,10 +632,10 @@
    3 CARDS
 ========================================================= */
 
-@media (max-width: 1199px) and (min-width: 901px) {
+@media (max-width: 1280px) and (min-width: 1024px) {
 
   .industries-page .industries-served-section > .industries-container {
-    width: calc(100vw - 60px);
+    width: calc(100% - 60px);
     max-width: none;
   }
 
@@ -673,10 +670,10 @@
    2 CARDS
 ========================================================= */
 
-@media (max-width: 900px) and (min-width: 701px) {
+@media (max-width: 1024px) and (min-width: 768px) {
 
   .industries-page .industries-served-section > .industries-container {
-    width: calc(100vw - 60px);
+    width: calc(100% - 60px);
     max-width: none;
   }
 
@@ -711,10 +708,10 @@
    2 CARDS
 ========================================================= */
 
-@media (max-width: 700px) and (min-width: 501px) {
+@media (max-width: 768px) and (min-width: 480px) {
 
   .industries-page .industries-served-section > .industries-container {
-    width: calc(100vw - 30px);
+    width: calc(100% - 30px);
     max-width: none;
   }
 
@@ -767,10 +764,10 @@
    1 CARD PER ROW
 ========================================================= */
 
-@media (max-width: 500px) {
+@media (max-width: 480px) {
 
   .industries-page .industries-served-section > .industries-container {
-    width: calc(100vw - 30px);
+    width: calc(100% - 30px);
     max-width: none;
   }
 
@@ -825,10 +822,10 @@
    EXTRA SMALL MOBILE
 ========================================================= */
 
-@media (max-width: 360px) {
+@media (max-width: 480px) {
 
   .industries-page .industries-served-section > .industries-container {
-    width: calc(100vw - 24px);
+    width: calc(100% - 24px);
   }
 
   .industries-page .industries-section-title {
@@ -842,5 +839,50 @@
 
   .industries-page .industry-card-content {
     padding: 15px;
+  }
+}
+
+@media (min-width: 1024px) and (max-width: 1280px) {
+  .industries-page .industries-served-section > .industries-container {
+    width: calc(100% - 60px);
+    max-width: none;
+  }
+
+  .industries-page .industries-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    column-gap: 22px;
+    row-gap: 32px;
+  }
+
+  .industries-page .industry-image-wrapper {
+    height: 240px;
+    flex-basis: 240px;
+  }
+
+  .industries-page .industry-card-content {
+    min-height: 155px;
+    padding: 18px;
+  }
+
+  .industries-page .industry-card-content h3 {
+    font-size: 17px;
+  }
+}
+
+@media (min-width: 1280px) and (max-width: 1599px) {
+  .industries-page .industries-served-section > .industries-container {
+    width: calc(100% - 80px);
+    max-width: 1500px;
+  }
+
+  .industries-page .industries-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+    column-gap: 24px;
+    row-gap: 38px;
+  }
+
+  .industries-page .industry-image-wrapper {
+    height: 250px;
+    flex-basis: 250px;
   }
 }

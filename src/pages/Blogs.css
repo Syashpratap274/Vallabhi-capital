@@ -145,7 +145,7 @@
 .blog-content a {
   color: #249bc6;
 }
-@media (max-width: 800px) {
+@media (max-width: 768px) {
   .blogs-page,
   .blog-detail-page {
     padding: 110px 18px 50px;

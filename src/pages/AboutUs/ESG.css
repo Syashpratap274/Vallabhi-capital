@@ -373,7 +373,7 @@ IMAGE | CONTENT
    TABLET
 ========================================================= */
 
-@media (max-width: 900px) {
+@media (max-width: 1024px) {
 
   .esg-banner {
     height: 250px;
@@ -412,7 +412,7 @@ IMAGE | CONTENT
    MOBILE
 ========================================================= */
 
-@media (max-width: 700px) {
+@media (max-width: 768px) {
 
   .section-container {
     width: 90%;
@@ -465,7 +465,7 @@ IMAGE | CONTENT
    SMALL MOBILE
 ========================================================= */
 
-@media (max-width: 450px) {
+@media (max-width: 480px) {
 
   .esg-banner {
     height: 190px;

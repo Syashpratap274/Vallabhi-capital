@@ -1,6 +1,14 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap");
 @import "tailwindcss";
 
+:root {
+  --fs-h1: clamp(2.25rem, 1.6rem + 3vw, 3.5rem);
+  --fs-h2: clamp(1.75rem, 1.2rem + 2.2vw, 2.5rem);
+  --fs-h3: clamp(1.25rem, 1rem + 1vw, 1.75rem);
+  --fs-body: clamp(1rem, 0.95rem + 0.2vw, 1.125rem);
+  --fs-small: clamp(0.75rem, 0.7rem + 0.2vw, 0.875rem);
+}
+
 html,
 body,
 #root {
@@ -54,13 +62,9 @@ h3,
 h4,
 h5,
 h6,
-a,
-button,
-span,
-strong,
 label {
-  overflow-wrap: anywhere;
-  word-break: break-word;
+  overflow-wrap: break-word;
+  word-break: normal;
 }
 
 h1,
@@ -89,7 +93,7 @@ h6 {
 .shared-faq h2 {
   margin: 0 0 12px;
   color: #103770;
-  font-size: 40px;
+  font-size: var(--fs-h2);
   line-height: 1.15;
   font-weight: 600;
 }
@@ -121,7 +125,7 @@ h6 {
   border-radius: 0 !important;
   background: transparent !important;
   color: #103770 !important;
-  font: 600 18px/1.35 Poppins, sans-serif !important;
+  font: 600 clamp(15px, 1rem + 0.15vw, 18px)/1.35 Poppins, sans-serif !important;
   text-align: left;
 }
 
@@ -149,7 +153,7 @@ h6 {
   padding: 0 0 10px !important;
   border-bottom: 1px solid rgba(16, 55, 112, 0.18);
   color: #656060;
-  font: 400 18px/1.5 Poppins, sans-serif;
+  font: 400 clamp(15px, 1rem + 0.15vw, 18px)/1.5 Poppins, sans-serif;
 }
 
 .shared-faq button[class*="bottom"] {
@@ -165,22 +169,22 @@ h6 {
   background: #249bc6;
 }
 
-@media (max-width: 900px) {
+@media (max-width: 1024px) {
   .shared-faq {
     padding: 25px 20px 30px;
   }
 
   .shared-faq h2 {
-    font-size: 30px;
+    font-size: var(--fs-h2);
   }
 
   .shared-faq-question {
     min-height: 46px;
     padding: 10px 52px 10px 0 !important;
-    font-size: 18px !important;
+    font-size: clamp(15px, 1rem + 0.15vw, 18px) !important;
   }
 
   .shared-faq-answer {
-    font-size: 18px;
+    font-size: clamp(15px, 1rem + 0.15vw, 18px);
   }
 }
