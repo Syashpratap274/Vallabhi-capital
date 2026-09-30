@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { sortItems } from "../../cms";
 import "./ProductDetailTemplate.css";
 
@@ -134,6 +134,42 @@ export default function ProductDetailTemplate({
   whyItems: legacyWhyItems,
   initialFaqs,
 }) {
+  const benefitsTrackRef = useRef(null);
+  const [activeBenefitIndex, setActiveBenefitIndex] = useState(0);
+
+  const handleBenefitsScroll = () => {
+    const track = benefitsTrackRef.current;
+    if (!track) return;
+
+    const trackLeft = track.getBoundingClientRect().left;
+    let closestIndex = 0;
+    let closestDistance = Infinity;
+
+    Array.from(track.children).forEach((card, index) => {
+      const distance = Math.abs(card.getBoundingClientRect().left - trackLeft);
+      if (distance < closestDistance) {
+        closestDistance = distance;
+        closestIndex = index;
+      }
+    });
+
+    setActiveBenefitIndex(closestIndex);
+  };
+
+  const scrollToBenefit = (index) => {
+    const track = benefitsTrackRef.current;
+    const card = track?.children[index];
+    if (!track || !card) return;
+
+    track.scrollTo({
+      left:
+        track.scrollLeft +
+        card.getBoundingClientRect().left -
+        track.getBoundingClientRect().left,
+      behavior: "smooth",
+    });
+  };
+
   const normalizedProduct = product || {
     name: titleProp || cmsKey || "Product",
     slug: cmsKey || "",
@@ -310,7 +346,11 @@ export default function ProductDetailTemplate({
       {finalBenefits.length > 0 && (
         <section className="product-detail-benefits">
           <h2>{title} Benefits</h2>
-          <div className="product-detail-benefits-grid">
+          <div
+            className="product-detail-benefits-grid"
+            ref={benefitsTrackRef}
+            onScroll={handleBenefitsScroll}
+          >
             {finalBenefits.map((b, i) => (
               <div className="product-detail-benefit-card" key={b.id || i}>
                 <div className="product-detail-benefit-icon">
@@ -319,6 +359,18 @@ export default function ProductDetailTemplate({
                 <h3>{b.title}</h3>
                 <p>{b.description || b.text}</p>
               </div>
+            ))}
+          </div>
+          <div className="product-detail-benefit-pagination">
+            {finalBenefits.map((benefit, index) => (
+              <button
+                type="button"
+                key={benefit.id || index}
+                className={`product-detail-benefit-dot ${activeBenefitIndex === index ? "active" : ""}`}
+                aria-label={`Show benefit ${index + 1}`}
+                aria-pressed={activeBenefitIndex === index}
+                onClick={() => scrollToBenefit(index)}
+              />
             ))}
           </div>
         </section>

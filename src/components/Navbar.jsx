@@ -434,161 +434,33 @@ function Navbar() {
               <div className="dropdown-menu">
 
                 {/* COMPANY */}
-                <div className="dropdown-submenu">
-
-                  <Link
-                    to="/company"
-                    className="submenu-button submenu-link"
-                  >
-                    <span className="navbar-menu-label"><IndustryIcon type="company" />Company</span>
-                    <span className="navbar-chevron navbar-chevron-right" aria-hidden="true" />
-                  </Link>
-
-                  <div className="submenu-menu">
-
-                    <Link
-                      to="/company"
-                      state={{ section: "who-we-are" }}
-                    >
-                      Who We Are
-                    </Link>
-
-                    <Link
-                      to="/company"
-                      state={{ section: "vision-mission" }}
-                    >
-                      Vision / Mission
-                    </Link>
-
-                    <Link
-                      to="/company"
-                      state={{ section: "values" }}
-                    >
-                      Values
-                    </Link>
-
-                    <Link
-                      to="/company"
-                      state={{ section: "board-and-team" }}
-                    >
-                      Board of Directors / Team
-                    </Link>
-
-                  </div>
-                </div>
+                <Link to="/company" className="submenu-button submenu-link">
+                  <span className="navbar-menu-label"><IndustryIcon type="company" />Company</span>
+                </Link>
 
 
                 {/* INVESTORS */}
-                <div className="dropdown-submenu">
-
-                  <Link
-                    to="/partners"
-                    className="submenu-button submenu-link"
-                  >
-                    <span className="navbar-menu-label"><IndustryIcon type="partners" />Partners</span>
-                    <span className="navbar-chevron navbar-chevron-right" aria-hidden="true" />
-                  </Link>
-
-                  <div className="submenu-menu">
-
-                    <Link
-                      to="/partners"
-                      state={{ section: "technology-partner" }}
-                    >
-                      Technology Partner
-                    </Link>
-
-                    <Link
-                      to="/partners"
-                      state={{ section: "investors" }}
-                    >
-                      Landing Partners
-                    </Link>
-
-                  </div>
-                </div>
+                <Link to="/partners" className="submenu-button submenu-link">
+                  <span className="navbar-menu-label"><IndustryIcon type="partners" />Partners</span>
+                </Link>
 
 
                 {/* ESG */}
-                <div className="dropdown-submenu">
-
-                  <Link
-                    to="/esg"
-                    className="submenu-button submenu-link"
-                  >
-                    <span className="navbar-menu-label"><IndustryIcon type="esg" />ESG</span>
-                    <span className="navbar-chevron navbar-chevron-right" aria-hidden="true" />
-                  </Link>
-
-                  <div className="submenu-menu">
-                    {esgInitiatives.map((event) => (
-                      <Link
-                        key={event.id}
-                        to="/esg"
-                        state={{ section: event.id }}
-                      >
-                        {event.title}
-                      </Link>
-                    ))}
-                  </div>
-                </div>
+                <Link to="/esg" className="submenu-button submenu-link">
+                  <span className="navbar-menu-label"><IndustryIcon type="esg" />ESG</span>
+                </Link>
 
 
                 {/* CAREER */}
-                <div className="dropdown-submenu">
-
-                  <Link
-                    to="/career"
-                    className="submenu-button submenu-link"
-                  >
-                    <span className="navbar-menu-label"><IndustryIcon type="career" />Career</span>
-                    <span className="navbar-chevron navbar-chevron-right" aria-hidden="true" />
-                  </Link>
-
-                  <div className="submenu-menu">
-
-                    <Link
-                      to="/career"
-                      state={{ section: "employee-testimonial" }}
-                    >
-                      Employee Testimonial
-                    </Link>
-
-                    <Link
-                      to="/career"
-                      state={{ section: "openings" }}
-                    >
-                      Openings
-                    </Link>
-
-                  </div>
-                </div>
+                <Link to="/career" className="submenu-button submenu-link">
+                  <span className="navbar-menu-label"><IndustryIcon type="career" />Career</span>
+                </Link>
 
 
                 {/* GALLERY */}
-                <div className="dropdown-submenu">
-
-                  <Link
-                    to="/gallery"
-                    className="submenu-button submenu-link"
-                  >
-                    <span className="navbar-menu-label"><IndustryIcon type="gallery" />Gallery</span>
-                    <span className="navbar-chevron navbar-chevron-right" aria-hidden="true" />
-                  </Link>
-
-                  <div className="submenu-menu">
-                    {galleryFolders.map((folder) => (
-                      <Link
-                        key={folder.id}
-                        to="/gallery"
-                        state={{ galleryFolder: folder.id }}
-                      >
-                        {folder.title}
-                      </Link>
-                    ))}
-
-                  </div>
-                </div>
+                <Link to="/gallery" className="submenu-button submenu-link">
+                  <span className="navbar-menu-label"><IndustryIcon type="gallery" />Gallery</span>
+                </Link>
 
               </div>
             </div>

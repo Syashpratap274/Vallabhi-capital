@@ -157,6 +157,7 @@
 .partners-logo-slider {
   overflow: hidden;
   width: 100%;
+  container-type: inline-size;
   touch-action: pan-y;
 }
 
@@ -182,8 +183,8 @@
 }
 
 .partner-logo-slide {
-  flex: 0 0 calc((100% - 40px) / 2);
-  width: calc((100% - 40px) / 2);
+  flex: 0 0 calc((100cqw - 40px) / 2);
+  width: calc((100cqw - 40px) / 2);
   padding: 0;
 }
 

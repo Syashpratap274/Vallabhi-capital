@@ -1,11 +1,51 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { useCms } from "../../cms";
 import "./About.css";
+
+const formatTeamHeading = (text) => {
+  if (text !== text.toLocaleUpperCase()) return text;
+  return text.toLocaleLowerCase().replace(/\b[a-z]/g, (letter) => letter.toLocaleUpperCase());
+};
 
 const About = () => {
   const cms = useCms();
   const [selectedFounder, setSelectedFounder] = useState(null);
   const [selectedTeamMember, setSelectedTeamMember] = useState(null);
+  const valuesTrackRef = useRef(null);
+  const [activeValueIndex, setActiveValueIndex] = useState(0);
+
+  const handleValuesScroll = () => {
+    const track = valuesTrackRef.current;
+    if (!track) return;
+
+    const trackLeft = track.getBoundingClientRect().left;
+    let closestIndex = 0;
+    let closestDistance = Infinity;
+
+    Array.from(track.children).forEach((card, index) => {
+      const distance = Math.abs(card.getBoundingClientRect().left - trackLeft);
+      if (distance < closestDistance) {
+        closestDistance = distance;
+        closestIndex = index;
+      }
+    });
+
+    setActiveValueIndex(closestIndex);
+  };
+
+  const scrollToValue = (index) => {
+    const track = valuesTrackRef.current;
+    const card = track?.children[index];
+    if (!track || !card) return;
+
+    track.scrollTo({
+      left:
+        track.scrollLeft +
+        card.getBoundingClientRect().left -
+        track.getBoundingClientRect().left,
+      behavior: "smooth",
+    });
+  };
 
   const company = cms?.company || {};
 
@@ -133,7 +173,11 @@ const About = () => {
             Our Values
           </h2>
 
-          <div className="values-grid">
+          <div
+            className="values-grid"
+            ref={valuesTrackRef}
+            onScroll={handleValuesScroll}
+          >
 
             {values.slice(0, 4).map((value, index) => (
               <div
@@ -151,6 +195,7 @@ const About = () => {
                     </div>
                   )}
 
+
                   <div className="value-card-copy">
                     <h3>{value.title}</h3>
                     <p>{value.description}</p>
@@ -160,6 +205,19 @@ const About = () => {
               </div>
             ))}
 
+          </div>
+
+          <div className="values-pagination">
+            {values.slice(0, 4).map((value, index) => (
+              <button
+                type="button"
+                key={value.id || index}
+                className={`values-pagination-dot ${activeValueIndex === index ? "active" : ""}`}
+                aria-label={`Show value ${index + 1}`}
+                aria-pressed={activeValueIndex === index}
+                onClick={() => scrollToValue(index)}
+              />
+            ))}
           </div>
 
         </div>
@@ -296,9 +354,9 @@ const About = () => {
 
           <div className="team-heading">
             <h2>
-              {company.teamHeading || "MEET OUR "}
+              {formatTeamHeading(company.teamHeading || "Meet Our ")}
               <span>
-                {company.teamHeadingHighlight || "GREAT TEAM"}
+                {formatTeamHeading(company.teamHeadingHighlight || "Great Team")}
               </span>
             </h2>
 

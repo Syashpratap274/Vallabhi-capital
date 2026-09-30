@@ -176,6 +176,10 @@
   gap: 18px;
 }
 
+.values-pagination {
+  display: none;
+}
+
 .value-card {
   min-height: 180px;
   padding: 18px 20px 22px;
@@ -508,7 +512,6 @@
   font-weight: 700;
 
   color: #444;
-  text-transform: uppercase;
 }
 
 .team-heading h2 span {
@@ -739,7 +742,49 @@
   }
 
   .values-grid {
-    grid-template-columns: 1fr;
+    display: flex;
+    gap: 14px;
+    margin-right: -10px;
+    padding: 18px 10px 14px 0;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-padding-left: 0;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .values-grid::-webkit-scrollbar {
+    display: none;
+  }
+
+  .value-card {
+    flex: 0 0 88%;
+    scroll-snap-align: start;
+  }
+
+  .values-pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 12px;
+  }
+
+  .values-pagination-dot {
+    width: 8px;
+    height: 8px;
+    flex: 0 0 8px;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background: #c9dce2;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+  }
+
+  .values-pagination-dot.active {
+    background: #249bc6;
+    transform: scale(1.25);
   }
 
   .value-logo {

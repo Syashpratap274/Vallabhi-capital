@@ -323,7 +323,6 @@
 
 
 .product-detail-info-grid {
-
   display: grid;
 
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -544,6 +543,10 @@
 
   margin: 0;
 
+}
+
+.product-detail-benefit-pagination {
+  display: none;
 }
 
 
@@ -1197,6 +1200,52 @@
 
     min-height: 0;
 
+  }
+
+  .product-detail-benefits-grid {
+    display: flex;
+    gap: 14px;
+    margin-top: 12px;
+    padding: 18px 12px 14px 0;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-padding-left: 0;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .product-detail-benefit-card {
+    flex: 0 0 88%;
+    scroll-snap-align: start;
+  }
+
+  .product-detail-benefits-grid::-webkit-scrollbar {
+    display: none;
+  }
+
+  .product-detail-benefit-pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 12px;
+  }
+
+  .product-detail-benefit-dot {
+    width: 8px;
+    height: 8px;
+    flex: 0 0 8px;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background: #c9dce2;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+  }
+
+  .product-detail-benefit-dot.active {
+    background: #249bc6;
+    transform: scale(1.25);
   }
 
 }
