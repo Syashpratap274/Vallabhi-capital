@@ -67,6 +67,22 @@ function AppShell() {
         <Route path="/refund-cancellation" element={<Policies />} />
       </Routes>
       {!isAdmin && <Footer />}
+      {!isAdmin && (
+        <a
+          className="contact-whatsapp-button"
+          href="https://wa.me/919557269926"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Let's talk on WhatsApp"
+          title="Let's talk on WhatsApp"
+        >
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M20.5 11.8a8.4 8.4 0 0 1-12.4 7.4L4 20.3l1.1-4a8.4 8.4 0 1 1 15.4-4.5Z" />
+            <path d="M9 8.5c.3-.5.6-.5.9 0l.8 1.1c.2.3.2.6-.1.9l-.5.5c.6 1.1 1.5 2 2.6 2.6l.5-.5c.3-.3.6-.3.9-.1l1.1.8c.4.3.4.6 0 .9-.4.5-1 .7-1.6.6-2.1-.4-3.7-2-4.9-4.8-.2-.5 0-1.2.3-1.6Z" />
+          </svg>
+          <span>LET'S TALK</span>
+        </a>
+      )}
     </div>
   );
 }

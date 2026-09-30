@@ -75,7 +75,7 @@
 
   margin: 0 auto;
 
-  padding: 75px 0 85px;
+  padding: 75px 0 24px;
 }
 
 .contact-section-heading {
@@ -83,7 +83,7 @@
 
   max-width: 750px;
 
-  margin: 0 auto 45px;
+  margin: 0 auto;
 }
 
 .contact-small-label {
@@ -104,12 +104,12 @@
   letter-spacing: 0.5px;
 }
 
-.contact-section-heading h2 {
+.contact-section-heading h1 {
   margin: 18px 0 12px;
 
   color: #123f70;
 
-  font-size: clamp(28px, 3.2vw, 38px);
+  font-size: clamp(28px, 3.2vw, 36px);
 
   line-height: 1.25;
 
@@ -117,7 +117,7 @@
 }
 
 /* Blue accent instead of red */
-.contact-section-heading h2 span {
+.contact-section-heading h1 span {
   color: #1e88c8;
 }
 
@@ -213,7 +213,7 @@
 
   color: #7b8b9a;
 
-  font-size: 12px;
+  font-size: clamp(11px, 0.85vw, 12px);
 
   font-weight: 600;
 
@@ -253,7 +253,7 @@
 .contact-get-in-touch {
   width: 100%;
 
-  padding: 70px 0 100px;
+  padding: 56px 0 100px;
 
   background: #f7fbfe;
 }
@@ -268,7 +268,7 @@
 
   grid-template-columns: 1fr 1fr;
 
-  align-items: end;
+  align-items: start;
 
   gap: 55px;
 }
@@ -280,11 +280,53 @@
 
 .contact-touch-left {
   position: relative;
+  order: 2;
 
-  min-height: 460px;
+  min-height: 0;
 
   display: flex;
-  align-items: flex-end;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0;
+}
+
+.contact-details-list {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+}
+
+.contact-detail-item {
+  padding: 14px 16px;
+  border: 1px solid #e4edf4;
+  border-left: 3px solid #1e88c8;
+  border-radius: 12px;
+  background: #ffffff;
+}
+
+.contact-detail-item > span {
+  display: block;
+  margin-bottom: 5px;
+  color: #1e88c8;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.contact-detail-item p,
+.contact-detail-item a {
+  margin: 0;
+  color: #656060;
+  font-size: 12px;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+
+.contact-detail-item a {
+  text-decoration: none;
+}
+
+.contact-detail-item a:hover {
+  color: #1e88c8;
 }
 
 .contact-chat-card {
@@ -388,7 +430,7 @@
 .contact-person-wrapper {
   width: 100%;
 
-  height: 470px;
+  height: 230px;
 
   display: flex;
 
@@ -396,6 +438,7 @@
   justify-content: center;
 
   overflow: hidden;
+  border-radius: 14px;
 }
 
 .contact-person-image {
@@ -409,12 +452,12 @@
   object-position: bottom center;
 }
 
-
 /* =========================================================
    FORM
 ========================================================= */
 
 .contact-form-wrapper {
+  order: 1;
   padding-bottom: 40px;
 }
 
@@ -422,20 +465,28 @@
   margin-bottom: 14px;
 }
 
-.contact-form-wrapper h2 {
-  margin: 0 0 28px;
+.contact-details-heading {
+  margin: 0 0 6px;
 
   color: #123f70;
 
-  font-size: 38px;
+  font-size: 28px;
 
   line-height: 1.2;
 
   font-weight: 700;
+  white-space: nowrap;
 }
 
-.contact-form-wrapper h2 span {
+.contact-details-heading span {
   color: #1e88c8;
+}
+
+.contact-details-intro {
+  margin: 0 0 16px;
+  color: #6b7c8f;
+  font-size: clamp(11px, 0.85vw, 12px);
+  line-height: 1.6;
 }
 
 .contact-form {
@@ -470,7 +521,7 @@
 
   font-family: inherit;
 
-  font-size: 16px;
+  font-size: 12px;
 
   transition:
     border-color 0.2s ease,
@@ -484,6 +535,7 @@
 }
 
 .contact-form textarea {
+  height: 166px;
   min-height: 125px;
 
   padding: 17px 20px;
@@ -569,12 +621,16 @@
   }
 
   .contact-touch-left {
-    min-height: 430px;
+    min-height: 0;
   }
 }
 
 
 @media (max-width: 768px) {
+
+  .contact-get-in-touch {
+    padding-top: 40px;
+  }
 
   .contact-hero {
     width: calc(100% - 30px);
@@ -589,11 +645,11 @@
   .contact-info-section {
     width: calc(100% - 30px);
 
-    padding: 55px 0 60px;
+    padding: 55px 0 16px;
   }
 
-  .contact-section-heading h2 {
-    font-size: 28px;
+  .contact-section-heading h1 {
+    font-size: clamp(28px, 3.2vw, 36px);
   }
 
   .contact-info-grid {
@@ -607,7 +663,11 @@
   }
 
   .contact-touch-left {
-    min-height: 380px;
+    min-height: 0;
+  }
+
+  .contact-person-wrapper {
+    height: 220px;
   }
 
   .contact-chat-card {
@@ -626,8 +686,9 @@
     grid-template-columns: 1fr;
   }
 
-  .contact-form-wrapper h2 {
-    font-size: 26px;
+  .contact-details-heading {
+    font-size: 28px;
+    white-space: normal;
   }
 }
 
@@ -653,4 +714,5 @@
   .contact-person-image {
     width: 90%;
   }
+
 }

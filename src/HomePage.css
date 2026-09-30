@@ -599,7 +599,7 @@
    INDUSTRIES WE SERVED
 ========================================================= */
 
-.industries-served-section {
+.homepage .industries-served-section {
   width: calc(100% - 11.25%);
   max-width: none;
   margin: 100px 0 0;
@@ -861,11 +861,11 @@
 
 @media (max-width: 1024px) {
 
-  .industries-served-section {
+  .homepage .industries-served-section {
     width: calc(100% - 40px);
     margin: var(--products-industries-gap) auto var(--homepage-section-gap);
 
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
     gap: 0;
   }
 

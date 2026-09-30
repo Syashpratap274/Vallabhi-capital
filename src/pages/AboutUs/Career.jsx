@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useCms, sortItems } from "../../cms";
 import "./Career.css";
 
@@ -54,6 +54,8 @@ export default function Career() {
   const [selectedJob, setSelectedJob] = useState(null);
   const [applicationJob, setApplicationJob] = useState(null);
   const [applicationSubmitted, setApplicationSubmitted] = useState(false);
+  const jobsTrackRef = useRef(null);
+  const [activeJobIndex, setActiveJobIndex] = useState(0);
 
   useEffect(() => {
     const closeOnEscape = (event) => {
@@ -74,6 +76,44 @@ export default function Career() {
       : jobs.filter(
           (job) => job.department === activeDepartment
         );
+
+  const handleJobsScroll = () => {
+    const track = jobsTrackRef.current;
+    if (!track) return;
+
+    const trackLeft = track.getBoundingClientRect().left;
+    let closestIndex = 0;
+    let closestDistance = Infinity;
+
+    Array.from(track.children).forEach((card, index) => {
+      const distance = Math.abs(card.getBoundingClientRect().left - trackLeft);
+      if (distance < closestDistance) {
+        closestDistance = distance;
+        closestIndex = index;
+      }
+    });
+
+    setActiveJobIndex(closestIndex);
+  };
+
+  const scrollToJob = (index) => {
+    const track = jobsTrackRef.current;
+    const card = track?.children[index];
+    if (!track || !card) return;
+
+    track.scrollTo({
+      left:
+        track.scrollLeft +
+        card.getBoundingClientRect().left -
+        track.getBoundingClientRect().left,
+      behavior: "smooth",
+    });
+  };
+
+  useEffect(() => {
+    setActiveJobIndex(0);
+    if (jobsTrackRef.current) jobsTrackRef.current.scrollLeft = 0;
+  }, [activeDepartment]);
 
   /* =========================================================
      HERO CONTENT
@@ -104,6 +144,15 @@ export default function Career() {
 
 </section>
 
+<section className="career-heading-wrap">
+  <div className="career-heading-content">
+    <h1>Grow your career with Vallabhi Capital</h1>
+    <p>
+      We are an RBI-registered NBFC offering tailored financing solutions to MSMEs and businesses for sustainable growth.
+    </p>
+  </div>
+</section>
+
       {/* =====================================================
           CURRENT OPENINGS
       ===================================================== */}
@@ -132,7 +181,11 @@ export default function Career() {
           </div>
 
 
-          <div className="career-jobs-list">
+          <div
+            className="career-jobs-list"
+            ref={jobsTrackRef}
+            onScroll={handleJobsScroll}
+          >
 
             {filteredJobs.length > 0 ? (
 
@@ -215,6 +268,21 @@ export default function Career() {
             )}
 
           </div>
+
+          {filteredJobs.length > 1 && (
+            <div className="career-jobs-pagination">
+              {filteredJobs.map((job, index) => (
+                <button
+                  type="button"
+                  key={job.id || index}
+                  className={`career-jobs-dot ${activeJobIndex === index ? "active" : ""}`}
+                  aria-label={`Show job ${index + 1}`}
+                  aria-pressed={activeJobIndex === index}
+                  onClick={() => scrollToJob(index)}
+                />
+              ))}
+            </div>
+          )}
 
         </div>
 

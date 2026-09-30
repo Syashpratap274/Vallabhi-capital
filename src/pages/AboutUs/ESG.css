@@ -40,11 +40,7 @@
   position: absolute;
   inset: 0;
 
-  background: linear-gradient(
-    90deg,
-    rgba(7, 45, 92, 0.72),
-    rgba(0, 126, 116, 0.62)
-  );
+  background: rgba(36, 155, 198, 0.5);
 }
 
 
@@ -70,7 +66,7 @@
 }
 
 .esg-main-heading span {
-  color: #1d9dcc;
+  color: #123f7a;
 }
 
 
@@ -166,7 +162,7 @@
 
   text-align: center;
 
-  color: #123f7a;
+  color: #1d9dcc;
 
   font-size: 27px;
   line-height: 1.35;

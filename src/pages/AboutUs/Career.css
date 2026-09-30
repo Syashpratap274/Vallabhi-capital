@@ -141,10 +141,11 @@
 
   font-family: "Poppins", sans-serif;
 
-  font-size: 40px;
-  line-height: 1.04;
+  color: #249bc6;
+  font-size: clamp(28px, 3vw, 36px);
+  line-height: 1.1;
 
-  letter-spacing: -2.5px;
+  letter-spacing: 0;
 
   font-weight: 700;
 }
@@ -174,6 +175,21 @@
   font-weight: 400;
 }
 
+.career-heading-content p {
+  max-width: 900px;
+  margin: 20px auto 0;
+  color: #303644;
+  font-size: 16px;
+  line-height: 1.4;
+  font-weight: 400;
+}
+
+@media (max-width: 768px) {
+  .career-heading-content p {
+    font-size: 12px;
+  }
+}
+
 
 /* =========================================================
    OPENINGS SECTION
@@ -182,7 +198,7 @@
 .career-openings-section {
   width: 100%;
 
-  padding: 80px 0 50px;
+  padding: 0 0 50px;
 
   background: #ffffff;
 }
@@ -193,7 +209,6 @@
 
   margin: 0 auto;
   padding: 24px 20px 20px;
-  border: 1px solid rgba(36, 155, 198, 0.15);
   border-radius: 18px;
   background: rgba(0, 0, 0, 0.01);
 }
@@ -268,6 +283,10 @@
   gap: 20px;
 
   width: 100%;
+}
+
+.career-jobs-pagination {
+  display: none;
 }
 
 .career-job-row {
@@ -725,7 +744,7 @@
 .career-testimonial-section {
   position: relative;
 
-  padding: 50px 0;
+  padding: 0 0 50px;
 
   background: #ffffff;
 
@@ -747,7 +766,7 @@
 .career-testimonial-container h2 {
   margin: 0 0 55px;
 
-  color: #182238;
+  color: #249bc6;
 
   font-family: "Poppins", sans-serif;
 
@@ -1121,7 +1140,48 @@
 @media (max-width: 768px) {
 
   .career-jobs-list {
-    grid-template-columns: 1fr;
+    display: flex;
+    gap: 14px;
+    margin-right: -10px;
+    padding: 18px 10px 14px 0;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .career-jobs-list::-webkit-scrollbar {
+    display: none;
+  }
+
+  .career-job-row {
+    flex: 0 0 88%;
+    scroll-snap-align: start;
+  }
+
+  .career-jobs-pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 12px;
+  }
+
+  .career-jobs-dot {
+    width: 8px;
+    height: 8px;
+    flex: 0 0 8px;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background: #c9dce2;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+  }
+
+  .career-jobs-dot.active {
+    background: #249bc6;
+    transform: scale(1.25);
   }
 
   .career-job-modal-backdrop {
@@ -1144,7 +1204,10 @@
   }
 
   .career-hero {
-    min-height: auto;
+    height: clamp(240px, 68vw, 320px);
+    aspect-ratio: auto;
+    min-height: 0;
+    background-size: cover;
   }
 
 
@@ -1250,7 +1313,7 @@
   /* Testimonials */
 
   .career-testimonial-section {
-    padding: 70px 0;
+    padding: 0 0 70px;
   }
 
 

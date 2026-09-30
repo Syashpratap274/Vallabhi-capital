@@ -112,7 +112,7 @@ function Footer() {
 
           {/* BUSINESS ENQUIRY */}
           <div className="footer-contact">
-            <h4>FOR Business Enquiry</h4>
+            <h4>For Business Enquiry</h4>
 
             <p>
               Email:{" "}
@@ -178,8 +178,8 @@ function Footer() {
 
             <p>
               Call:{" "}
-              <a href="tel:+918448694983">
-                <strong>+91-844-869-4983</strong>
+              <a href="tel:+918448820331">
+                <strong>+91-8448820331</strong>
               </a>
             </p>
 

@@ -47,8 +47,56 @@ select {
 	max-width: none;
 }
 
+.contact-whatsapp-button {
+	position: fixed;
+	right: 24px;
+	bottom: 24px;
+	z-index: 1400;
+
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: 9px;
+
+	min-height: 52px;
+	padding: 10px 17px;
+	border-radius: 28px;
+
+	background: #1e88c8;
+	color: #ffffff;
+	box-shadow: 0 8px 22px rgba(18, 63, 112, 0.2);
+	font-size: 13px;
+	font-weight: 700;
+	text-decoration: none;
+
+	transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.contact-whatsapp-button:hover {
+	transform: translateY(-2px);
+	background: #123f70;
+}
+
+.contact-whatsapp-button svg {
+	width: 24px;
+	height: 24px;
+	flex: 0 0 24px;
+	fill: none;
+	stroke: currentColor;
+	stroke-width: 1.7;
+	stroke-linecap: round;
+	stroke-linejoin: round;
+}
+
 @media (max-width: 1024px) {
 	.app-shell {
 		max-width: 100%;
+	}
+}
+
+@media (max-width: 600px) {
+	.contact-whatsapp-button {
+		right: 16px;
+		bottom: 16px;
 	}
 }
