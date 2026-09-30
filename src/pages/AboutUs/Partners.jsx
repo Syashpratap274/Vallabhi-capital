@@ -14,10 +14,10 @@ export default function Partners() {
   const cms = useCms();
   const p = cms.partners || {};
   const [isMobile, setIsMobile] = useState(() => (typeof window !== "undefined" ? window.innerWidth <= 600 : false));
-  const [techSlideIndex, setTechSlideIndex] = useState(0);
-  const [lendingSlideIndex, setLendingSlideIndex] = useState(0);
-  const techTouchStartX = useRef(null);
-  const lendingTouchStartX = useRef(null);
+  const techTrackRef = useRef(null);
+  const lendingTrackRef = useRef(null);
+  const techPointerStartX = useRef(null);
+  const lendingPointerStartX = useRef(null);
 
   const technologyPartnerLogos = Array.isArray(p.technologyPartnerLogos)
     ? p.technologyPartnerLogos
@@ -34,75 +34,16 @@ export default function Partners() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  useEffect(() => {
-    if (!isMobile || technologyPartnerLogos.length <= 2) return;
-    const grouped = chunkIntoPairs(technologyPartnerLogos);
-    const timer = window.setInterval(() => {
-      setTechSlideIndex((current) => (current + 1) % grouped.length);
-    }, 3000);
-    return () => window.clearInterval(timer);
-  }, [isMobile, technologyPartnerLogos]);
+  const moveTrack = (trackRef, direction, itemCount) => {
+    const animation = trackRef.current?.getAnimations().find((entry) => entry.animationName === "partners-logo-marquee");
+    if (!animation || itemCount < 2) return;
 
-  useEffect(() => {
-    if (!isMobile || (p.lendingPartners || []).length <= 2) return;
-    const grouped = chunkIntoPairs(p.lendingPartners || []);
-    const timer = window.setInterval(() => {
-      setLendingSlideIndex((current) => (current + 1) % grouped.length);
-    }, 3000);
-    return () => window.clearInterval(timer);
-  }, [isMobile, p.lendingPartners]);
-
-  const chunkIntoPairs = (list) => {
-    const chunks = [];
-    for (let index = 0; index < list.length; index += 2) {
-      chunks.push(list.slice(index, index + 2));
-    }
-    return chunks;
+    const duration = itemCount * 2000;
+    const currentTime = Number(animation.currentTime) || 0;
+    animation.currentTime = ((currentTime + direction * 2000) % duration + duration) % duration;
   };
 
-  const handleTechTouchStart = (event) => {
-    techTouchStartX.current = event.touches[0].clientX;
-  };
-
-  const handleTechTouchEnd = (event) => {
-    if (techTouchStartX.current === null) return;
-
-    const endX = event.changedTouches[0].clientX;
-    const diff = techTouchStartX.current - endX;
-    techTouchStartX.current = null;
-
-    if (Math.abs(diff) < 40) return;
-
-    const groupedItems = chunkIntoPairs(technologyPartnerLogos);
-    setTechSlideIndex((current) => {
-      const nextIndex = diff > 0 ? current + 1 : current - 1;
-      const safeIndex = (nextIndex + groupedItems.length) % groupedItems.length;
-      return safeIndex;
-    });
-  };
-
-  const handleLendingTouchStart = (event) => {
-    lendingTouchStartX.current = event.touches[0].clientX;
-  };
-
-  const handleLendingTouchEnd = (event) => {
-    if (lendingTouchStartX.current === null) return;
-
-    const endX = event.changedTouches[0].clientX;
-    const diff = lendingTouchStartX.current - endX;
-    lendingTouchStartX.current = null;
-
-    if (Math.abs(diff) < 40) return;
-
-    const groupedItems = chunkIntoPairs(p.lendingPartners || []);
-    setLendingSlideIndex((current) => {
-      const nextIndex = diff > 0 ? current + 1 : current - 1;
-      const safeIndex = (nextIndex + groupedItems.length) % groupedItems.length;
-      return safeIndex;
-    });
-  };
-
-  const renderCarousel = ({ title, items, type, slideIndex, onTouchStart, onTouchEnd, setSlideIndex }) => {
+  const renderCarousel = ({ title, items, type, onPointerDown, onPointerUp, onPointerCancel, trackRef, onMove }) => {
     if (!items || items.length === 0) {
       return (
         <div className="partners-empty-message">
@@ -112,48 +53,46 @@ export default function Partners() {
       );
     }
 
-    const groupedItems = chunkIntoPairs(items);
+    const marqueeItems = items.length > 1 ? [...items, ...items] : items;
 
     return (
       <>
         <div
           className="partners-logo-slider"
-          onTouchStart={onTouchStart}
-          onTouchEnd={onTouchEnd}
+          onPointerDown={onPointerDown}
+          onPointerUp={onPointerUp}
+          onPointerCancel={onPointerCancel}
         >
           <div
-            className="partners-logo-track"
-            style={{ transform: `translateX(-${slideIndex * 100}%)` }}
+            ref={trackRef}
+            className={`partners-logo-track${items.length > 1 ? " partners-logo-track-moving" : ""}`}
+            style={{ "--partners-marquee-duration": `${items.length * 2}s` }}
           >
-            {groupedItems.map((group, groupIndex) => (
-              <div className="partner-logo-slide" key={`${title}-${groupIndex}`}>
-                <div className="partner-logo-group">
-                  {group.map((x, cardIndex) => (
-                    <div className="partner-logo-card" key={x.id || `${title}-${groupIndex}-${cardIndex}`}>
-                      <img src={x.image || x.logo || x.src} alt={x.name || title} />
-                    </div>
-                  ))}
+            {marqueeItems.map((x, index) => (
+              <div className="partner-logo-slide" key={`${x.id || x.name || title}-${index}`} aria-hidden={index >= items.length}>
+                <div className="partner-logo-card">
+                  <img src={x.image || x.logo || x.src} alt={x.name || title} />
                 </div>
               </div>
             ))}
           </div>
         </div>
 
-        {groupedItems.length > 1 && (
-          <div className="partners-logo-slider-arrows" aria-label={`${type} partner slide navigation`}>
+        {items.length > 1 && (
+          <div className="partners-logo-slider-arrows" aria-label={`${type} partner navigation`}>
             <button
               type="button"
               className="partners-logo-arrow"
-              onClick={() => setSlideIndex((slideIndex - 1 + groupedItems.length) % groupedItems.length)}
-              aria-label={`Previous ${type} partner slide`}
+              onClick={() => onMove(-1)}
+              aria-label={`Previous ${type} partner logo`}
             >
               ‹
             </button>
             <button
               type="button"
               className="partners-logo-arrow"
-              onClick={() => setSlideIndex((slideIndex + 1) % groupedItems.length)}
-              aria-label={`Next ${type} partner slide`}
+              onClick={() => onMove(1)}
+              aria-label={`Next ${type} partner logo`}
             >
               ›
             </button>
@@ -165,10 +104,23 @@ export default function Partners() {
 
   const LogoGroup = ({ title, desc, keyName, items }) => {
     if (isMobile) {
-      const slideIndex = keyName === "lendingPartners" ? lendingSlideIndex : techSlideIndex;
-      const touchStart = keyName === "lendingPartners" ? handleLendingTouchStart : handleTechTouchStart;
-      const touchEnd = keyName === "lendingPartners" ? handleLendingTouchEnd : handleTechTouchEnd;
-      const setSlideIndex = keyName === "lendingPartners" ? setLendingSlideIndex : setTechSlideIndex;
+      const trackRef = keyName === "lendingPartners" ? lendingTrackRef : techTrackRef;
+      const pointerStartX = keyName === "lendingPartners" ? lendingPointerStartX : techPointerStartX;
+      const onMove = (direction) => moveTrack(trackRef, direction, items.length);
+      const onPointerDown = (event) => {
+        pointerStartX.current = event.clientX;
+        event.currentTarget.setPointerCapture(event.pointerId);
+      };
+      const onPointerUp = (event) => {
+        const startX = pointerStartX.current;
+        pointerStartX.current = null;
+        if (startX !== null && Math.abs(startX - event.clientX) >= 40) {
+          onMove(startX > event.clientX ? 1 : -1);
+        }
+      };
+      const onPointerCancel = () => {
+        pointerStartX.current = null;
+      };
 
       return (
         <section id={keyName === "lendingPartners" ? "lending-partners" : "technology-partners"} className="partners-section">
@@ -180,11 +132,11 @@ export default function Partners() {
             title,
             items: items || [],
             type: keyName === "lendingPartners" ? "lending" : "technology",
-            slideIndex,
-            onTouchStart: touchStart,
-            onTouchEnd: touchEnd,
-            setSlideIndex,
-            sectionId: keyName === "lendingPartners" ? "lending-partners" : "technology-partners",
+            onPointerDown,
+            onPointerUp,
+            onPointerCancel,
+            trackRef,
+            onMove,
           })}
         </section>
       );

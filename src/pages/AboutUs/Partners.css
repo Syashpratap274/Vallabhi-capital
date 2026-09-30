@@ -158,23 +158,34 @@
 .partners-logo-slider {
   overflow: hidden;
   width: 100%;
+  touch-action: pan-y;
 }
 
 .partners-logo-track {
   display: flex;
-  transition: transform 0.45s ease;
+  width: max-content;
+  gap: 10px;
+  padding-right: 10px;
+}
+
+.partners-logo-track-moving {
+  animation: partners-logo-marquee var(--partners-marquee-duration) linear infinite;
+}
+
+.partners-logo-slider:active .partners-logo-track-moving {
+  animation-play-state: paused;
+}
+
+@keyframes partners-logo-marquee {
+  to {
+    transform: translateX(-50%);
+  }
 }
 
 .partner-logo-slide {
-  min-width: 100%;
+  flex: 0 0 calc((100vw - 40px) / 2);
+  width: calc((100vw - 40px) / 2);
   padding: 0;
-}
-
-.partner-logo-group {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 10px;
-  width: 100%;
 }
 
 .partner-logo-slide .partner-logo-card {
@@ -213,13 +224,12 @@
 }
 
 .partners-logo-slider-arrows button:first-child {
-  background: rgba(124, 201, 245, 0.55);
+  background: rgba(36, 155, 198, 0.5);
 }
 
 .partners-logo-slider-arrows button:last-child {
-  background: #7cc9f5;
+  background: #249bc6;
 }
-
 
 /* =========================================================
    LOGO CARD
@@ -512,7 +522,12 @@
   .partner-logo-card {
     height: 120px;
 
-    padding: 20px;
+    padding: 10px;
+  }
+
+  .partner-logo-card img {
+    max-width: 100%;
+    max-height: 92%;
   }
 
 }
