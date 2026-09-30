@@ -10,6 +10,7 @@ function GalleryLegacy() {
       }))
     : [];
   const [folder, setFolder] = useState(null);
+  const [selectedPhoto, setSelectedPhoto] = useState(null);
   const selected = folders.find((x) => x.id === folder);
   return (
     <main className="gallery-page">
@@ -37,13 +38,49 @@ function GalleryLegacy() {
             </div>
           </div>
           {selected.photos.length ? (
-            <div className="gallery-photo-grid">
-              {selected.photos.map((photo, i) => (
-                <div className="gallery-photo-card" key={photo.id}>
-                  <img src={photo.image} alt={`${selected.title} ${i + 1}`} />
+            <>
+              <div className="gallery-photo-grid">
+                {selected.photos.map((photo, i) => (
+                  <button
+                    type="button"
+                    className="gallery-photo-card"
+                    key={photo.id || `${selected.title}-${i}`}
+                    onClick={() => setSelectedPhoto(photo)}
+                    aria-label={`View ${selected.title} photo ${i + 1}`}
+                  >
+                    <img src={photo.image} alt={`${selected.title} ${i + 1}`} />
+                  </button>
+                ))}
+              </div>
+              {selectedPhoto && (
+                <div
+                  className="gallery-photo-modal-backdrop"
+                  role="presentation"
+                  onClick={() => setSelectedPhoto(null)}
+                >
+                  <div
+                    className="gallery-photo-modal"
+                    role="dialog"
+                    aria-modal="true"
+                    aria-label={`${selected.title} photo preview`}
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    <button
+                      type="button"
+                      className="gallery-photo-close"
+                      aria-label="Close image preview"
+                      onClick={() => setSelectedPhoto(null)}
+                    >
+                      ×
+                    </button>
+                    <img
+                      src={selectedPhoto.image}
+                      alt={`${selected.title} preview`}
+                    />
+                  </div>
                 </div>
-              ))}
-            </div>
+              )}
+            </>
           ) : (
             <div className="gallery-empty">
               <div className="gallery-empty-icon">+</div>
@@ -84,9 +121,11 @@ function GalleryLegacy() {
                     </div>
                   </div>
                   <div className="gallery-folder-content">
-                    <div>
-                      <h3>{f.title}</h3>
-                      <p>
+                    <div className="gallery-folder-text">
+                      <h3 className="gallery-folder-title">
+                        {f.title}
+                      </h3>
+                      <p className="gallery-folder-meta">
                         {f.photos.length}{" "}
                         {f.photos.length === 1 ? "Photo" : "Photos"}
                       </p>
@@ -130,6 +169,7 @@ export default function Gallery() {
       }))
     : [];
   const [folder, setFolder] = useState(null);
+  const [selectedPhoto, setSelectedPhoto] = useState(null);
   const selected = folders.find((x) => x.id === folder);
   return (
     <main className="gallery-page">
@@ -157,13 +197,49 @@ export default function Gallery() {
             </div>
           </div>
           {selected.photos.length ? (
-            <div className="gallery-photo-grid">
-              {selected.photos.map((photo, i) => (
-                <div className="gallery-photo-card" key={photo.id}>
-                  <img src={photo.image} alt={`${selected.title} ${i + 1}`} />
+            <>
+              <div className="gallery-photo-grid">
+                {selected.photos.map((photo, i) => (
+                  <button
+                    type="button"
+                    className="gallery-photo-card"
+                    key={photo.id || `${selected.title}-${i}`}
+                    onClick={() => setSelectedPhoto(photo)}
+                    aria-label={`View ${selected.title} photo ${i + 1}`}
+                  >
+                    <img src={photo.image} alt={`${selected.title} ${i + 1}`} />
+                  </button>
+                ))}
+              </div>
+              {selectedPhoto && (
+                <div
+                  className="gallery-photo-modal-backdrop"
+                  role="presentation"
+                  onClick={() => setSelectedPhoto(null)}
+                >
+                  <div
+                    className="gallery-photo-modal"
+                    role="dialog"
+                    aria-modal="true"
+                    aria-label={`${selected.title} photo preview`}
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    <button
+                      type="button"
+                      className="gallery-photo-close"
+                      aria-label="Close image preview"
+                      onClick={() => setSelectedPhoto(null)}
+                    >
+                      ×
+                    </button>
+                    <img
+                      src={selectedPhoto.image}
+                      alt={`${selected.title} preview`}
+                    />
+                  </div>
                 </div>
-              ))}
-            </div>
+              )}
+            </>
           ) : (
             <div className="gallery-empty">
               <div className="gallery-empty-icon">+</div>
@@ -204,9 +280,11 @@ export default function Gallery() {
                     </div>
                   </div>
                   <div className="gallery-folder-content">
-                    <div>
-                      <h3>{f.title}</h3>
-                      <p>
+                    <div className="gallery-folder-text">
+                      <h3 className="gallery-folder-title">
+                        {f.title}
+                      </h3>
+                      <p className="gallery-folder-meta">
                         {f.photos.length}{" "}
                         {f.photos.length === 1 ? "Photo" : "Photos"}
                       </p>
