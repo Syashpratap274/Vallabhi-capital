@@ -5,7 +5,7 @@
 .partners-page {
   width: 100%;
   margin: 0;
-  padding: 0;
+  padding: 78px 0 0;
 
   background: #ffffff;
 
@@ -481,6 +481,10 @@
 
     padding-top: 55px;
     padding-bottom: 65px;
+  }
+
+  .partners-page > .partners-section:first-child {
+    padding-top: 0;
   }
 
   .landing-partners-section {
