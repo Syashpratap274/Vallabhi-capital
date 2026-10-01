@@ -134,7 +134,7 @@
 
   align-self: flex-start;
 
-  font-size: 40px;
+  font-size: clamp(20px, 2.22vw, 32px);
 
   line-height: 1.6;
 
@@ -205,6 +205,8 @@
 .product-detail-hero-eligibility h2 span {
 
   color: #249bc6;
+
+  font-weight: 700;
 
 }
 
@@ -843,7 +845,7 @@
 
   color: #656060;
 
-  font: 400 18px/1.5 "Poppins", sans-serif;
+  font: 400 16px/1.35 "Poppins", sans-serif;
 
   border-bottom: 1px solid rgba(16, 55, 112, 0.18);
 
@@ -999,7 +1001,6 @@
   }
 
 
-
   .product-detail-hero-bg {
 
     height: clamp(250px, 72vw, 360px);
@@ -1022,11 +1023,9 @@
 
   .product-detail-hero-copy {
 
-    order: 1;
-
-    margin: 0;
-
     padding: 24px 18px;
+
+    margin-left: 0;
 
     width: 100%;
 
@@ -1182,15 +1181,17 @@
 
 
 
-  .product-detail-section-heading h2,
-
   .product-detail-benefits > h2,
 
-  .product-detail-why > h2,
-
-  .product-detail-faq-inner > h2 {
+  .product-detail-why > h2 {
 
     font-size: 25px;
+
+  }
+
+  .product-detail-section-heading h2 {
+
+    font-size: clamp(18px, 5.2vw, 22px);
 
   }
 

@@ -1059,6 +1059,7 @@ function Homepage({
               role: "",
               text: "",
               image: "",
+              rating: 5,
               published: true,
             },
           })
@@ -2529,6 +2530,22 @@ function EditorModal({
             set("role", v)
           }
         />
+
+        <label className="adm-field">
+          <span>Star rating</span>
+          <select
+            value={item.rating ?? 5}
+            onChange={(event) =>
+              set("rating", Number(event.target.value))
+            }
+          >
+            {[5, 4, 3, 2, 1].map((rating) => (
+              <option key={rating} value={rating}>
+                {rating} {rating === 1 ? "star" : "stars"}
+              </option>
+            ))}
+          </select>
+        </label>
 
         <Field
           label="Testimonial"

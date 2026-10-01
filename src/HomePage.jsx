@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { useCms, sortItems } from "./cms";
 import "./HomePage.css";
 
@@ -171,8 +171,15 @@ function HeroCalculator() {
 }
 
 function Products({ cms }) {
+  const productSliderRef = useRef(null);
+  const [activeProduct, setActiveProduct] = useState(0);
   const productItems = sortItems(cms.products?.items || [])
     .filter((p) => p.published !== false);
+  const visibleDotCount = Math.min(3, productItems.length);
+  const firstVisibleDot = Math.min(
+    Math.max(activeProduct - Math.floor(visibleDotCount / 2), 0),
+    productItems.length - visibleDotCount,
+  );
   return (
     <section className="hp-products">
       <div className="hp-section-head">
@@ -182,7 +189,16 @@ function Products({ cms }) {
         </div>
         <a href="/products" className="hp-dark-btn">View all Solutions</a>
       </div>
-      <div className="hp-product-grid">
+      <div
+        className="hp-product-grid"
+        ref={productSliderRef}
+        onScroll={(event) => {
+          const slider = event.currentTarget;
+          if (slider.clientWidth) {
+            setActiveProduct(Math.round(slider.scrollLeft / slider.clientWidth));
+          }
+        }}
+      >
         {productItems.map((product) => (
           <article className="hp-product-card" key={product.id}>
             <div className="hp-product-image">
@@ -196,6 +212,26 @@ function Products({ cms }) {
           </article>
         ))}
       </div>
+      {productItems.length > 1 && (
+        <div className="hp-product-dots" aria-label="Choose a product">
+          {productItems.slice(firstVisibleDot, firstVisibleDot + visibleDotCount).map((product, dotIndex) => {
+            const index = firstVisibleDot + dotIndex;
+            return (
+            <button
+              type="button"
+              key={product.id}
+              className={index === activeProduct ? "active" : ""}
+              aria-label={`Show ${product.name}`}
+              aria-current={index === activeProduct ? "true" : undefined}
+              onClick={() => productSliderRef.current?.scrollTo({
+                left: index * productSliderRef.current.clientWidth,
+                behavior: "smooth",
+              })}
+            />
+            );
+          })}
+        </div>
+      )}
     </section>
   );
 }
@@ -347,6 +383,7 @@ function Testimonial({ cms }) {
   const testimonials = sortItems(cms.clientTestimonials).filter(x => x.published !== false);
   const [active, setActive] = useState(0);
   const item = testimonials[active];
+  const rating = Math.max(1, Math.min(5, Math.round(Number(item?.rating) || 5)));
 
   React.useEffect(() => {
     setActive(index => Math.min(index, Math.max(testimonials.length - 1, 0)));
@@ -367,12 +404,19 @@ function Testimonial({ cms }) {
         <div className="hp-testimonial-copy">
           <h3>{item.name}</h3>
           <p className="hp-role">{item.role}</p>
+          <div className="hp-testimonial-rating" role="img" aria-label={`${rating} out of 5 stars`}>
+            {[1, 2, 3, 4, 5].map((star) => (
+              <span key={star} aria-hidden="true">
+                {star <= rating ? "★" : "☆"}
+              </span>
+            ))}
+          </div>
           <p>{item.text}</p>
           <div className="hp-testimonial-arrows">
-            <button onClick={() => move(-1)} disabled={testimonials.length < 2} aria-label="Previous testimonial">
+            <button className="hp-testimonial-arrow-prev" onClick={() => move(-1)} disabled={testimonials.length < 2} aria-label="Previous testimonial">
               <span className="hp-testimonial-chevron hp-testimonial-chevron-prev" aria-hidden="true" />
             </button>
-            <button onClick={() => move(1)} disabled={testimonials.length < 2} aria-label="Next testimonial">
+            <button className="hp-testimonial-arrow-next" onClick={() => move(1)} disabled={testimonials.length < 2} aria-label="Next testimonial">
               <span className="hp-testimonial-chevron hp-testimonial-chevron-next" aria-hidden="true" />
             </button>
           </div>
@@ -397,12 +441,24 @@ function Testimonial({ cms }) {
 
 function Blogs({ cms }) {
   const blogs = sortItems(cms.blogs || cms.homepage?.blogs || []).filter(x => x.published !== false);
+  const blogSliderRef = useRef(null);
+  const [activeBlog, setActiveBlog] = useState(0);
+  const blogItems = blogs.slice(0, 3);
   if (!blogs.length) return null;
   return (
     <section className="hp-blogs">
       <h2>Read Our Latest Blogs</h2>
-      <div className="hp-blog-row">
-        {blogs.slice(0, 3).map(blog => (
+      <div
+        className="hp-blog-row"
+        ref={blogSliderRef}
+        onScroll={(event) => {
+          const slider = event.currentTarget;
+          if (slider.clientWidth) {
+            setActiveBlog(Math.round(slider.scrollLeft / slider.clientWidth));
+          }
+        }}
+      >
+        {blogItems.map(blog => (
           <a className="hp-blog-card hp-blog-card-grid" key={blog.id} href="/blogs">
             <img src={blog.image} alt="" />
             <div className="hp-blog-shade" />
@@ -413,6 +469,23 @@ function Blogs({ cms }) {
           </a>
         ))}
       </div>
+      {blogItems.length > 1 && (
+        <div className="hp-blog-dots" aria-label="Choose a blog">
+          {blogItems.map((blog, index) => (
+            <button
+              type="button"
+              key={blog.id}
+              className={index === activeBlog ? "active" : ""}
+              aria-label={`Show ${blog.title}`}
+              aria-current={index === activeBlog ? "true" : undefined}
+              onClick={() => blogSliderRef.current?.scrollTo({
+                left: index * blogSliderRef.current.clientWidth,
+                behavior: "smooth",
+              })}
+            />
+          ))}
+        </div>
+      )}
     </section>
   );
 }
