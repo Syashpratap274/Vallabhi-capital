@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { sortItems, useCms } from "../cms";
 import "./Navbar.css";
@@ -92,6 +92,8 @@ function Navbar() {
   const [applicationSubmitted, setApplicationSubmitted] = useState(false);
   const [applicationStep, setApplicationStep] = useState("otp");
   const [consentChecked, setConsentChecked] = useState(false);
+  const [consentedAt, setConsentedAt] = useState("");
+  const consentSaveRequest = useRef(Promise.resolve());
   const [showConsentDetails, setShowConsentDetails] = useState(false);
 
   const [phone, setPhone] = useState("");
@@ -132,6 +134,8 @@ function Navbar() {
     setError("");
     setApplicationStep("otp");
     setConsentChecked(false);
+    setConsentedAt("");
+    consentSaveRequest.current = Promise.resolve();
     setShowConsentDetails(false);
     setApplicationForm({
       name: "",
@@ -168,7 +172,7 @@ function Navbar() {
     resetLoginState();
   };
 
-  const handleSendOtp = async () => {
+  const handleSendOtp = () => {
   const cleanedPhone = phone.replace(/\D/g, "");
 
   if (!consentChecked) {
@@ -181,8 +185,9 @@ function Navbar() {
     return;
   }
 
-  try {
-    const response = await fetch("/api/leads", {
+  const acceptedAt = new Date().toISOString();
+  setConsentedAt(acceptedAt);
+  consentSaveRequest.current = fetch("/api/leads", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -191,31 +196,28 @@ function Navbar() {
         action: "consent",
         source: "Apply Now",
         phone: cleanedPhone,
-        consentedAt: new Date().toISOString(),
+        consentedAt: acceptedAt,
       }),
+    }).then(async (response) => {
+      const result = await response.json();
+      if (!response.ok) {
+        throw new Error(result.error || "Unable to save consent.");
+      }
+      return result;
     });
-
-    const result = await response.json();
-
-    if (!response.ok) {
-      throw new Error(result.error || "Unable to save consent.");
-    }
-
-    const newOtp = String(
-      Math.floor(100000 + Math.random() * 900000)
-    );
-
-    setGeneratedOtp(newOtp);
-    setUserPhone(cleanedPhone);
-    setOtpSent(true);
-    setOtp("");
-    setError("");
-  } catch (error) {
+  consentSaveRequest.current.catch((error) => {
     console.error("Lead consent error:", error);
-    setError(
-      error.message || "Unable to continue. Please try again."
-    );
-  }
+  });
+
+  const newOtp = String(
+    Math.floor(100000 + Math.random() * 900000)
+  );
+
+  setGeneratedOtp(newOtp);
+  setUserPhone(cleanedPhone);
+  setOtpSent(true);
+  setOtp("");
+  setError("");
 };
 
 
@@ -296,6 +298,7 @@ function Navbar() {
   }
 
   try {
+    await consentSaveRequest.current.catch(() => null);
     const response = await fetch("/api/leads", {
       method: "POST",
       headers: {
@@ -310,6 +313,8 @@ function Navbar() {
         pan,
         loanAmount: amount,
         purpose: applicationForm.purpose.trim(),
+        consented: consentChecked,
+        consentedAt: consentedAt || new Date().toISOString(),
       }),
     });
 

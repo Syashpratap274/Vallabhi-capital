@@ -479,6 +479,8 @@ const server = http.createServer(
               pan,
               loanAmount,
               purpose,
+              consented: body.consented === true,
+              consentedAt: body.consentedAt || null,
               status: "New",
             }
           );
