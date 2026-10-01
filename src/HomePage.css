@@ -1120,19 +1120,20 @@
   color: #103770;
   font-size: clamp(20px, 1.88vw, 36px);
   font-weight: 600;
+  line-height: 1.0;
 }
 
 .hp-testimonial-rating {
   display: flex;
   gap: 3px;
-  margin-bottom: 10px;
+  margin-bottom: 18px;
   color: #e8a923;
   font-size: 20px;
   line-height: 1;
 }
 
 .hp-role {
-  margin: 0 0 8px !important;
+  margin: 0 !important;
   color: #249bc6 !important;
   font-size: clamp(17px, 1.67vw, 32px) !important;
 }
