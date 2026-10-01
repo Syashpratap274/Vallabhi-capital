@@ -110,23 +110,63 @@ function Footer() {
             </p>
           </div>
 
-          {/* BUSINESS ENQUIRY */}
-          <div className="footer-contact">
-            <h4>For Business Enquiry</h4>
+          <div className="footer-contact-row">
+            {/* BUSINESS ENQUIRY */}
+            <div className="footer-contact">
+              <h4>For Business Enquiry</h4>
 
-            <p>
-              Email:{" "}
-              <a href="mailto:office@vallabhicapital.com">
-                <strong>office@vallabhicapital.com</strong>
-              </a>
-            </p>
+              <p>
+                Email:{" "}
+                <a href="mailto:office@vallabhicapital.com">
+                  <strong>office@vallabhicapital.com</strong>
+                </a>
+              </p>
 
-            <p>
-              Toll Free:{" "}
-              <a href="tel:18008900622">
-                <strong>1800-890-0622</strong>
-              </a>
-            </p>
+              <p>
+                Toll Free:{" "}
+                <a href="tel:18008900622">
+                  <strong>1800-890-0622</strong>
+                </a>
+              </p>
+            </div>
+
+            {/* GENERAL ENQUIRY */}
+            <div className="footer-contact general-enquiry">
+              <h4>For General Enquiry</h4>
+
+              <p>
+                Email:{" "}
+                <a href="mailto:hr@vallabhicapital.com">
+                  <strong>hr@vallabhicapital.com</strong>
+                </a>
+              </p>
+
+              <p>
+                Call:{" "}
+                <a href="tel:+918448694983">
+                  <strong>8448694983</strong>
+                </a>
+              </p>
+            </div>
+
+            {/* GRIEVANCES */}
+            <div className="footer-contact grievances">
+              <h4>FOR GRIEVANCES</h4>
+
+              <p>
+                Email:{" "}
+                <a href="mailto:compliance@vallabhicapital.com">
+                  <strong>compliance@vallabhicapital.com</strong>
+                </a>
+              </p>
+
+              <p>
+                Call:{" "}
+                <a href="tel:+918448820331">
+                  <strong>+91-8448820331</strong>
+                </a>
+              </p>
+            </div>
           </div>
 
         </div>
@@ -162,28 +202,6 @@ function Footer() {
               {industry.name}
             </Link>
           ))}
-
-
-          {/* GRIEVANCES */}
-          <div className="footer-contact grievances">
-
-            <h4>FOR GRIEVANCES</h4>
-
-            <p>
-              Email:{" "}
-              <a href="mailto:compliance@vallabhicapital.com">
-                <strong>compliance@vallabhicapital.com</strong>
-              </a>
-            </p>
-
-            <p>
-              Call:{" "}
-              <a href="tel:+918448820331">
-                <strong>+91-8448820331</strong>
-              </a>
-            </p>
-
-          </div>
 
         </div>
 
