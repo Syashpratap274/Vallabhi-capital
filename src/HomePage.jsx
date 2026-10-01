@@ -72,7 +72,7 @@ function Hero({ cms }) {
       <div className="hp-hero-overlay" />
       <div className="hp-hero-copy">
         <div className="hp-rbi">
-          <span className="hp-rbi-mark" aria-label="RBI logo">RBI</span>
+          <img className="hp-rbi-mark" src="/images/homepage/rbi-logo.png" alt="Reserve Bank of India logo" />
           <span>Registered NBFC*</span>
         </div>
         <h1>

@@ -101,18 +101,11 @@
 }
 
 .hp-rbi-mark {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 22px;
-  height: 22px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, #0d4db5, #2b82ff);
-  color: #fff;
-  font-size: 11px;
-  font-weight: 800;
-  letter-spacing: 0.04em;
-  box-shadow: inset 0 0 0 2px rgba(255,255,255,0.8);
+  display: block;
+  flex: 0 0 30px;
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
 }
 
 .hp-hero h1 {
