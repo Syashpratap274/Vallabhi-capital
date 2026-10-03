@@ -74,7 +74,7 @@ function Hero({ cms }) {
       <div className="hp-hero-copy">
         <div className="hp-rbi">
           <img className="hp-rbi-mark" src={rbiMark} alt="Reserve Bank of India logo" />
-          <span>Registered NBFC*</span>
+          <span>RBI Registered NBFC*</span>
         </div>
         <h1>
           <span className="hp-hero-title-main">Empowering India's</span>
